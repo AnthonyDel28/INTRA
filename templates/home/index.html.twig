@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container p-0">
+    <div id="login" class="row d-flex align-items-center justify-content-between">
+        <div id="login-box" class="row col-12 text-center p-0">
+            <div class="col-7">
+                <h1>intra</h1>
+                <div id="login-form-box" class="container-fluid col-10">
+                    <h3 class="mt-5">Sign in</h3>
+                    <div id="login-form" class="col-12 text-center mt-5">
+                        <div class="input-container">
+                            <input type="text" required=""/>
+                            <label>Username</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="mail" required=""/>
+                            <label>Password</label>
+                        </div>
+                        <button class="confirm-button mb-5 btn btn-primary">Confirm</button>
+                        <div class="forgot container-fluid d-flex justify-content-evenly mb-5">
+                            <button class="forgot-button col-4">Forgot password?</button>
+                            <button class="signup-button col-4">Create an account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="image-side col-5"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
