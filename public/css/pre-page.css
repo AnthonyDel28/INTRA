@@ -195,7 +195,8 @@
     padding: 0;
 }
 
-.create_an_account:hover {
+.create_an_account:hover,
+.how_it_works:hover{
     cursor: pointer;
     border: 1px solid white;
 }

@@ -13,10 +13,9 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            print 'hello';
+            return redirect()->route('home');
         }
-
-        // L'authentification a échoué, redirigez l'utilisateur vers la page de connexion avec une erreur
+        
         return redirect()->route('prepage')->with('error', 'Données incorrectes, veuillez réessayer!');
     }
 }

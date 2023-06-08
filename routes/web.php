@@ -21,4 +21,7 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'
 
 Route::post('/signup', [App\Http\Controllers\SignupController::class, 'store'])->name('signup');
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 

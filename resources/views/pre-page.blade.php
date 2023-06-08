@@ -115,14 +115,6 @@
                                 <div class="row justify-content-center">
                                     <h2 class="text-center login_title">Créer un compte</h2>
                                 </div>
-                                @if(session('error'))
-                                    <div class="row justify-content-center text-center" id="error">
-                                        <div class="login_alert text-center">
-                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                            {{ session('error') }}
-                                        </div>
-                                    </div>
-                                @endif
 
                                 <div class="row justify-content-center">
                                     <div class="col-8 mt-5">
@@ -131,18 +123,18 @@
 
                                             <div class="row">
                                                 <div class="form-group col-6">
-                                                    <label for="name">Nom</label>
-                                                    <input id="name" type="text" class="login_field @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
-                                                    @error('name')
+                                                    <label for="last_name">Nom</label>
+                                                    <input id="last_name" type="text" class="login_field @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name">
+                                                    @error('last_name')
                                                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="firstnamee">Prénom</label>
-                                                    <input id="firstname" type="text" class="login_field @error('firstname') is-invalid @enderror" name="firstname" value="{{ old('firstname') }}" required autocomplete="firstname">
-                                                    @error('firstname')
+                                                    <label for="first_name">Prénom</label>
+                                                    <input id="first_name" type="text" class="login_field @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name">
+                                                    @error('first_name')
                                                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -222,8 +214,8 @@
                     <div class="col-3 text-left">
                         <div class="row">
                             <div class="col-3">
-                                <a href="" class="d-flex justify-content-center align-items-center h-100">
-                                    <div class="square">
+                                <div class="d-flex justify-content-center align-items-center h-100">
+                                    <div class="square how_it_works">
                                         <div class="text-right m-3">
                                             <i class="fa-solid fa-play"></i>
                                         </div>
@@ -231,7 +223,7 @@
                                             How it <br>works
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <div class="col-3">
                                 <div class="d-flex justify-content-center align-items-center h-100" v-on:click="showsignup()">
@@ -286,6 +278,7 @@
                 document.getElementById('error').style.display = 'none';
             },
             showsignup(){
+
                 if(document.getElementById('login_form').style.display === 'block'){
                     document.getElementById('login_form').style.display = 'none';
                 }
@@ -296,7 +289,6 @@
               } else {
                   signupForm.style.display = 'none';
               }
-
             },
             closesignup(){
                 document.getElementById('signup_form').style.display = 'none';
@@ -309,6 +301,7 @@
                     document.getElementById('login_form').style.display = 'none';
                     document.getElementById('signup_form').style.display = 'block';
                 }
+                document.getElementById('error').style.display = 'none';
             }
         }
     });
