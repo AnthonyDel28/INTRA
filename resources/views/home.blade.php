@@ -1,6 +1,1 @@
-@if (auth()->check())
-   Connecté
-@else
-    Non connecté
-@endif
-
+@extends('layouts.app_layout')

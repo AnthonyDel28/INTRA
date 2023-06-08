@@ -15,7 +15,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect()->route('home');
         }
-        
+
         return redirect()->route('prepage')->with('error', 'Données incorrectes, veuillez réessayer!');
     }
 }
