@@ -142,6 +142,11 @@
     padding: 10px 30px;
 }
 
+.login_btn:hover,
+.signup_btn:hover{
+    border: 1px solid #00A3FF;
+}
+
 .login_form_bottom h3,
 .login_form_bottom span  {
     color: white;
@@ -171,7 +176,8 @@
     color: white;
 }
 
-#login_form {
+#login_form,
+#signup_form{
     display: none;
 }
 
@@ -180,3 +186,24 @@
     cursor: pointer;
 }
 
+.signup_form {
+    height: 525px;
+    background-color: rgba(18, 29, 39, 0.99);
+    border: 1px solid #00A3FF;
+    margin-top: 80px;
+    z-index: 2;
+    padding: 0;
+}
+
+.create_an_account:hover {
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.close_signup {
+    color: #00A3FF;
+}
+
+.close_signup:hover {
+    cursor: pointer;
+}
