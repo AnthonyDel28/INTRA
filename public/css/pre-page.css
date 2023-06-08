@@ -1,0 +1,182 @@
+/* CSS FILE FOR THE INTRA PRE-PAGE */
+
+.intra_logo {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.pre_page_login i {
+    color: #00A3FF;
+    margin-right: 15px;
+}
+
+.pre_page_login {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: underline;
+    text-decoration-color: #00A3FF;
+    font-size: 16px;
+}
+
+.pre_page_login:hover {
+    color: #00A3FF;
+}
+
+.login_link {
+     text-decoration: none;
+ }
+
+.login_link:hover {
+    text-decoration: none;
+}
+
+.pre_page_title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 130px;
+    font-weight: bold;
+    color: white;
+}
+
+.centered-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
+.pre_page_bottom {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+}
+
+.pre_page_text {
+    color: rgba(255, 255, 255, 0.56);
+    font-family: "Montserrat", sans-serif;
+    font-size: 10px;
+}
+
+.vertical-bar {
+    width: 1px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.63);
+    margin: 0 auto;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.18);
+    margin-right: 10px;
+    border: 1px solid #00A3FF;
+    font-family: "Montserrat", sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.square i {
+    color: #00A3FF;
+}
+
+.login_form {
+    height: 525px;
+    background-color: rgba(18, 29, 39, 0.99);
+    border: 1px solid #00A3FF;
+    margin-top: 80px;
+    z-index: 2;
+    padding: 0;
+}
+
+.login_form i {
+    color: #00A3FF;
+}
+
+.login_left_area {
+    border: 1px solid #00A3FF;
+    height: 100%;
+    z-index: 3;
+}
+
+.developer_img {
+    margin-top: 100px;
+    width: 90%;
+}
+
+.login_title {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+.login_field {
+    background-color: rgba(0, 0, 0, 0.32);
+    color: white;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #00A3FF;
+}
+
+.login_field:focus{
+    background-color: rgba(0, 0, 0, 0.32);
+    color: white;
+    width: 100%;
+    border: 1px solid #00A3FF;
+}
+
+.form-group label {
+    color: white;
+    font-weight: lighter;
+    font-family: "Montserrat", sans-serif;
+}
+
+.login_btn {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.32);
+    border: 1px white solid;
+    font-family: "Montserrat", sans-serif;
+    font-weight: lighter;
+    padding: 10px 30px;
+}
+
+.login_form_bottom h3,
+.login_form_bottom span  {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: lighter;
+}
+
+.signup_btn {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.32);
+    border: 1px white solid;
+    font-family: "Montserrat", sans-serif;
+    font-weight: lighter;
+    padding: 5px 20px;
+}
+
+.login_alert {
+    position: absolute;
+    background-color: #CC3333;
+    border: 1px solid darkred;
+    width: 60%;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+.login_alert i {
+    color: white;
+}
+
+#login_form {
+    display: none;
+}
+
+.close_login:hover,
+.pre_page_login {
+    cursor: pointer;
+}
+
