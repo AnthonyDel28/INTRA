@@ -1,0 +1,77 @@
+/* CSS FILE FOR THE MAIN APP LAYOUT */
+
+
+.sidebar {
+    width: 250px;
+    background-color: rgba(13, 20, 26, 0.8);
+    height: 96vh;
+    border-radius: 25px;
+    margin: 20px;
+    padding: 15px;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+}
+
+.sidebar-title {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-weight: bold;
+}
+
+.main_app {
+    height: 96vh;
+    background-color: rgba(13, 20, 26, 0.8);
+    border-radius: 25px;
+    margin-right: 20px;
+}
+
+.menu_section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 25px;
+}
+
+.menu_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+.menu_item span {
+    margin-left: 35px;
+    position: absolute;
+}
+
+.menu_item i {
+    margin-right: 5px;
+}
+
+.menu_title {
+    margin-bottom: 25px;
+}
+
+.disconnect_link {
+    margin-left: 15px;
+}
+
+
+.disconnect_link a {
+    color: #f86565;
+    text-decoration: none;
+}
+
+.disconnect_link a:hover {
+    text-decoration: none;
+    color: #b54343;
+}
+
+.disconnect_link .logout_span {
+    margin-left: 15px;
+}
+
+.version {
+    margin-top: 130px;
+    font-size: 9px;
+}

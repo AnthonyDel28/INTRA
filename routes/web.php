@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('prepage');
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
-
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::post('/signup', [App\Http\Controllers\SignupController::class, 'store'])->name('signup');
 
 Route::get('/home', function () {
