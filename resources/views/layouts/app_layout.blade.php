@@ -25,11 +25,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="icon" href="{{ asset('intra.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/app_layout.css') }}">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>INTRA</title>
 </head>
 <body>
 
-<div id="app" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0;" class="header finisher-header">
+<div id="app" style="width: 100%; position: fixed; top: 0; left: 0;" class="header finisher-header">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
@@ -104,18 +105,131 @@
             </div>
             <div class="col-md-10">
                 <div class=" main_app">
-                            <h1 style="color: white;">
-                                @if(Auth::check())
-                                    Bienvenue {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
-                                @endif
-
-                            </h1>
+                    <div class="content p-5">
+                        <div class="container-fluid">
+                            <div class="row home_top_row">
+                                <div class="col-md-6 text-start top_row_left_item mt-3">
+                        <span class="top_left_item new_post_link" v-on:click="newPost()">
+                             <i class="fa-solid fa-square-pen" ></i>Nouvelle publication
+                        </span>
+                                    <span class="top_left_item">
+                            <i class="fa-solid fa-square-phone"></i> Appeler
+                        </span>
+                                </div>
+                                <div class="col-md-6 text-end top_row_right_item">
+                                    <div class="row justify-content-end">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                                                <div class="ms-2">
+                                                    <div class="profile_name">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</div>
+                                                    <div class="status">
+                                                        <i class="fa-solid fa-circle"></i>
+                                                        En ligne
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="scrollable-content p-2">
+                                @yield('content')
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <p class="app_credits text-center">
+                            © 2023 Intra. Tous droits réservés.
+                        </p>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-overlay">
+        <div class="container-fluid">
+            <div class="row justify-content-end">
+                <div class="text-right p-5 new_post_close" >
+                    <i class="fa-solid fa-circle-xmark" v-on:click="closeNewPost()"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="h1 text-center text-light">Publier un nouveau post</div>
+                <form action="" method="POST">
+                    @csrf
+                    <div class="row justify-content-evenly">
+                        <div class="col-10">
+                           <div class="row justify-content-between">
+                               <div class="col-5 form">
+                                   <div class="row">
+                                       <div class="form-group">
+                                           <label for="title">Titre</label>
+                                           <input type="text" name="title" id="title" class="form-control">
+                                       </div>
+                                   </div>
+                                   <div class="row">
+                                       <div class="form-group">
+                                           <label for="section">Section</label>
+                                           <input type="text" name="section" id="section" class="form-control">
+                                       </div>
+                                   </div>
+                                   <div class="row message_row">
+                                       <div class="form-group">
+                                           <label for="message">Message</label>
+                                           <textarea name="message" id="message" class="form-control h-100"></textarea>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-5 form">
+                                   <div class="row code_row">
+                                       <div class="form-group">
+                                           <label for="code">Code</label>
+                                           <textarea name="code" id="code" class="form-control h-100"></textarea>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3 text-center mt-5">
+                            <button type="submit" class="btn btn-primary">Confirmer</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+
+            };
+        },
+        methods: {
+            newPost() {
+                var modalOverlay = document.getElementById('modal-overlay');
+                var computedStyle = window.getComputedStyle(modalOverlay);
+
+                if (computedStyle.display === 'block') {
+                    modalOverlay.style.display = 'none';
+                } else if (computedStyle.display === 'none') {
+                    modalOverlay.style.display = 'block';
+                }
+            },
+            closeNewPost(){
+                document.getElementById('modal-overlay').style.display = 'none';
+            }
+        }
+    });
+    app.mount("#app");
+</script>
 
 <script src="{{ asset('js/finisher-header.es5.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
@@ -157,5 +271,6 @@
         ]
     });
 </script>
+
 </body>
 </html>
