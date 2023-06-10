@@ -195,7 +195,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-3 text-center mt-5">
-                            <button type="submit" class="btn btn-primary">Confirmer</button>
+                            <button type="submit" class="new_post_btn">Confirmer</button>
                         </div>
                     </div>
                 </form>
