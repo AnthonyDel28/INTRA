@@ -5,7 +5,7 @@
         <div class="col-9 home_left_div p-4">
             <div class="row">
                 <h2 class="home_title">
-                    Bienvenue {{ Auth::user()->last_name }} {{ Auth::user()->first_name }} ! <i class="fa-thin fa-robot"></i>
+                    Bienvenue <b>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</b> ! <i class="fa-thin fa-robot"></i>
                 </h2>
             </div>
             <div class="row">
@@ -17,18 +17,59 @@
                 <h3 class="home_title">Dernières publications</h3>
             </div>
             <div class="row">
-                <div class="col-5 home_post m-3"></div>
-                <div class="col-5 home_post m-3"></div>
-                <div class="col-5 home_post m-3"></div>
-                <div class="col-5 home_post m-3"></div>
-                <div class="col-5 home_post m-3"></div>
-                <div class="col-5 home_post m-3"></div>
+                @foreach ($posts as $post)
+                    <div class="col-5 home_post m-3">
+                        <div class="row m-4">
+                            <div class="col-2">
+                                <img src="{{ asset('images/users/profile/' . $post->author_image) }}" alt="" class="post_img">
+                            </div>
+                            <div class="col-2">
+                                <span class="post_infos_name">{{ $post->last_name }}
+                                <br>
+                                {{ $post->first_name }}
+                                    <br>
+                                  <span class="post_infos_date">
+                                       {{ \Carbon\Carbon::parse($post->post_created_at)->format('d/m/Y H:i') }}
+                                  </span>
+                                </span>
+                            </div>
+                            <div class="col-8 justify-content-center">
+                                <span class="text-center post_infos_title">
+                                    {{ $post->title }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-3 justify-content-center">
+                            <div class="col-10 post_message_area">
+                                <span class="text-center">
+                                    {{ Str::limit($post->message, $limit = 150, $end = '...') }}
+                                </span>
+                            </div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', (event) => {
+                                document.querySelectorAll('pre code').forEach((el) => {
+                                    hljs.highlightElement(el);
+                                });
+                            });
+                        </script>
+                        <div class="row mt-3 justify-content-center">
+                            <div class="col-10 post_message_area">
+                                <pre>
+                                    <code class="language-php">
+                                    {{ Str::limit($post->code, $limit = 150, $end = '...') }}
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="col-3">
             <div class="row mt-5">
                 <h4 class="home_title">Recherche rapide</h4>
-                <form action="" method="GET" class="mt-3">
+                <form action="{{ route('publish') }}" method="GET" class="mt-3">
                     <input type="text" name="query" placeholder="Rechercher..." class="search_bar">
                     <button type="submit" class="search_bar_button">Rechercher</button>
                 </form>
@@ -76,27 +117,11 @@
             </div>
             <div class="row mt-5">
                 <div class="col-10">
-                    <h4 class="home_title">Calendrier</h4>
-                    <div class="calendar"></div>
+                   <h4 class="home_title">Notifications</h4>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

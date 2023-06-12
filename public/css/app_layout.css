@@ -279,7 +279,46 @@
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid #00A3FF;
     color: white;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 10px 30px 10px 30px;
     margin-left: 10px;
+}
+
+.success_div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.66);
+    z-index: 9999;
+}
+
+.success_message {
+    height: 20%;
+    width: 20%;
+    background-color: rgba(0, 0, 0, 0.77);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.success_message i {
+    padding-right: 20px;
+    padding-top: 20px;
+    color: #00A3FF;
+}
+
+.success_message i:hover {
+    color: #0d6497;
+    cursor: pointer;
+}
+
+.success_image {
+    width: 100px;
+}
+
+.success_title {
+    font-family: "Montserrat", sans-serif;
+    color: white;
 }

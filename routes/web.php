@@ -21,7 +21,7 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::post('/signup', [App\Http\Controllers\SignupController::class, 'store'])->name('signup');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/home', [App\Http\Controllers\MainController::class, 'sections'])->name('home');
+
+Route::post('/publish', [App\Http\Controllers\PostController::class, 'store'])->name('publish');
 

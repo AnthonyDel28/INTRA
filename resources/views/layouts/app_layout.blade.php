@@ -15,6 +15,7 @@
 
         href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css"
     >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
     <!-- CSS de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -23,8 +24,11 @@
 
     <!-- JS de Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/lottie.js') }}"></script>
     <link rel="icon" href="{{ asset('intra.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/app_layout.css') }}">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>INTRA</title>
 </head>
@@ -120,7 +124,7 @@
                                     <div class="row justify-content-end">
                                         <div class="col-auto">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                                                <img src="{{ asset('images/users/profile/' . Auth::user()->image) }}" alt="" class="profile-picture">
                                                 <div class="ms-2">
                                                     <div class="profile_name">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</div>
                                                     <div class="status">
@@ -157,7 +161,7 @@
             </div>
             <div class="row">
                 <div class="h1 text-center text-light">Publier un nouveau post</div>
-                <form action="" method="POST">
+                <form action="{{ route('publish') }}" method="POST">
                     @csrf
                     <div class="row justify-content-evenly">
                         <div class="col-10">
@@ -172,7 +176,11 @@
                                    <div class="row">
                                        <div class="form-group">
                                            <label for="section">Section</label>
-                                           <input type="text" name="section" id="section" class="form-control">
+                                           <select name="section_id" id="section_id" class="form-control">
+                                               @foreach ($sections as $section)
+                                                   <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                               @endforeach
+                                           </select>
                                        </div>
                                    </div>
                                    <div class="row message_row">
@@ -202,9 +210,25 @@
             </div>
         </div>
     </div>
+    @if(session()->has('success_post'))
+        <div class="success_div" id="success_div">
+            <div class="success_message">
+                <div class="row justify-content-end">
+                    <i class="fa-solid fa-circle-xmark text-right" v-on:click="closeSuccess()"></i>
+                </div>
+                <div class="row justify-content-center">
+                    <img src="{{ asset('images/gifs/success.svg') }}" alt="" class="success_image">
+                    <h4 class="success_title text-center mt-2">Contenu publié avec succès</h4>
+                </div>
+            </div>
+        </div>
+
+    @endif
+
 </div>
 
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 <script>
     const app = Vue.createApp({
         data() {
@@ -225,6 +249,9 @@
             },
             closeNewPost(){
                 document.getElementById('modal-overlay').style.display = 'none';
+            },
+            closeSuccess(){
+                document.getElementById('success_div').style.display = 'none';
             }
         }
     });
@@ -232,6 +259,13 @@
 </script>
 
 <script src="{{ asset('js/finisher-header.es5.min.js') }}" type="text/javascript"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    });
+</script>
 <script type="text/javascript">
     new FinisherHeader({
         "count": 10,

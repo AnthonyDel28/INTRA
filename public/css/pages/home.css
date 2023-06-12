@@ -11,15 +11,18 @@
 
 .home_main_picture {
     border: 1px solid #00A3FF;
+    border-radius: 25px;
 }
 
 .home_main_picture img {
     width: 100%;
+    border-radius: 25px;
 }
 
 .home_post {
     height: 300px;
     border: 1px solid #00A3FF;
+    border-radius: 25px;
 }
 
 .search_bar {
@@ -59,6 +62,105 @@
     border: 1px solid #00A3FF;
     font-size: 8px;
     margin-right: 5px;
+}
+
+
+
+.calendar-container {
+    background-color: #fff;
+    border: 25px solid #11296b;
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.month-name {
+    margin: 0;
+    background-color: #11296b;
+    color: white;
+    padding: 10px;
+    font-size: 30px;
+    position: relative;
+    font-weight: bold;
+}
+.month-name::after {
+    content: " ";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 22px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.month-name::before {
+    content: " ";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 22px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.day-name {
+    font-size: 20px;
+    color: #a9a9a9;
+}
+
+.day-number {
+    font-size: 80px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.year {
+    margin: 20px 0;
+    font-size: 20px;
+    color: #a9a9a9;
+    font-weight: 500;
+}
+
+.post_img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.post_infos_name {
+    color: white;
+    font-size: 10px;
+}
+
+.post_infos_date {
+    font-size: 8px;
+    font-weight: lighter;
+}
+
+.post_infos_title {
+    color: white;
+    font-weight: bold;
+}
+
+.post_message_area {
+    color: #00A3FF;
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 7px;
+    border-radius: 15px;
+}
+
+.post_message_area pre {
+    all: initial;
+
+}
+
+.post_message_area code {
+    all: initial;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 

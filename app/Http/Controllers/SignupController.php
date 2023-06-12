@@ -21,10 +21,11 @@ class SignupController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'role_id' => 3, // Utilisez 'role_id' au lieu de 'role'
+            'role_id' => 3,
             'is_active' => 1,
             'experience' => 0,
             'level' => 0,
+            'image' => 'default.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
