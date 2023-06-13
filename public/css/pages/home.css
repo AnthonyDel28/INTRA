@@ -189,15 +189,16 @@
     border-radius: 15px;
 }
 
-.action_post:hover {
+.action_post:hover,
+.like_button:hover{
     border: 1px solid white;
     cursor: pointer
 }
 
-.action_post i {
+.action_post i,
+.like_button i{
     margin-right: 10px;
 }
-
 
 
 

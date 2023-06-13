@@ -15,7 +15,6 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('section');
             $table->text('message');
             $table->text('code');
-            $table->integer('likes');
             $table->timestamps();
             $table->integer('is_active');
 

@@ -21,7 +21,6 @@
             </div>
             <div class="row">
                 @foreach ($posts as $post)
-                    <!-- <a href="{{ route('posts.show', $post->post_id) }}" > -->
                     <div class="col-5 home_post m-3">
                         <div class="row m-4">
                             <div class="col-2">
@@ -29,8 +28,8 @@
                             </div>
                             <div class="col-2">
                                 <span class="post_infos_name">{{ $post->last_name }}
-                                <br>
-                                {{ $post->first_name }}
+                                    <br>
+                                    {{ $post->first_name }}
                                     <br>
                                   <span class="post_infos_date">
                                        {{ \Carbon\Carbon::parse($post->post_created_at)->format('d/m/Y H:i') }}
@@ -45,10 +44,10 @@
                         </div>
                         <div class="row like_row justify-content-end" style="justify-content: flex-end;">
                             <div class="col-4 text-center">
-                                    <span class="like_text">
-                                         <span class="like_value">{{ $post->likes }}</span>
-                                        j'aime
-                                    </span>
+                                <span class="like_text">
+                                    <span id="likeCount_{{ $post->post_id }}" class="like_value">{{ $post->likes }}</span>
+                                    j'aime
+                                </span>
                             </div>
                         </div>
 
@@ -76,23 +75,23 @@
                             </div>
                         </div>
                         <div class="row justify-content-center mt-4">
-                            <div class="col-8 post_actions">
+                            <div class="col-10 post_actions">
                                 <div class="row">
                                     <div class="col-6 text-center">
-                                        @if ($post->isLikedByUser) <!-- Vérifier si l'utilisateur a déjà aimé le post -->
-                                        <span class="like_button liked" data-postid="{{ $post->post_id }}">
-                        <i class="fa-solid fa-thumbs-up"></i> {{ $post->post_id }}
-                    </span>
-                                        @else
-                                            <span class="like_button" data-postid="{{ $post->post_id }}">
-                        <i class="fa-solid fa-thumbs-up"></i> {{ $post->post_id }}
-                    </span>
-                                        @endif
+                                        <span class="like_button" id="likeButton_{{ $post->post_id }}" data-postid="{{ $post->post_id }}" data-liked="{{ $post->isLiked }}" @click="switchLike({{ $post->post_id }})">
+                                            @if ($post->isLiked)
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                                <span class="like_text">Je n'aime plus</span>
+                                            @else
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                                <span class="like_text">J'aime</span>
+                                            @endif
+                                        </span>
                                     </div>
                                     <div class="col-6 text-center">
-                                            <span class="action_post">
-                                                <i class="fa-brands fa-readme"></i> Lire le post
-                                            </span>
+                                        <span class="action_post">
+                                            <i class="fa-brands fa-readme"></i> Lire le post
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -101,93 +100,83 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-3">
-            <div class="row mt-5">
-                <h4 class="home_title">Recherche rapide</h4>
-                <form action="{{ route('publish') }}" method="GET" class="mt-3">
-                    <input type="text" name="query" placeholder="Rechercher..." class="search_bar">
-                    <button type="submit" class="search_bar_button">Rechercher</button>
-                </form>
-            </div>
-            <div class="row mt-5 ">
-                <div class="col-10 mb-3">
-                    <h4 class="home_title">Amis</h4>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Stefan Toader <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Eva Maudoux <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Pierre Hardy <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Sylvain Piefort <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-10">
-                    <h4 class="home_title">Notifications</h4>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
+
     $(document).ready(function() {
         // Capturer le clic sur le bouton "J'aime"
         $('.like_button').click(function() {
             var postId = $(this).data('postid'); // Récupérer l'ID du post
             var likeCountElement = $(this).closest('.home_post').find('.like_value');
 
-            // Afficher le postId dans la console pour le débogage
-            console.log(postId);
-
             // Effectuer la requête AJAX
             $.ajax({
-                url: '/posts/like',
+                url: '{{ url("/posts/like") }}',
                 method: 'POST',
                 data: {
                     postId: postId,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    var currentLikes = parseInt(likeCountElement.text());
-                    likeCountElement.text(currentLikes + 1);
+                    console.log(response);
+                    if (response.success) {
+                        likeCountElement.text(response.likes);
+                    }
                 },
-                error: function(xhr, status, error) {
-                    console.log('Erreur lors de la requête AJAX');
-                }
             });
         });
     });
+
+    const app = Vue.createApp({
+        methods: {
+            switchLike(postId) {
+                const likeButton = document.getElementById(`likeButton_${postId}`);
+                const likeCountElement = document.getElementById(`likeCount_${postId}`);
+                const likeText = likeButton.querySelector('.like_text');
+                const isLiked = likeButton.dataset.liked;
+
+                axios.post('/posts/like', { postId: postId })
+                    .then(response => {
+                        if (response.data.success) {
+                            // Mettre à jour le texte du bouton en fonction de la réponse
+                            if (isLiked === 'true') {
+                                likeText.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> J\'aime';
+                                likeButton.dataset.liked = 'false';
+                                likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                            } else {
+                                likeText.innerHTML = '<i class="fa-solid fa-thumbs-down"></i> Je n\'aime plus';
+                                likeButton.dataset.liked = 'true';
+                                likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+                            }
+
+                            // Mettre à jour les données réactives de la vue
+                            this.posts = this.posts.map(post => {
+                                if (post.post_id === postId) {
+                                    return {
+                                        ...post,
+                                        isLiked: !post.isLiked,
+                                        likes: response.data.likes
+                                    };
+                                }
+                                return post;
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+        }
+
+        }
+
+    });
+
+
+    app.mount('#app');
 
 </script>

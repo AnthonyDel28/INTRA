@@ -8,21 +8,37 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-
     public function sections()
     {
         $user = Auth::user();
         $sections = DB::table('sections')->get();
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.author')
-            ->select('posts.*', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at')
-            ->selectRaw('(SELECT COUNT(*) FROM posts_likes WHERE post_id = posts.id AND user_id = ?) as isLikedByUser', [$user->id])
+            ->leftJoin('likes', function ($join) use ($user) {
+                $join->on('posts.id', '=', 'likes.post_id')
+                    ->where('likes.user_id', '=', $user->id);
+            })
+            ->select(
+                'posts.id as post_id',
+                'posts.title',
+                'posts.author',
+                'posts.message',
+                'posts.code',
+                'posts.created_at',
+                'posts.updated_at',
+                'posts.is_active',
+                'posts.section_id',
+                'users.*',
+                'users.image as author_image',
+                'posts.created_at as post_created_at',
+                DB::raw('(SELECT COUNT(*) FROM likes WHERE post_id = posts.id) as likes'),
+                DB::raw('(SELECT likes.id FROM likes WHERE post_id = posts.id AND user_id = '.$user->id.') as isLiked')
+            )
             ->latest('posts.created_at')
             ->limit(4)
             ->get();
 
         return view('home', compact('sections', 'posts'));
     }
-
 
 }

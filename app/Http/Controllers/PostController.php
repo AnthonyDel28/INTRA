@@ -21,7 +21,6 @@ class PostController extends Controller
         $validatedData['is_active'] = 1;
         $validatedData['created_at'] = now();
         $validatedData['updated_at'] = now();
-        $validatedData['likes'] = 0;
         DB::table('posts')->insert($validatedData);
 
        return redirect()->route('home')->with('success_post', 'Votre contenu a été publié');
@@ -42,11 +41,23 @@ class PostController extends Controller
     public function like(Request $request)
     {
         $postId = $request->input('postId');
-        DB::table('posts')
-            ->where('id', $postId)
-            ->increment('likes', 1);
+        $userId = Auth::id();
+
+        $existingLike = DB::table('likes')->where('post_id', $postId)->where('user_id', $userId)->first();
+
+        if ($existingLike) {
+            DB::table('likes')->where('post_id', $postId)->where('user_id', $userId)->delete();
+
+            return response()->json(['success' => true, 'message' => 'Post unliked']);
+        }
+
+        DB::table('likes')->insert([
+            'post_id' => $postId,
+            'user_id' => $userId,
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Post liked']);
     }
+
 
 }
