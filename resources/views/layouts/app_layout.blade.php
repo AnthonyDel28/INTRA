@@ -15,7 +15,7 @@
 
         href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css"
     >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/stackoverflow-light.min.css">
     <!-- CSS de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -45,9 +45,15 @@
                     <div class="row mt-5">
                         <div class="menu_section">
                             <p class="menu_title"><b>Menu</b></p>
-                            <div class="menu_item col-10">
+                            <div class="menu_item col-10" onclick="redirectToHome()">
                                 <i class="fa-solid fa-house"></i> <span>Accueil</span>
                             </div>
+                            <script>
+                                function redirectToHome() {
+                                    window.location.href = "/home";
+                                }
+                            </script>
+
                             <div class="menu_item">
                                 <i class="fa-solid fa-bolt-lightning"></i> <span>Fonctionnement</span>
                             </div>

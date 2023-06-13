@@ -25,3 +25,6 @@ Route::get('/home', [App\Http\Controllers\MainController::class, 'sections'])->n
 
 Route::post('/publish', [App\Http\Controllers\PostController::class, 'store'])->name('publish');
 
+Route::get('/posts/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
+
+Route::post('/posts/like', [App\Http\Controllers\PostController::class, 'like'])->name('posts.like');

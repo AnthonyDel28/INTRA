@@ -20,7 +20,7 @@
 }
 
 .home_post {
-    height: 300px;
+    height: 350px;
     border: 1px solid #00A3FF;
     border-radius: 25px;
 }
@@ -152,7 +152,6 @@
 
 .post_message_area pre {
     all: initial;
-
 }
 
 .post_message_area code {
@@ -161,7 +160,45 @@
     color: white;
     font-size: 13px;
     font-weight: bold;
+    min-height: 45px;
 }
+
+.home_post:hover {
+    text-decoration: none;
+}
+
+.like_text {
+    color: white;
+
+}
+
+.like_value {
+    color: #00A3FF;
+}
+
+.post_actions i {
+    margin-left: 15px;
+}
+
+
+.action_post,
+.like_button{
+    color: white;
+    border: 1px solid #00A3FF;
+    padding: 5px 15px 5px 10px;
+    border-radius: 15px;
+}
+
+.action_post:hover {
+    border: 1px solid white;
+    cursor: pointer
+}
+
+.action_post i {
+    margin-right: 10px;
+}
+
+
 
 
 

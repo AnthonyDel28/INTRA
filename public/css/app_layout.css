@@ -39,6 +39,12 @@
     margin-left: 15px;
 }
 
+.menu_item:hover {
+    color: #00A3FF;
+    cursor: pointer;
+}
+
+
 .menu_item span {
     margin-left: 35px;
     position: absolute;
