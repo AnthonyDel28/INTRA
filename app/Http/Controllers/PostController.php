@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 class PostController extends Controller
 {
     public function store(Request $request)
@@ -29,57 +29,27 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $sections = DB::table('sections')->get();
         $post = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.author')
             ->join('sections', 'sections.id', '=', 'posts.section_id')
-            ->select('posts.*', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at', 'sections.name as section_name')
+            ->select('posts.*', 'posts.id as post_id', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at', 'sections.name as section_name')
             ->where('posts.id', $id)
             ->first();
 
-        $languages = [
-            'Bash',
-            'C',
-            'C#',
-            'C++',
-            'CSS',
-            'Diff',
-            'Go',
-            'GraphQL',
-            'HTML',
-            'XML',
-            'JSON',
-            'Java',
-            'JavaScript',
-            'Kotlin',
-            'Less',
-            'Lua',
-            'Makefile',
-            'Markdown',
-            'Objective-C',
-            'PHP',
-            'PHP Template',
-            'Perl',
-            'Plain text',
-            'Python',
-            'Python REPL',
-            'R',
-            'Ruby',
-            'Rust',
-            'SCSS',
-            'SQL',
-            'Shell',
-            'Session',
-            'Swift',
-            'TOML',
-            'INI',
-            'TypeScript',
-            'Visual Basic .NET',
-            'WebAssembly',
-            'YAML',
-        ];
+        $userId = auth()->id();
+        $isLiked = DB::table('likes')->where('post_id', $id)->where('user_id', $userId)->exists();
+        $likes = DB::table('likes')
+            ->where('post_id', $id)
+            ->count();
 
-        return view('posts.show', compact('post', 'sections', 'languages'));
+        $comments = DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.author')
+            ->where('comments.post_id', $id)
+            ->select('comments.*', 'users.first_name', 'users.last_name', 'users.image as user_image')
+            ->get();
+
+
+        return view('posts.show', compact('post', 'likes', 'isLiked', 'comments'));
     }
 
     public function like(Request $request)
@@ -101,6 +71,52 @@ class PostController extends Controller
         ]);
 
         return response()->json(['success' => true, 'message' => 'Post liked']);
+    }
+
+    public function like_post(Request $request)
+    {
+        $postId = $request->input('postId');
+        $userId = Auth::id();
+
+        $existingLike = DB::table('likes')->where('post_id', $postId)->where('user_id', $userId)->first();
+
+        if ($existingLike) {
+            DB::table('likes')->where('post_id', $postId)->where('user_id', $userId)->delete();
+
+            return response()->json(['success' => true, 'message' => 'Post unliked']);
+        }
+
+        DB::table('likes')->insert([
+            'post_id' => $postId,
+            'user_id' => $userId,
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Post liked']);
+    }
+
+
+
+    public function postComment(Request $request)
+    {
+        $userId = Auth::id();
+        $message = $request->input('message');
+        $code = $request->input('code');
+        $postId = $request->input('post_id');
+
+
+        $code = Str::replace(['{{', '}}'], ['{ {', '} }'], $code);
+
+        DB::table('comments')->insert([
+            'message' => $message,
+            'code' => $code,
+            'author' => $userId,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'is_active' => 1,
+            'post_id' => $postId
+        ]);
+
+        return redirect()->back()->with('success_comment', 'Commentaire ajouté avec succès.');
     }
 
 

@@ -28,3 +28,12 @@ Route::post('/publish', [App\Http\Controllers\PostController::class, 'store'])->
 Route::get('/posts/{id}', [App\Http\Controllers\PostController::class, 'show'])->name('posts.show');
 
 Route::post('/posts/like', [App\Http\Controllers\PostController::class, 'like'])->name('posts.like');
+Route::post('/post/like', [App\Http\Controllers\PostController::class, 'like_post'])->name('post.like');
+
+Route::post('/comments', [App\Http\Controllers\PostController::class, 'postComment'])->name('comments.post');
+
+Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
+
+Route::put('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+
+

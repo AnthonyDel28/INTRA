@@ -95,8 +95,13 @@
                             <div class="menu_item">
                                 <i class="fa-solid fa-trophy-star"></i> <span>Succès</span>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToProfile()">
                                 <i class="fa-solid fa-square-user"></i> <span>Profil</span>
+                                <script>
+                                    function redirectToProfile() {
+                                        window.location.href = "/profile";
+                                    }
+                                </script>
                             </div>
                             <div class="menu_item">
                                 <i class="fa-solid fa-gear"></i> <span>Paramètres</span>
@@ -135,7 +140,7 @@
                                     <div class="row justify-content-end">
                                         <div class="col-auto">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('images/users/profile/' . Auth::user()->image) }}" alt="" class="profile-picture">
+                                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image) }}" alt="" class="profile-picture" style="object-fit: cover;">
                                                 <div class="ms-2">
                                                     <div class="profile_name">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</div>
                                                     <div class="status">
@@ -167,7 +172,7 @@
         <div class="container-fluid">
             <div class="row justify-content-end">
                 <div class="text-right p-5 new_post_close" >
-                    <i class="fa-solid fa-circle-xmark" v-on:click="closeNewPost()"></i>
+                    <i id="closeButton" class="fa-solid fa-circle-xmark" v-on:click="closeNewPost()"></i>
                 </div>
             </div>
             <div class="row">
@@ -197,7 +202,7 @@
                                     <div class="row message_row">
                                         <div class="form-group">
                                             <label for="message">Message</label>
-                                            <textarea name="message" id="message" class="form-control h-100" onsubmit="formatTextareaValue('message')"></textarea>
+                                            <textarea name="message" id="message" class="form-control h-100 new_post_message" onsubmit="formatTextareaValue('message')"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +220,7 @@
                                     <div class="row code_row">
                                         <div class="form-group">
                                             <label for="code">Code</label>
-                                            <textarea name="code" id="code" class="form-control h-100" onsubmit="formatTextareaValue('code')"></textarea>
+                                            <textarea name="code" id="code" class="form-control h-100 new_post_code" onsubmit="formatTextareaValue('code')"></textarea>
                                         </div>
                                     </div>
                                     <script>
@@ -255,7 +260,6 @@
                 </div>
             </div>
         </div>
-
     @endif
 
 </div>
@@ -283,6 +287,9 @@
             closeNewPost(){
                 document.getElementById('modal-overlay').style.display = 'none';
             },
+            closeModal() {
+                document.getElementById('modal-overlay').style.display = 'none';
+            },
             closeSuccess(){
                 document.getElementById('success_div').style.display = 'none';
             }
@@ -297,6 +304,9 @@
         document.querySelectorAll('pre code').forEach((el) => {
             hljs.highlightElement(el);
         });
+    });
+    $('#closeButton').click(function() {
+        $('#modal-overlay').hide();
     });
 </script>
 <script type="text/javascript">

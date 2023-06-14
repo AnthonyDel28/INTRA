@@ -1,5 +1,6 @@
 /* CSS FILE FOR THE SHOW POST PAGE */
 
+
 @import url('https://fonts.googleapis.com/css?family=Fira+Code');
 @import url('https://fonts.googleapis.com/css?family=Dank+Mono');
 .post_title {
@@ -30,7 +31,7 @@
 }
 
 .message_area {
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0, 0, 0, 0.38);
     border-radius: 25px;
     color: white;
 }
@@ -43,3 +44,82 @@
     border: none;
 }
 
+.like_row {
+    color: white;
+}
+
+.like_row i {
+    margin-left: 15px;
+}
+
+.like_row i:hover {
+    cursor: pointer;
+    color: #00A3FF;
+}
+
+.comment_title {
+    color: white;
+}
+
+.comment_button {
+    background-color: black;
+    color: white;
+    border: 1px solid #00A3FF;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
+}
+
+#comment-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    background-color: rgba(9, 15, 19, 0.82);
+    z-index: 9999;
+    display: none;
+    border: 1px solid #00A3FF;
+    backdrop-filter: blur(5px);
+    border-radius: 25px;
+}
+
+.form_comment_title {
+    color: white;
+}
+
+.comment_message_area,
+.comment_code_area {
+    resize: none;
+    background-color: rgba(9, 15, 19, 0.82);
+}
+
+.comment-form textarea {
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid #00A3FF;
+    resize: none;
+    color: white;
+}
+
+.comment-form textarea:focus {
+    background-color: rgba(0, 0, 0, 0.38);
+    color: white;
+}
+
+.comment_zone {
+    background-color: rgba(0, 0, 0, 0.38);
+    border-radius: 35px;
+}
+
+
+.comment_code_content {
+    background-color: #070C11;
+    font-size: 14px;
+    font-family: monospace;
+    border: none;
+}
+
+.post_zone {
+    background-color: #070C11;
+    padding: 15px;
+    border-radius: 25px;
+}

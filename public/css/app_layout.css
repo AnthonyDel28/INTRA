@@ -268,7 +268,8 @@
 }
 
 .form input,
-.form textarea{
+.new_post_message,
+.new_post_code {
     background-color: rgba(0, 0, 0, 0.75);
     border: 1px solid #00A3FF;
     resize: none;

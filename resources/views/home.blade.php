@@ -23,7 +23,7 @@
                     <div class="col-5 home_post m-3">
                         <div class="row m-4">
                             <div class="col-2">
-                                <img src="{{ asset('images/users/profile/' . $post->author_image) }}" alt="" class="post_img">
+                                <img src="{{ asset('storage/images/users/profile/' . $post->author_image) }}" alt="" class="post_img">
                             </div>
                             <div class="col-2">
                                 <span class="post_infos_name">{{ $post->last_name }}
