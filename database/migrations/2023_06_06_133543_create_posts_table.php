@@ -12,9 +12,9 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('author');
-            $table->unsignedBigInteger('section');
             $table->text('message');
             $table->text('code');
+            $table->string('language');
             $table->timestamps();
             $table->integer('is_active');
 

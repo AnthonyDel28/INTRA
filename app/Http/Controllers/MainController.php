@@ -28,6 +28,7 @@ class MainController extends Controller
                 'posts.updated_at',
                 'posts.is_active',
                 'posts.section_id',
+                'posts.language',
                 'users.*',
                 'users.image as author_image',
                 'posts.created_at as post_created_at',
@@ -38,7 +39,50 @@ class MainController extends Controller
             ->limit(4)
             ->get();
 
-        return view('home', compact('sections', 'posts'));
+        $languages = [
+            'Bash',
+            'C',
+            'C#',
+            'C++',
+            'CSS',
+            'Diff',
+            'Go',
+            'GraphQL',
+            'HTML',
+            'XML',
+            'JSON',
+            'Java',
+            'JavaScript',
+            'Kotlin',
+            'Less',
+            'Lua',
+            'Makefile',
+            'Markdown',
+            'Objective-C',
+            'PHP',
+            'PHP Template',
+            'Perl',
+            'Plain text',
+            'Python',
+            'Python REPL',
+            'R',
+            'Ruby',
+            'Rust',
+            'SCSS',
+            'SQL',
+            'Shell',
+            'Session',
+            'Swift',
+            'TOML',
+            'INI',
+            'TypeScript',
+            'Visual Basic .NET',
+            'WebAssembly',
+            'YAML',
+        ];
+
+
+        return view('home', compact('sections', 'posts', 'languages'));
     }
 
 }

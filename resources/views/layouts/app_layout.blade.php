@@ -5,6 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dank+Mono">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +20,9 @@
 
         href="https://site-assets.fontawesome.com/releases/v6.3.0/css/all.css"
     >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/stackoverflow-light.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/night-owl.min.css">
+
     <!-- CSS de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -27,8 +34,6 @@
     <script src="{{ asset('js/lottie.js') }}"></script>
     <link rel="icon" href="{{ asset('intra.ico') }}">
     <link rel="stylesheet" href="{{ asset('css/app_layout.css') }}">
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>INTRA</title>
 </head>
@@ -171,40 +176,62 @@
                     @csrf
                     <div class="row justify-content-evenly">
                         <div class="col-10">
-                           <div class="row justify-content-between">
-                               <div class="col-5 form">
-                                   <div class="row">
-                                       <div class="form-group">
-                                           <label for="title">Titre</label>
-                                           <input type="text" name="title" id="title" class="form-control">
-                                       </div>
-                                   </div>
-                                   <div class="row">
-                                       <div class="form-group">
-                                           <label for="section">Section</label>
-                                           <select name="section_id" id="section_id" class="form-control">
-                                               @foreach ($sections as $section)
-                                                   <option value="{{ $section->id }}">{{ $section->name }}</option>
-                                               @endforeach
-                                           </select>
-                                       </div>
-                                   </div>
-                                   <div class="row message_row">
-                                       <div class="form-group">
-                                           <label for="message">Message</label>
-                                           <textarea name="message" id="message" class="form-control h-100"></textarea>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-5 form">
-                                   <div class="row code_row">
-                                       <div class="form-group">
-                                           <label for="code">Code</label>
-                                           <textarea name="code" id="code" class="form-control h-100"></textarea>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
+                            <div class="row justify-content-between">
+                                <div class="col-5 form">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="title">Titre</label>
+                                            <input type="text" name="title" id="title" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="section_id">Section</label>
+                                            <select name="section_id" id="section_id" class="form-control">
+                                                @foreach ($sections as $section)
+                                                    <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row message_row">
+                                        <div class="form-group">
+                                            <label for="message">Message</label>
+                                            <textarea name="message" id="message" class="form-control h-100" onsubmit="formatTextareaValue('message')"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 form">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="section_id">Langage de programmation</label>
+                                            <select name="language" id="language" class="form-control">
+                                                @foreach ($languages as $language)
+                                                    <option value="{{ $language }}" @if ($language === 'PHP') selected @endif>{{ $language }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row code_row">
+                                        <div class="form-group">
+                                            <label for="code">Code</label>
+                                            <textarea name="code" id="code" class="form-control h-100" onsubmit="formatTextareaValue('code')"></textarea>
+                                        </div>
+                                    </div>
+                                    <script>
+                                            function formatTextareaValue(textareaId) {
+                                            var textarea = document.getElementById(textareaId);
+                                            var textareaValue = textarea.value;
+
+
+                                            textareaValue = textareaValue.replace(/\r\n|\r|\n/g, '&#13;&#10;'); // Retours à la ligne
+                                            textareaValue = textareaValue.replace(/\t/g, '&#9;'); // Tabulations
+
+                                            textarea.value = textareaValue;
+                                        }
+                                    </script>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">

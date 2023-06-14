@@ -21,6 +21,7 @@ class SignupController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
+            'username' =>  explode('@', $validatedData['email'])[0],
             'role_id' => 3,
             'is_active' => 1,
             'experience' => 0,
@@ -28,6 +29,7 @@ class SignupController extends Controller
             'image' => 'default.jpg',
             'created_at' => now(),
             'updated_at' => now(),
+            'gender' => '/',
         ]);
 
         auth()->login($user);
@@ -35,4 +37,3 @@ class SignupController extends Controller
         return redirect()->route('home');
     }
 }
-

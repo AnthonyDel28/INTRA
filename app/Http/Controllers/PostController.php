@@ -14,7 +14,8 @@ class PostController extends Controller
             'title' => 'required',
             'message' => 'required',
             'section_id' => 'required',
-            'code' => 'required',
+            'language' => 'nullable',
+            'code' => 'nullable',
         ]);
 
         $validatedData['author'] = Auth::id();
@@ -31,11 +32,54 @@ class PostController extends Controller
         $sections = DB::table('sections')->get();
         $post = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.author')
-            ->select('posts.*', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at')
+            ->join('sections', 'sections.id', '=', 'posts.section_id')
+            ->select('posts.*', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at', 'sections.name as section_name')
             ->where('posts.id', $id)
             ->first();
 
-        return view('posts.show', compact('post', 'sections'));
+        $languages = [
+            'Bash',
+            'C',
+            'C#',
+            'C++',
+            'CSS',
+            'Diff',
+            'Go',
+            'GraphQL',
+            'HTML',
+            'XML',
+            'JSON',
+            'Java',
+            'JavaScript',
+            'Kotlin',
+            'Less',
+            'Lua',
+            'Makefile',
+            'Markdown',
+            'Objective-C',
+            'PHP',
+            'PHP Template',
+            'Perl',
+            'Plain text',
+            'Python',
+            'Python REPL',
+            'R',
+            'Ruby',
+            'Rust',
+            'SCSS',
+            'SQL',
+            'Shell',
+            'Session',
+            'Swift',
+            'TOML',
+            'INI',
+            'TypeScript',
+            'Visual Basic .NET',
+            'WebAssembly',
+            'YAML',
+        ];
+
+        return view('posts.show', compact('post', 'sections', 'languages'));
     }
 
     public function like(Request $request)

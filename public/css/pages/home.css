@@ -10,19 +10,20 @@
 }
 
 .home_main_picture {
-    border: 1px solid #00A3FF;
     border-radius: 25px;
+    background-color: #070E14;
 }
 
 .home_main_picture img {
     width: 100%;
     border-radius: 25px;
+    padding: 15px;
 }
 
 .home_post {
     height: 350px;
-    border: 1px solid #00A3FF;
     border-radius: 25px;
+    background-color: #070E14;
 }
 
 .search_bar {
@@ -200,8 +201,9 @@
     margin-right: 10px;
 }
 
-
-
+.code_insert {
+    color: white;
+}
 
 
 

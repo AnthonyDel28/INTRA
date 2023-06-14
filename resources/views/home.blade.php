@@ -1,6 +1,5 @@
 @extends('layouts.app_layout')
 <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 @section('content')
@@ -38,26 +37,34 @@
                             </div>
                             <div class="col-8 justify-content-center">
                                 <span class="text-center post_infos_title">
-                                    {{ $post->title }}
+                                    {!! Str::limit(htmlspecialchars(nl2br($post->title)), $limit = 70, $end = '...') !!}
                                 </span>
                             </div>
                         </div>
                         <div class="row like_row justify-content-end" style="justify-content: flex-end;">
                             <div class="col-4 text-center">
                                 <span class="like_text">
-                                    <span id="likeCount_{{ $post->post_id }}" class="like_value">{{ $post->likes }}</span>
+                                    <span id="likeCount_{{ $post->post_id }}" class="like_value like_count">{{ $post->likes }}</span>
                                     j'aime
                                 </span>
                             </div>
                         </div>
-
                         <div class="row mt-3 justify-content-center">
-                            <div class="col-10 post_message_area" style="height: 90px;">
-                                <span class="text-center">
-                                    {{ Str::limit($post->message, $limit = 150, $end = '...') }}
-                                </span>
-                            </div>
+                            @if ($post->code)
+                                <div class="col-10 post_message_area" style="height: 85px; overflow: hidden;">
+                                    <span class="text-center">
+                                        {!! nl2br(e(Str::limit($post->message, $limit = 150, $end = '...'))) !!}
+                                    </span>
+                                </div>
+                            @else
+                                <div class="col-10 post_message_area" style="height: 180px; overflow: hidden;">
+                                    <span class="text-center">
+                                        {!! nl2br(e(Str::limit($post->message, $limit = 400, $end = '...'))) !!}
+                                    </span>
+                                </div>
+                            @endif
                         </div>
+
                         <script>
                             document.addEventListener('DOMContentLoaded', (event) => {
                                 document.querySelectorAll('pre code').forEach((el) => {
@@ -65,33 +72,40 @@
                                 });
                             });
                         </script>
-                        <div class="row mt-3 justify-content-center">
-                            <div class="col-10 post_message_area">
-                                <pre>
-                                    <code class="language-javascript">
-                                        {!! Str::limit(nl2br($post->code), $limit = 150, $end = '...') !!}
-                                    </code>
-                                </pre>
+                        @if ($post->code)
+                            <div class="row mt-3 justify-content-center">
+                                <div class="col-10 post_message_area">
+                                    <pre>
+                                        <code class="language-{{ $post->language }}" id="code_insert">
+                                            {!! Str::limit(htmlspecialchars(nl2br($post->code)), $limit = 150, $end = '...') !!}
+                                        </code>
+                                    </pre>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="row justify-content-center mt-4">
                             <div class="col-10 post_actions">
                                 <div class="row">
                                     <div class="col-6 text-center">
-                                        <span class="like_button" id="likeButton_{{ $post->post_id }}" data-postid="{{ $post->post_id }}" data-liked="{{ $post->isLiked }}" @click="switchLike({{ $post->post_id }})">
-                                            @if ($post->isLiked)
-                                                <i class="fa-solid fa-thumbs-down"></i>
-                                                <span class="like_text">Je n'aime plus</span>
-                                            @else
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                                <span class="like_text">J'aime</span>
-                                            @endif
+                                         <span class="like_button" id="likeButton_{{ $post->post_id }}" data-postid="{{ $post->post_id }}">
+                                                @if ($post->isLiked)
+                                                 <i class="fa-solid fa-thumbs-down"></i>
+                                                 <span class="like_text">Je n'aime plus</span>
+                                             @else
+                                                 <i class="fa-solid fa-thumbs-up"></i>
+                                                 <span class="like_text">J'aime</span>
+                                             @endif
                                         </span>
                                     </div>
                                     <div class="col-6 text-center">
-                                        <span class="action_post">
+                                        <span class="action_post" onclick="showPostDetails({{ $post->post_id }})">
                                             <i class="fa-brands fa-readme"></i> Lire le post
                                         </span>
+                                        <script>
+                                            function showPostDetails(postId) {
+                                                window.location.href = '/posts/' + postId;
+                                            }
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -100,83 +114,104 @@
                 @endforeach
             </div>
         </div>
-
+        <div class="col-3">
+            <div class="row mt-5">
+                <h4 class="home_title">Recherche rapide</h4>
+                <form action="" method="GET" class="mt-3">
+                    <input type="text" name="query" placeholder="Rechercher..." class="search_bar">
+                    <button type="submit" class="search_bar_button">Rechercher</button>
+                </form>
+            </div>
+            <div class="row mt-5 ">
+                <div class="col-10 mb-3">
+                    <h4 class="home_title">Amis</h4>
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                        <div class="ms-2 friends_name">Stefan Toader <i class="fa-solid fa-circle"></i></div>
+                        <div class="ms-auto friends_icons">
+                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-phone-alt"></i>
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                        <div class="ms-2 friends_name">Eva Maudoux <i class="fa-solid fa-circle"></i></div>
+                        <div class="ms-auto friends_icons">
+                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-phone-alt"></i>
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                        <div class="ms-2 friends_name">Pierre Hardy <i class="fa-solid fa-circle"></i></div>
+                        <div class="ms-auto friends_icons">
+                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-phone-alt"></i>
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
+                        <div class="ms-2 friends_name">Sylvain Piefort <i class="fa-solid fa-circle"></i></div>
+                        <div class="ms-auto friends_icons">
+                            <i class="fa-solid fa-user"></i>
+                            <i class="fa-solid fa-phone-alt"></i>
+                            <i class="fa-solid fa-message"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-10">
+                    <h4 class="home_title">Calendrier</h4>
+                    <div class="calendar"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
     $(document).ready(function() {
-        // Capturer le clic sur le bouton "J'aime"
-        $('.like_button').click(function() {
-            var postId = $(this).data('postid'); // Récupérer l'ID du post
-            var likeCountElement = $(this).closest('.home_post').find('.like_value');
+        $('.like_button').each(function() {
+            var likeButton = $(this);
+            var postId = likeButton.data('postid');
+            var likeCountElement = $('#likeCount_' + postId);
+            var likeTextElement = likeButton.find('.like_text');
 
-            // Effectuer la requête AJAX
-            $.ajax({
-                url: '{{ url("/posts/like") }}',
-                method: 'POST',
-                data: {
-                    postId: postId,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    console.log(response);
-                    if (response.success) {
-                        likeCountElement.text(response.likes);
+            likeButton.click(function() {
+                $.ajax({
+                    url: '{{ url("/posts/like") }}',
+                    method: 'POST',
+                    data: {
+                        postId: postId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.success) {
+                            var likeCount = parseInt(likeCountElement.text());
+                            var likeText = likeTextElement.text();
+
+                            if (likeText === 'Je n\'aime plus') {
+                                likeCount--;
+                                likeTextElement.text('J\'aime');
+                                likeButton.find('i').removeClass('fa-thumbs-down').addClass('fa-thumbs-up');
+                            } else {
+                                likeCount++;
+                                likeTextElement.text('Je n\'aime plus');
+                                likeButton.find('i').removeClass('fa-thumbs-up').addClass('fa-thumbs-down');
+                            }
+                            likeCountElement.text(likeCount);
+                        }
                     }
-                },
+                });
             });
         });
     });
-
-    const app = Vue.createApp({
-        methods: {
-            switchLike(postId) {
-                const likeButton = document.getElementById(`likeButton_${postId}`);
-                const likeCountElement = document.getElementById(`likeCount_${postId}`);
-                const likeText = likeButton.querySelector('.like_text');
-                const isLiked = likeButton.dataset.liked;
-
-                axios.post('/posts/like', { postId: postId })
-                    .then(response => {
-                        if (response.data.success) {
-                            // Mettre à jour le texte du bouton en fonction de la réponse
-                            if (isLiked === 'true') {
-                                likeText.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> J\'aime';
-                                likeButton.dataset.liked = 'false';
-                                likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
-                            } else {
-                                likeText.innerHTML = '<i class="fa-solid fa-thumbs-down"></i> Je n\'aime plus';
-                                likeButton.dataset.liked = 'true';
-                                likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-                            }
-
-                            // Mettre à jour les données réactives de la vue
-                            this.posts = this.posts.map(post => {
-                                if (post.post_id === postId) {
-                                    return {
-                                        ...post,
-                                        isLiked: !post.isLiked,
-                                        likes: response.data.likes
-                                    };
-                                }
-                                return post;
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-        }
-
-        }
-
-    });
-
-
-    app.mount('#app');
 
 </script>

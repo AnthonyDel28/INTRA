@@ -1,0 +1,45 @@
+/* CSS FILE FOR THE SHOW POST PAGE */
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Code');
+@import url('https://fonts.googleapis.com/css?family=Dank+Mono');
+.post_title {
+    color: white;
+}
+
+.author_img {
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.author_name {
+    color: white;
+    font-size: 12px;
+}
+
+.category {
+    color: white;
+}
+
+.author_date {
+    color: #00A3FF;
+    font-size: 11px;
+}
+
+.section_title {
+    color: #00A3FF;
+}
+
+.message_area {
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 25px;
+    color: white;
+}
+
+.code_area,
+.code_area code {
+    background-color: rgb(13, 24, 33);
+    font-size: 14px;
+    font-family: monospace;
+    border: none;
+}
+
