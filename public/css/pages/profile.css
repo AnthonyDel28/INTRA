@@ -19,13 +19,47 @@
     background-image: url("/images/assets/profile/header_admin.png");
     background-size: cover;
 }
+.profile_picture-container {
+    position: relative;
+}
 
 .profile_picture {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
+    transition: filter 0.3s;
 }
+
+.profile_picture:hover {
+    filter: brightness(0.7);
+}
+
+.profile_picture-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+}
+
+.profile_picture-container:hover .profile_picture-overlay {
+    opacity: 1;
+}
+
+.profile_picture-overlay i {
+    color: white;
+    font-size: 24px;
+}
+
+
 
 .user_level {
     color: goldenrod;
@@ -40,6 +74,38 @@
     font-size: 16px;
     color: white;
 }
+
+.custom_profile_title {
+    color: white;
+}
+
+.update_form label {
+    color: #00A3FF;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
