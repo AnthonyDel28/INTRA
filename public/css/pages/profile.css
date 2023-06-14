@@ -81,11 +81,46 @@
 
 .update_form label {
     color: #00A3FF;
-    padding: 10px;
 }
 
+.update_form input {
+    width: 80%;
+    background-color: rgba(29, 41, 60, 0.56);
+    border-radius: 15px;
+    padding: 8px;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+}
 
+.update_form select {
+    width: 80%;
+    background-color: rgba(29, 41, 60, 0.56);
+    border-radius: 15px;
+    padding: 8px;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+}
 
+.edit_profile_field {
+    background-color: rgba(0, 0, 0, 0.49);
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.update_profile_button {
+    background-color: rgba(0, 0, 0, 0.49);
+    border: none;
+    color: white;
+    padding: 5px 25px 5px 25px;
+    border-radius: 25px;
+}
+
+.update_profile_button:hover {
+    background-color: rgba(0, 0, 0, 0.32);
+    color: #00A3FF;
+}
 
 
 

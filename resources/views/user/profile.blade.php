@@ -28,39 +28,40 @@
                 <div class="col-12">
                     <h2 class="custom_profile_title">Modifier votre profil</h2>
                 </div>
-                <div class="col-12">
+                <div class="col-12 p-4">
                     <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data" id="profileForm">
                         @csrf
                         @method('PUT')
 
                         <div class="row update_form">
                             <div class="col-6">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="username">Nom d'utilisateur</label><br>
+                                <div class="row justify-content-between">
+                                    <div class="col-5 edit_profile_field text-center">
+                                        <label for="username">Nom d'utilisateur</label>
                                         <input type="text" id="username" name="username" value="{{ $user->username }}" required>
                                     </div>
-                                    <div class="col-6">
-                                        <label for="first_name">Prénom</label><br>
-                                        <input type="text" id="first_name" name="first_name" value="{{ $user->first_name }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-6">
-                                        <label for="last_name">Nom de famille</label><br>
-                                        <input type="text" id="last_name" name="last_name" value="{{ $user->last_name }}" required>
-                                    </div>
-                                    <div class="col-6">
+                                    <div class="col-5 edit_profile_field text-center">
                                         <label for="email">Email</label><br>
                                         <input type="email" id="email" name="email" value="{{ $user->email }}" required>
                                     </div>
+
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-6">
+                                <div class="row mt-3 justify-content-between">
+                                    <div class="col-5 edit_profile_field text-center">
+                                        <label for="last_name">Prénom</label><br>
+                                        <input type="text" id="last_name" name="last_name" value="{{ $user->last_name }}" required>
+                                    </div>
+                                    <div class="col-5 edit_profile_field text-center">
+                                        <label for="first_name">Nom</label><br>
+                                        <input type="text" id="first_name" name="first_name" value="{{ $user->first_name }}" required>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 justify-content-between">
+                                    <div class="col-5 edit_profile_field text-center">
                                         <label for="password">Mot de passe</label><br>
                                         <input type="password" id="password" name="password">
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-5 edit_profile_field text-center">
                                         <label for="gender">Genre</label><br>
                                         <select id="gender" name="gender">
                                             <option value="/">Non spécifié</option>
@@ -70,8 +71,8 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-center mt-5">
-                                    <div class="col-4">
-                                        <button type="submit">Modifier</button>
+                                    <div class="col-4 text-center">
+                                        <button type="submit" class="update_profile_button">Modifier</button>
                                     </div>
                                 </div>
                             </div>
