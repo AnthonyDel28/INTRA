@@ -12,7 +12,7 @@
                     <div class="col-12">
                         <span class="author_date">Publié le {{ \Carbon\Carbon::parse($post->post_created_at)->format('d/m/Y H:i') }} par</span>
                         <br>
-                        <img src="{{ asset('storage/images/users/profile/' . $post->author_image) }}" alt="" class="author_img mt-3" style="width: 40px; height: 40px;">
+                        <img src="{{ asset('storage/images/users/profile/' . $post->author_image) }}" alt="" class="author_img mt-3" style="width: 40px; height: 40px; object-fit: cover;">
                         <span class="author_name">{{ $post->last_name }} {{ $post->first_name }}</span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                                         <div class="message_area p-5">
                            <pre class="code_area">
                                <code class="language-{{ $post->language }}" id="code_insert">
-                                   {!! htmlspecialchars($post->code, ENT_QUOTES, 'UTF-8') !!}
+                                   {!! str_replace(['{', '}'], '{', htmlspecialchars($post->code, ENT_QUOTES, 'UTF-8')) !!}
                                </code>
                            </pre>
                                         </div>
@@ -101,7 +101,7 @@
                 <div class="col-12 comment_zone p-5">
                     <div class="row post_author_infos justify-content-evenly">
                         <div class="col-12">
-                            <img src="{{ asset('storage/images/users/profile/' . $comment->user_image) }}" alt="" class="author_img mt-3" style="width: 40px; height: 40px;">
+                            <img src="{{ asset('storage/images/users/profile/' . $comment->user_image) }}" alt="" class="author_img mt-3" style="width: 40px; height: 40px; object-fit: cover;">
                             <span class="author_name">{{ $comment->last_name }} {{ $comment->first_name }}</span>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         @if($comment->code)
                             <div class="col-8 comment_code">
                            <pre class="comment_code_content">
-                               <code class="language-javascript" id="code_insert">
+                               <code class="language-{{ $post->language }}" id="code_insert">
                                    {!! htmlspecialchars($comment->code, ENT_QUOTES, 'UTF-8') !!}
                                </code>
                            </pre>

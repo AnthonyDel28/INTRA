@@ -120,4 +120,31 @@ class PostController extends Controller
     }
 
 
+    public function delete($postId)
+    {
+        $post = DB::table('posts')->where('id', $postId)->first();
+
+        if ($post) {
+            DB::table('comments')->where('post_id', $postId)->delete();
+            DB::table('posts')->where('id', $postId)->delete();
+
+            return response()->json(['message' => 'Post and associated comments deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Post not found'], 404);
+        }
+    }
+
+    public function deleteComment($commentId)
+    {
+        $comment = DB::table('comments')->where('id', $commentId)->first();
+
+        if ($comment) {
+            DB::table('comments')->where('id', $commentId)->delete();
+
+            return response()->json(['message' => 'Comment deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Comment not found'], 404);
+        }
+    }
+
 }

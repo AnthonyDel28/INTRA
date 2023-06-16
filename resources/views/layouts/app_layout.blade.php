@@ -83,11 +83,21 @@
                             <div class="menu_item">
                                 <i class="fa-regular fa-globe"></i> <span>Découvrir</span>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToContribute()">
                                 <i class="fa-brands fa-github"></i> <span>Contribuer</span>
+                                <script>
+                                    function redirectToContribute() {
+                                        window.open("https://github.com/AnthonyDel28/INTRA", "_blank");
+                                    }
+                                </script>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToRapport()">
                                 <i class="fa-solid fa-bug"></i> <span>Rapport / Bug</span>
+                                <script>
+                                    function redirectToRapport() {
+                                        window.location.href = "/rapport";
+                                    }
+                                </script>
                             </div>
                         </div>
                         <div class="menu_section mt-5">
@@ -106,6 +116,16 @@
                             <div class="menu_item">
                                 <i class="fa-solid fa-gear"></i> <span>Paramètres</span>
                             </div>
+                            @if(Auth::check() && Auth::user()->role_id == 1)
+                                <div class="menu_item" onclick="redirectToAdmin()" id="menu_item_admin">
+                                    <i class="fa-solid fa-toolbox"></i> <span>Administration</span>
+                                </div>
+                                <script>
+                                    function redirectToAdmin() {
+                                        window.location.href = "/admin";
+                                    }
+                                </script>
+                            @endif
                             <div class="disconnect_link">
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -184,13 +204,13 @@
                             <div class="row justify-content-between">
                                 <div class="col-5 form">
                                     <div class="row">
-                                        <div class="form-group">
+                                        <div class="form-group new_post_form">
                                             <label for="title">Titre</label>
-                                            <input type="text" name="title" id="title" class="form-control">
+                                            <input type="text" name="title" id="title" class="form-control new_post_form">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group">
+                                        <div class="form-group new_post_form">
                                             <label for="section_id">Section</label>
                                             <select name="section_id" id="section_id" class="form-control">
                                                 @foreach ($sections as $section)
@@ -200,7 +220,7 @@
                                         </div>
                                     </div>
                                     <div class="row message_row">
-                                        <div class="form-group">
+                                        <div class="form-group new_post_form">
                                             <label for="message">Message</label>
                                             <textarea name="message" id="message" class="form-control h-100 new_post_message" onsubmit="formatTextareaValue('message')"></textarea>
                                         </div>
@@ -208,7 +228,7 @@
                                 </div>
                                 <div class="col-5 form">
                                     <div class="row">
-                                        <div class="form-group">
+                                        <div class="form-group new_post_form">
                                             <label for="section_id">Langage de programmation</label>
                                             <select name="language" id="language" class="form-control">
                                                 @foreach ($languages as $language)
@@ -218,7 +238,7 @@
                                         </div>
                                     </div>
                                     <div class="row code_row">
-                                        <div class="form-group">
+                                        <div class="form-group new_post_form">
                                             <label for="code">Code</label>
                                             <textarea name="code" id="code" class="form-control h-100 new_post_code" onsubmit="formatTextareaValue('code')"></textarea>
                                         </div>

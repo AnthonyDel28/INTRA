@@ -34,8 +34,8 @@
                         @method('PUT')
 
                         <div class="row update_form">
-                            <div class="col-6">
-                                <div class="row justify-content-between">
+                            <div class="col-6 update_profile_area">
+                                <div class="row justify-content-between mt-5">
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="username">Nom d'utilisateur</label>
                                         <input type="text" id="username" name="username" value="{{ $user->username }}" required>
@@ -46,7 +46,7 @@
                                     </div>
 
                                 </div>
-                                <div class="row mt-3 justify-content-between">
+                                <div class="row justify-content-between">
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="last_name">Prénom</label><br>
                                         <input type="text" id="last_name" name="last_name" value="{{ $user->last_name }}" required>
@@ -56,7 +56,7 @@
                                         <input type="text" id="first_name" name="first_name" value="{{ $user->first_name }}" required>
                                     </div>
                                 </div>
-                                <div class="row mt-3 justify-content-between">
+                                <div class="row justify-content-between">
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="password">Mot de passe</label><br>
                                         <input type="password" id="password" name="password">
@@ -70,7 +70,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row justify-content-center mt-5">
+                                <div class="row justify-content-center mt-2 mb-4">
                                     <div class="col-4 text-center">
                                         <button type="submit" class="update_profile_button">Modifier</button>
                                     </div>

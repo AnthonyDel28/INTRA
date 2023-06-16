@@ -29,11 +29,26 @@ Route::get('/posts/{id}', [App\Http\Controllers\PostController::class, 'show'])-
 
 Route::post('/posts/like', [App\Http\Controllers\PostController::class, 'like'])->name('posts.like');
 Route::post('/post/like', [App\Http\Controllers\PostController::class, 'like_post'])->name('post.like');
+Route::delete('/posts/delete/{postId}', [App\Http\Controllers\PostController::class, 'delete'])->name('posts.delete');
+Route::delete('/comment/delete/{commentId}', [App\Http\Controllers\PostController::class, 'deleteComment'])->name('comment.delete');
+
 
 Route::post('/comments', [App\Http\Controllers\PostController::class, 'postComment'])->name('comments.post');
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
 
 Route::put('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+
+Route::get('/rapport', [App\Http\Controllers\OtherController::class, 'index'])->name('other.rapport');
+Route::post('/rapport/post', [App\Http\Controllers\OtherController::class, 'rapportStore'])->name('other.rapport');
+
+Route::get('/contribute', [App\Http\Controllers\OtherController::class, 'contribute'])->name('other.contribute');
+
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+Route::match(['PUT', 'POST'], '/admin/update/user/{userId}', [App\Http\Controllers\UserController::class, 'adminUserUpdate'])->name('admin.users.update');
+
+
+
+
 
 

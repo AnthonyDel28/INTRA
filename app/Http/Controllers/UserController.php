@@ -46,4 +46,26 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
     }
 
+    public function adminUserUpdate(Request $request, $userId)
+    {
+
+        $username = $request->input('username');
+        $firstName = $request->input('first_name');
+        $lastName = $request->input('last_name');
+        $email = $request->input('email');
+        $roleId = $request->input('role');
+
+        DB::table('users')
+            ->where('id', $userId)
+            ->update([
+                'username' => $username,
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email,
+                'role_id' => $roleId
+            ]);
+
+        return redirect()->back()->with('success_user_update', 'Profil mis à jour avec succès.');
+    }
+
 }

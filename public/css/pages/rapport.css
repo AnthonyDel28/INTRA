@@ -1,0 +1,45 @@
+/* CSS PAGE FOR THE RAPPORT/BUG PAGE */
+
+.main_title {
+    color: white;
+}
+
+.form_rapport_container {
+    background-color: rgba(0, 0, 0, 0.21);
+    border-radius: 25px;
+}
+
+.rapport_container {
+    margin-top: 25px;
+}
+
+.rapport_form label {
+    color: #00A3FF;
+}
+
+.rapport_form input,
+.rapport_form textarea {
+    background-color: rgba(250, 250, 250, 0.96);
+    resize: none;
+    color: black;
+}
+
+.rapport_form input:focus,
+.rapport_form textarea:focus {
+    background-color: rgba(0, 0, 0, 0.38);
+    color: white;
+}
+
+.rapport_btn {
+    background-color: rgba(29, 41, 60, 0.56);
+    border: none;
+    color: white;
+    padding: 5px 25px 5px 25px;
+    border-radius: 25px;
+    width: 100%;
+}
+
+.rapport_btn:hover {
+    background-color: rgba(183, 180, 180, 0.17);
+    color: #00A3FF;
+}

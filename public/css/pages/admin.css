@@ -1,0 +1,23 @@
+/* CSS FOR THE ADMINISTRATION PAGE */
+
+.main_title {
+    color: white;
+}
+
+.section_main_title {
+    color: #00A3FF;
+}
+
+table {
+    border-radius: 30px;
+}
+
+.post_img {
+    border-radius: 50%;
+}
+
+.report-row:hover,
+.comment-row:hover,
+.post-row:hover{
+    cursor: pointer;
+}

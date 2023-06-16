@@ -44,6 +44,13 @@
     cursor: pointer;
 }
 
+#menu_item_admin {
+    color: #3cab3c;
+}
+
+#menu_item_admin:hover {
+    color: #247124;
+}
 
 .menu_item span {
     margin-left: 35px;
@@ -263,17 +270,17 @@
     height: 375px;
 }
 
-.form-group label {
-    color: white;
+.new_post_form label {
+    color: #00A3FF;
 }
 
 .form input,
 .new_post_message,
 .new_post_code {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(250, 250, 250, 0.96);
     border: 1px solid #00A3FF;
     resize: none;
-    color: white;
+    color: black;
 }
 
 .form input:focus,
