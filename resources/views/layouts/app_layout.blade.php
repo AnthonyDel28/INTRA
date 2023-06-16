@@ -68,8 +68,13 @@
                             <div class="menu_item">
                                 <i class="fa-solid fa-user-group"></i> <span>Amis</span>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToNetwork()">
                                 <i class="fa-solid fa-network-wired"></i> <span>Network</span>
+                                <script>
+                                    function redirectToNetwork() {
+                                        window.location.href = "/network";
+                                    }
+                                </script>
                             </div>
                             <div class="menu_item">
                                 <i class="fa-solid fa-messages"></i> <span>Messages</span>
@@ -102,8 +107,13 @@
                         </div>
                         <div class="menu_section mt-5">
                             <p class="menu_title"><b>Compte</b></p>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToSuccess()">
                                 <i class="fa-solid fa-trophy-star"></i> <span>Succès</span>
+                                <script>
+                                    function redirectToSuccess() {
+                                        window.location.href = "/success";
+                                    }
+                                </script>
                             </div>
                             <div class="menu_item" onclick="redirectToProfile()">
                                 <i class="fa-solid fa-square-user"></i> <span>Profil</span>

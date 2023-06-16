@@ -47,6 +47,9 @@ Route::get('/contribute', [App\Http\Controllers\OtherController::class, 'contrib
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
 Route::match(['PUT', 'POST'], '/admin/update/user/{userId}', [App\Http\Controllers\UserController::class, 'adminUserUpdate'])->name('admin.users.update');
 
+Route::get('/success', [App\Http\Controllers\OtherController::class, 'success'])->name('show.badges');
+
+Route::get('/network', [App\Http\Controllers\SocialController::class, 'network'])->name('show.network');
 
 
 

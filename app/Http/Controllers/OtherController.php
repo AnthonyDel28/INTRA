@@ -38,4 +38,11 @@ class OtherController extends Controller
 
         return view('other.contribute', ['contents' => $contents]);
     }
+
+    public function success(Request $request)
+    {
+        $badges = DB::table('badges')->get();
+
+        return view('other.success', ['badges' => $badges]);
+    }
 }

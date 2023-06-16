@@ -36,11 +36,11 @@
                                     <div class="col-7">
                                         <h5 class="section_title">Code</h5>
                                         <div class="message_area p-5">
-                           <pre class="code_area">
-                               <code class="language-{{ $post->language }}" id="code_insert">
-                                   {!! str_replace(['{', '}'], '{', htmlspecialchars($post->code, ENT_QUOTES, 'UTF-8')) !!}
-                               </code>
-                           </pre>
+                                       <pre class="code_area">
+                                           <code class="language-{{ $post->language }}" id="code_insert">
+                                               {!! str_replace(['{', '}'], '{', htmlspecialchars($post->code, ENT_QUOTES, 'UTF-8')) !!}
+                                           </code>
+                                       </pre>
                                         </div>
                                     </div>
                                 @endif

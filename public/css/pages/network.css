@@ -1,0 +1,35 @@
+/* CSS FILE FOR THE NETWORK PAGE */
+
+.main_title {
+    color: white;
+}
+
+.badge-item {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 25px;
+    padding-left: 25px;
+}
+
+.badge-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.badge-details {
+    color: white;
+}
+
+.badge-details span {
+    font-weight: lighter;
+}
+
+.badge-details h3 {
+    margin-bottom: 5px;
+}
+
+.badge-actions {
+    margin-right: 20px;
+}
+
