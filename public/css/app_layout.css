@@ -52,6 +52,20 @@
     color: #247124;
 }
 
+.notification-badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #0496e6;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+
+
 .menu_item span {
     margin-left: 35px;
     position: absolute;

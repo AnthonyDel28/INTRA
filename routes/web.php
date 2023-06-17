@@ -51,6 +51,8 @@ Route::get('/success', [App\Http\Controllers\OtherController::class, 'success'])
 
 Route::get('/network', [App\Http\Controllers\SocialController::class, 'network'])->name('show.network');
 
+Route::post('/add-friend',  [App\Http\Controllers\SocialController::class, 'addFriend'])->name('add.friend');
+
 
 
 

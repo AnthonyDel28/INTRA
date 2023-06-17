@@ -8,7 +8,6 @@
         <div class="container-fluid rapport_container">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <!-- Afficher l'utilisateur connecté en premier -->
                     <div class="badge-item">
                         <div class="row mt-2">
                             <div class="col-auto d-flex align-items-center">
@@ -22,8 +21,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Afficher les autres utilisateurs -->
                     @foreach($users->take(6) as $user)
                         @if($user->id !== Auth::user()->id)
                             <div class="badge-item">
@@ -38,7 +35,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto d-flex align-items-center badge-actions">
-                                        <a href="" class="btn btn-success mx-2 btn-circle" title="Ajouter en ami">
+                                        <a href="" class="btn btn-success mx-2 btn-circle add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
                                             <i class="fa-solid fa-user-plus"></i> Ajouter
                                         </a>
                                         <a href="" class="btn btn-success btn-circle" title="Envoyer un message">
@@ -82,3 +79,30 @@
         </div>
     </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.add-friend-btn').on('click', function(e) {
+            e.preventDefault();
+
+            var userId = $(this).data('id');
+
+            $.ajax({
+                url: '/add-friend',
+                method: 'POST',
+                data: {
+                    userId: userId,
+                    _token: '{{ csrf_token() }}'}
+                ,
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+

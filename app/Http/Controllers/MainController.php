@@ -11,7 +11,6 @@ class MainController extends Controller
     public function sections()
     {
         $user = Auth::user();
-        $sections = DB::table('sections')->get();
         $posts = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.author')
             ->leftJoin('likes', function ($join) use ($user) {
@@ -38,51 +37,13 @@ class MainController extends Controller
             ->latest('posts.created_at')
             ->limit(4)
             ->get();
-
-        $languages = [
-            'Bash',
-            'C',
-            'C#',
-            'C++',
-            'CSS',
-            'Diff',
-            'Go',
-            'GraphQL',
-            'HTML',
-            'XML',
-            'JSON',
-            'Java',
-            'JavaScript',
-            'Kotlin',
-            'Less',
-            'Lua',
-            'Makefile',
-            'Markdown',
-            'Objective-C',
-            'PHP',
-            'PHP Template',
-            'Perl',
-            'Plain text',
-            'Python',
-            'Python REPL',
-            'R',
-            'Ruby',
-            'Rust',
-            'SCSS',
-            'SQL',
-            'Shell',
-            'Session',
-            'Swift',
-            'TOML',
-            'INI',
-            'TypeScript',
-            'Visual Basic .NET',
-            'WebAssembly',
-            'YAML',
-        ];
+        $notificationsCount = DB::table('notifications')
+            ->where('read', 0)
+            ->where('user_id', $user->id)
+            ->count();
 
 
-        return view('home', compact('sections', 'posts', 'languages'));
+        return view('home', compact('posts', 'notificationsCount'));
     }
 
 }

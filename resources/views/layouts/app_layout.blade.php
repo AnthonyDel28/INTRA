@@ -80,7 +80,12 @@
                                 <i class="fa-solid fa-messages"></i> <span>Messages</span>
                             </div>
                             <div class="menu_item">
-                                <i class="fa-solid fa-bell"></i> <span>Notifications</span>
+                                <i class="fa-solid fa-bell"></i>
+                                <span>Notifications
+                                    @if($notificationsCount)
+                                        <div class="notification-badge">{{ $notificationsCount }}</div>
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="menu_section mt-5">
