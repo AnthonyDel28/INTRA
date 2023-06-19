@@ -122,47 +122,23 @@
                     <button type="submit" class="search_bar_button">Rechercher</button>
                 </form>
             </div>
-            <div class="row mt-5 ">
+            <div class="row mt-5">
                 <div class="col-10 mb-3">
                     <h4 class="home_title">Amis</h4>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Stefan Toader <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
+                    @foreach($friends as $friend)
+                        <div class="d-flex align-items-center mt-3">
+                            <img src="{{ asset('storage/images/users/profile/' . $friend->image) }}" alt="" class="profile-picture" style="object-fit: cover;">
+                            <div class="ms-2 friends_name">{{ $friend->last_name }} {{ $friend->first_name }} <i class="fa-solid fa-circle"></i></div>
+                            <div class="ms-auto friends_icons">
+                                <i class="fa-solid fa-user"></i>
+                                <i class="fa-solid fa-phone-alt"></i>
+                                <i class="fa-solid fa-message"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Eva Maudoux <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Pierre Hardy <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mt-3">
-                        <img src="{{ asset('images/users/profile/default.jpg') }}" alt="" class="profile-picture">
-                        <div class="ms-2 friends_name">Sylvain Piefort <i class="fa-solid fa-circle"></i></div>
-                        <div class="ms-auto friends_icons">
-                            <i class="fa-solid fa-user"></i>
-                            <i class="fa-solid fa-phone-alt"></i>
-                            <i class="fa-solid fa-message"></i>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+
             <div class="row mt-5">
                 <div class="col-10">
                     <h4 class="home_title">Calendrier</h4>

@@ -123,21 +123,21 @@
 
                                             <div class="row">
                                                 <div class="form-group col-6">
-                                                    <label for="last_name">Nom</label>
-                                                    <input id="last_name" type="text" class="login_field @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name">
-                                                    @error('last_name')
-                                                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group col-6">
                                                     <label for="first_name">Prénom</label>
                                                     <input id="first_name" type="text" class="login_field @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name">
                                                     @error('first_name')
                                                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label for="last_name">Nom</label>
+                                                    <input id="last_name" type="text" class="login_field @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name">
+                                                    @error('last_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -148,8 +148,8 @@
                                                     <input id="email" type="email" class="login_field @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                                     @error('email')
                                                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -160,8 +160,8 @@
                                                     <input id="password" type="password" class="login_field @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                                     @error('password')
                                                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
 

@@ -59,8 +59,13 @@
                                 }
                             </script>
 
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToAbout()">
                                 <i class="fa-solid fa-bolt-lightning"></i> <span>Fonctionnement</span>
+                                <script>
+                                    function redirectToAbout() {
+                                        window.location.href = "/about";
+                                    }
+                                </script>
                             </div>
                             <div class="menu_item">
                                 <i class="fa-solid fa-newspaper"></i> <span>Actualités</span>
@@ -79,8 +84,13 @@
                             <div class="menu_item">
                                 <i class="fa-solid fa-messages"></i> <span>Messages</span>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToNotifications()">
                                 <i class="fa-solid fa-bell"></i>
+                                <script>
+                                    function redirectToNotifications() {
+                                        window.location.href = "/notifications";
+                                    }
+                                </script>
                                 <span>Notifications
                                     @if($notificationsCount)
                                         <div class="notification-badge">{{ $notificationsCount }}</div>

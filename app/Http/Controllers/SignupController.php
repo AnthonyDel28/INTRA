@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\UserRegisteredNotification;
 
 class SignupController extends Controller
 {
@@ -21,7 +22,7 @@ class SignupController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'username' =>  explode('@', $validatedData['email'])[0],
+            'username' =>  '@' . $validatedData['last_name'] . $validatedData['first_name'],
             'role_id' => 3,
             'is_active' => 1,
             'experience' => 0,
@@ -33,7 +34,7 @@ class SignupController extends Controller
         ]);
 
         auth()->login($user);
-
+        $user->notify(new UserRegisteredNotification($user));
         return redirect()->route('home');
     }
 }

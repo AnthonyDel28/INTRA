@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,15 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
+            $user = Auth::check() ? Auth::user() : null;
+            $notificationsCount = 0;
+
+            if ($user) {
+                $notificationsCount = DB::table('notifications')
+                    ->where('read', 0)
+                    ->where('user_id', $user->id)
+                    ->count();
+            }
             $sections = DB::table('sections')->get();
             $languages = [
                 'Bash',
@@ -54,7 +64,9 @@ class ViewComposerServiceProvider extends ServiceProvider
             ];
 
             $view->with('sections', $sections)
-                ->with('languages', $languages);
+                ->with('languages', $languages)
+                ->with('notificationsCount', $notificationsCount);
         });
+        View::composer('*', SuccessComposer::class);
     }
 }

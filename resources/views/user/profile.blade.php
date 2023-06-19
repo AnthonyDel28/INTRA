@@ -21,6 +21,11 @@
                         <div class="range__label">Progress</div>
                     </div>
                     <span class="user_experience p-3"><b>{{ $user->experience }}xp / 100xp</b></span>
+                    <div class="text-right">
+                        @foreach($badges as $badge)
+                            <img src="{{ asset('images/success/' . $badge->image) }}" alt="{{ $badge->badge }}" class="badge_img" title="{{ $badge->badge }}">
+                        @endforeach
+                    </div>
                 </div>
             </div>
             <hr>

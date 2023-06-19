@@ -16,7 +16,13 @@ class UserController extends Controller
             ->select('users.*', 'roles.name as role')
             ->first();
 
-        return view('user.profile', compact('user'));
+        $badges = DB::table('users_badges')
+            ->join('badges', 'users_badges.badge_id', '=', 'badges.id')
+            ->where('users_badges.user_id', $userId)
+            ->select('badges.*')
+            ->get();
+
+        return view('user.profile', compact('user', 'badges'));
     }
 
 

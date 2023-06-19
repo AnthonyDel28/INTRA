@@ -1,0 +1,9 @@
+/* CSS FILE FOR THE ABOUT PAGE */
+
+.about_header {
+    background-image: url("/images/assets/about_header.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 35px;
+    height: 200px;
+}

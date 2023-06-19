@@ -1,0 +1,25 @@
+/* CSS FILE FOR THE NOTIFICATIONS PAGE */
+
+.main_title {
+    color: white;
+}
+
+.badge-item {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 25px;
+    padding-left: 25px;
+}
+
+.badge-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.badge-details {
+    color: white;
+}
+
+.badge-details p {
+    font-weight: lighter;
+}

@@ -52,7 +52,14 @@ Route::get('/success', [App\Http\Controllers\OtherController::class, 'success'])
 Route::get('/network', [App\Http\Controllers\SocialController::class, 'network'])->name('show.network');
 
 Route::post('/add-friend',  [App\Http\Controllers\SocialController::class, 'addFriend'])->name('add.friend');
+Route::post('/accept-friendship', [App\Http\Controllers\SocialController::class, 'acceptFriendship'])->name('friendship.accept');
+Route::post('/decline-friendship', [App\Http\Controllers\SocialController::class, 'declineFriendship'])->name('friendship.reject');
 
+
+
+Route::get('/notifications', [App\Http\Controllers\MainController::class, 'notifications'])->name('show.notifications');
+
+Route::get('/about', [App\Http\Controllers\MainController::class, 'about'])->name('show.about');
 
 
 

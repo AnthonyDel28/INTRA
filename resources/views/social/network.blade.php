@@ -35,10 +35,35 @@
                                         </div>
                                     </div>
                                     <div class="col-auto d-flex align-items-center badge-actions">
-                                        <a href="" class="btn btn-success mx-2 btn-circle add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
-                                            <i class="fa-solid fa-user-plus"></i> Ajouter
-                                        </a>
-                                        <a href="" class="btn btn-success btn-circle" title="Envoyer un message">
+                                        @php
+                                            $friendship = DB::table('friendships')
+                                                ->where(function ($query) use ($user) {
+                                                    $query->where('user_id', Auth::user()->id)
+                                                        ->where('friend_id', $user->id);
+                                                })
+                                                ->orWhere(function ($query) use ($user) {
+                                                    $query->where('user_id', $user->id)
+                                                        ->where('friend_id', Auth::user()->id);
+                                                })
+                                                ->first();
+                                        @endphp
+                                        @if($friendship && $friendship->confirm == 0)
+                                            <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
+                                                <i class="fa-solid fa-user-plus"></i>
+                                                <span class="btn-text">En attente</span>
+                                            </button>
+                                        @elseif($friendship)
+                                            <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
+                                                <i class="fa-solid fa-user-check"></i>
+                                                <span class="btn-text"> Ami</span>
+                                            </button>
+                                        @else
+                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
+                                                <i class="fa-solid fa-user-plus"></i>
+                                                <span class="btn-text">Ajouter</span>
+                                            </button>
+                                        @endif
+                                        <a href="#" class="btn btn-success btn-circle" title="Envoyer un message">
                                             <i class="fa-solid fa-envelope"></i> Contacter
                                         </a>
                                     </div>
@@ -59,15 +84,40 @@
                                     <div class="col">
                                         <div class="badge-details">
                                             <h3>{{ $user->username }}</h3>
-                                            <p>{{ $user->last_name }} {{ $user->first_name }}</p>
+                                            <span>{{ $user->last_name }} {{ $user->first_name }}</span>
                                         </div>
                                     </div>
-                                    <div class="col-auto d-flex align-items-center">
-                                        <a href="" class="btn btn-success mx-2 btn-circle" title="Ajouter en ami">
-                                            <i class="fa-solid fa-user-plus"></i>
-                                        </a>
-                                        <a href="" class="btn btn-primary btn-circle" title="Envoyer un message">
-                                            <i class="fa-solid fa-envelope"></i>
+                                    <div class="col-auto d-flex align-items-center badge-actions">
+                                        @php
+                                            $friendship = DB::table('friendships')
+                                                ->where(function ($query) use ($user) {
+                                                    $query->where('user_id', Auth::user()->id)
+                                                        ->where('friend_id', $user->id);
+                                                })
+                                                ->orWhere(function ($query) use ($user) {
+                                                    $query->where('user_id', $user->id)
+                                                        ->where('friend_id', Auth::user()->id);
+                                                })
+                                                ->first();
+                                        @endphp
+                                        @if($friendship && $friendship->confirm == 0)
+                                            <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
+                                                <i class="fa-solid fa-user-plus"></i>
+                                                <span class="btn-text">En attente</span>
+                                            </button>
+                                        @elseif($friendship)
+                                            <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
+                                                <i class="fa-solid fa-user-check"></i>
+                                                <span class="btn-text"> Ami</span>
+                                            </button>
+                                        @else
+                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
+                                                <i class="fa-solid fa-user-plus"></i>
+                                                <span class="btn-text">Ajouter</span>
+                                            </button>
+                                        @endif
+                                        <a href="#" class="btn btn-success btn-circle" title="Envoyer un message">
+                                            <i class="fa-solid fa-envelope"></i> Contacter
                                         </a>
                                     </div>
                                 </div>
@@ -83,26 +133,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+
+        $('.btn-waiting').addClass('btn-primary');
+
         $('.add-friend-btn').on('click', function(e) {
             e.preventDefault();
 
-            var userId = $(this).data('id');
+            var button = $(this);
+            var userId = button.data('id');
 
-            $.ajax({
-                url: '/add-friend',
-                method: 'POST',
-                data: {
-                    userId: userId,
-                    _token: '{{ csrf_token() }}'}
-                ,
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
+            if (button.find('.btn-text').text() === 'Ajouter') {
+                $.ajax({
+                    url: '/add-friend',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        button.find('.btn-text').text('En attente');
+                        button.addClass('btn-primary').removeClass('btn-success');
+                        button.prop('disabled', true);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else if (button.find('.btn-text').text() === 'En attente') {
+                $.ajax({
+                    url: '/remove-friend',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        button.find('.btn-text').text('Ajouter');
+                        button.removeClass('btn-primary').addClass('btn-success');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
         });
     });
 </script>
-
