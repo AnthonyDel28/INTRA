@@ -7,7 +7,7 @@
             <div class="row profile_page_infos @if($user->role_id == 1) background-image-role1 @elseif($user->role_id == 3) background-image-role3 @endif">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
-                        <img src="{{ asset('storage/images/users/profile/' . $user->image) }}" alt="" class="profile_picture" id="profileImage">
+                        <img src="{{ asset('storage/images/users/profile/' . $user->avatar) }}" alt="" class="profile_picture" id="profileImage">
                     </div>
                 </div>
                 <div class="col-10 col-lg-10 col-sm-auto">

@@ -56,7 +56,7 @@ class UserController extends Controller
                 'posts.section_id',
                 'posts.language',
                 'users.*',
-                'users.image as author_image',
+                'users.avatar as author_image',
                 'posts.created_at as post_created_at',
                 DB::raw('(SELECT COUNT(*) FROM likes WHERE post_id = posts.id) as likes'),
                 DB::raw('(CASE WHEN likes.user_id = '.$loggedInUserId.' THEN 1 ELSE 0 END) as isLiked')
@@ -88,7 +88,7 @@ class UserController extends Controller
             $image = $request->file('image');
             $imageName = $userId . '.jpg';
             $image->storeAs('public/images/users/profile', $imageName);
-            $user->image = $imageName;
+            $user->avatar = $imageName;
         }
 
         $user->save();

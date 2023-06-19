@@ -27,7 +27,7 @@ class SignupController extends Controller
             'is_active' => 1,
             'experience' => 0,
             'level' => 0,
-            'image' => 'default.jpg',
+            'avatar' => 'default.jpg',
             'created_at' => now(),
             'updated_at' => now(),
             'gender' => '/',

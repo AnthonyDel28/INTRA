@@ -7,7 +7,7 @@
             <div class="row profile_page_infos @if($user->role_id == 1) background-image-role1 @elseif($user->role_id == 3) background-image-role3 @endif">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
-                        <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image) }}" alt="" class="profile_picture" id="profileImage">
+                        <img src="{{ asset('storage/images/users/profile/' . Auth::user()->avatar) }}" alt="" class="profile_picture" id="profileImage">
                         <div class="profile_picture-overlay" id="profileOverlay">
                             <i class="fas fa-camera"></i>
                         </div>
@@ -15,7 +15,9 @@
                 </div>
                 <div class="col-10 col-lg-10 col-sm-auto">
                     <p class="text-right user_role">{{ $user->role }}</p>
-                    <h1 class="profile_main_title">{{ $user->last_name }} {{ $user->first_name }}</h1>
+                    <h1 class="profile_main_title mb-0"> {{ $user->first_name }} {{ $user->last_name }}</h1>
+                    <span class="username text-light">{{ $user->name }}</span><br>
+                    <br>
                     <span class="user_level"><b>Niveau {{ $user->level }}</b></span>
                     <div class="range mt-2" style="--p:{{ $user->experience }}">
                         <div class="range__label">Progress</div>

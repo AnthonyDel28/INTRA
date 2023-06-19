@@ -18,7 +18,6 @@ class AddMissingColumnsToUsersTable extends Migration
             $table->integer('experience')->after('level');
             $table->integer('status')->after('experience');
             $table->string('gender')->after('status');
-            $table->string('image')->after('gender');
             $table->unsignedBigInteger('role_id')->after('image');
             $table->integer('is_active')->after('role_id');
 

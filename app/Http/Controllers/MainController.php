@@ -29,7 +29,7 @@ class MainController extends Controller
                 'posts.section_id',
                 'posts.language',
                 'users.*',
-                'users.image as author_image',
+                'users.avatar as author_image',
                 'posts.created_at as post_created_at',
                 DB::raw('(SELECT COUNT(*) FROM likes WHERE post_id = posts.id) as likes'),
                 DB::raw('(SELECT likes.id FROM likes WHERE post_id = posts.id AND user_id = '.$user->id.') as isLiked')

@@ -19,7 +19,7 @@ class MessagesController extends Controller
 {
     protected $perPage = 30;
 
-     /**
+    /**
      * Authinticate the connection for pusher
      *
      * @param Request $request
@@ -212,15 +212,15 @@ class MessagesController extends Controller
             $join->on('ch_messages.from_id', '=', 'users.id')
                 ->orOn('ch_messages.to_id', '=', 'users.id');
         })
-        ->where(function ($q) {
-            $q->where('ch_messages.from_id', Auth::user()->id)
-            ->orWhere('ch_messages.to_id', Auth::user()->id);
-        })
-        ->where('users.id','!=',Auth::user()->id)
-        ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
-        ->orderBy('max_created_at', 'desc')
-        ->groupBy('users.id')
-        ->paginate($request->per_page ?? $this->perPage);
+            ->where(function ($q) {
+                $q->where('ch_messages.from_id', Auth::user()->id)
+                    ->orWhere('ch_messages.to_id', Auth::user()->id);
+            })
+            ->where('users.id','!=',Auth::user()->id)
+            ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
+            ->orderBy('max_created_at', 'desc')
+            ->groupBy('users.id')
+            ->paginate($request->per_page ?? $this->perPage);
 
         return response()->json([
             'contacts' => $users->items(),
@@ -276,8 +276,8 @@ class MessagesController extends Controller
     {
         $input = trim(filter_var($request['input']));
         $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->paginate($request->per_page ?? $this->perPage);
+            ->where('name', 'LIKE', "%{$input}%")
+            ->paginate($request->per_page ?? $this->perPage);
 
         foreach ($records->items() as $index => $record) {
             $records[$index] += Chatify::getUserWithAvatar($record);

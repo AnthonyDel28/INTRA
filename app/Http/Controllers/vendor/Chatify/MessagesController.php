@@ -69,6 +69,7 @@ class MessagesController extends Controller
     {
         $favorite = Chatify::inFavorite($request['id']);
         $fetch = User::where('id', $request['id'])->first();
+        $user = User::where('id', $request['id'])->first();
         if($fetch){
             $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
         }
@@ -76,6 +77,7 @@ class MessagesController extends Controller
             'favorite' => $favorite,
             'fetch' => $fetch ?? null,
             'user_avatar' => $userAvatar ?? null,
+            'user' => $user
         ]);
     }
 
@@ -233,15 +235,15 @@ class MessagesController extends Controller
             $join->on('ch_messages.from_id', '=', 'users.id')
                 ->orOn('ch_messages.to_id', '=', 'users.id');
         })
-        ->where(function ($q) {
-            $q->where('ch_messages.from_id', Auth::user()->id)
-            ->orWhere('ch_messages.to_id', Auth::user()->id);
-        })
-        ->where('users.id','!=',Auth::user()->id)
-        ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
-        ->orderBy('max_created_at', 'desc')
-        ->groupBy('users.id')
-        ->paginate($request->per_page ?? $this->perPage);
+            ->where(function ($q) {
+                $q->where('ch_messages.from_id', Auth::user()->id)
+                    ->orWhere('ch_messages.to_id', Auth::user()->id);
+            })
+            ->where('users.id','!=',Auth::user()->id)
+            ->select('users.*',DB::raw('MAX(ch_messages.created_at) max_created_at'))
+            ->orderBy('max_created_at', 'desc')
+            ->groupBy('users.id')
+            ->paginate($request->per_page ?? $this->perPage);
 
         $usersList = $users->items();
 
@@ -340,8 +342,8 @@ class MessagesController extends Controller
         $getRecords = null;
         $input = trim(filter_var($request['input']));
         $records = User::where('id','!=',Auth::user()->id)
-                    ->where('name', 'LIKE', "%{$input}%")
-                    ->paginate($request->per_page ?? $this->perPage);
+            ->where('name', 'LIKE', "%{$input}%")
+            ->paginate($request->per_page ?? $this->perPage);
         foreach ($records->items() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',

@@ -11,7 +11,7 @@
                     <div class="badge-item">
                         <div class="row mt-2">
                             <div class="col-auto d-flex align-items-center">
-                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image ) }}" alt="{{ Auth::user()->name }}" class="badge-image">
+                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->avatar ) }}" alt="{{ Auth::user()->name }}" class="badge-image">
                             </div>
                             <div class="col">
                                 <div class="badge-details">
@@ -26,7 +26,7 @@
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->name }}" class="badge-image">
+                                        <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">
@@ -79,7 +79,7 @@
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->name }}" class="badge-image">
+                                        <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">

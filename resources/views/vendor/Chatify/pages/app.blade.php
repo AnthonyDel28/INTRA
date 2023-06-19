@@ -1,6 +1,4 @@
-
-
-    @include('Chatify::layouts.headLinks')
+@include('Chatify::layouts.headLinks')
 
     <div class="messenger" style="z-index: 100000;">
         {{-- ----------------------Users/Groups lists side---------------------- --}}

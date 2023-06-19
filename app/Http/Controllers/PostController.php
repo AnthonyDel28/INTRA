@@ -32,7 +32,7 @@ class PostController extends Controller
         $post = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.author')
             ->join('sections', 'sections.id', '=', 'posts.section_id')
-            ->select('posts.*', 'posts.id as post_id', 'users.*', 'users.image as author_image', 'posts.created_at as post_created_at', 'sections.name as section_name')
+            ->select('posts.*', 'posts.id as post_id', 'users.*', 'users.avatar as author_image', 'posts.created_at as post_created_at', 'sections.name as section_name')
             ->where('posts.id', $id)
             ->first();
 
@@ -45,7 +45,7 @@ class PostController extends Controller
         $comments = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.author')
             ->where('comments.post_id', $id)
-            ->select('comments.*', 'users.first_name', 'users.last_name', 'users.image as user_image')
+            ->select('comments.*', 'users.first_name', 'users.last_name', 'users.avatar as user_image')
             ->get();
 
 

@@ -127,7 +127,7 @@
                     <h4 class="home_title">Amis</h4>
                     @foreach($friends as $friend)
                         <div class="d-flex align-items-center mt-3">
-                            <img src="{{ asset('storage/images/users/profile/' . $friend->image) }}" alt="" class="profile-picture" style="object-fit: cover;">
+                            <img src="{{ asset('storage/images/users/profile/' . $friend->avatar) }}" alt="" class="profile-picture" style="object-fit: cover;">
                             <div class="ms-2 friends_name">{{ $friend->last_name }} {{ $friend->first_name }} <i class="fa-solid fa-circle"></i></div>
                             <div class="ms-auto friends_icons">
                                 <a href="{{ route('user.show', ['user' => $friend->id]) }}">

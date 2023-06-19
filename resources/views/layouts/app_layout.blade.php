@@ -190,9 +190,9 @@
                                     <div class="row justify-content-end">
                                         <div class="col-auto">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image) }}" alt="" class="profile-picture" style="object-fit: cover;">
+                                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->avatar) }}" alt="" class="profile-picture" style="object-fit: cover;">
                                                 <div class="ms-2">
-                                                    <div class="profile_name">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</div>
+                                                    <div class="profile_name"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
                                                     <div class="status">
                                                         <i class="fa-solid fa-circle"></i>
                                                         En ligne
