@@ -31,7 +31,7 @@
                     <span class="activeStatus"></span>
                 @endif
                 <div class="avatar av-m"
-                     style="background-image: url('{{ $user->avatar }}');">
+                     style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
                 </div>
             </td>
             {{-- center side --}}
