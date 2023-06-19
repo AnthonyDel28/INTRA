@@ -7,7 +7,7 @@
         <div class="col-9 home_left_div p-4">
             <div class="row">
                 <h2 class="home_title">
-                    Bienvenue <b>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</b> ! <i class="fa-thin fa-robot"></i>
+                    Bienvenue <b> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</b> ! <i class="fa-thin fa-robot"></i>
                 </h2>
             </div>
             <div class="row">
@@ -20,7 +20,7 @@
             </div>
             <div class="row">
                 @foreach ($posts as $post)
-                    <div class="col-5 home_post m-3">
+                    <div class="col-5 home_post m-2">
                         <div class="row m-4">
                             <div class="col-2">
                                 <img src="{{ asset('storage/images/users/profile/' . $post->author_image) }}" alt="" class="post_img" style="object-fit: cover;">
@@ -49,11 +49,11 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="row mt-3 justify-content-center">
+                        <div class="row mt-2 justify-content-center">
                             @if ($post->code)
-                                <div class="col-10 post_message_area" style="height: 85px; overflow: hidden;">
+                                <div class="col-10 post_message_area" style="height: 80px; overflow: hidden;">
                                     <span class="text-center">
-                                        {!! nl2br(e(Str::limit($post->message, $limit = 150, $end = '...'))) !!}
+                                        {!! nl2br(e(Str::limit($post->message, $limit = 100, $end = '...'))) !!}
                                     </span>
                                 </div>
                             @else
@@ -73,7 +73,7 @@
                             });
                         </script>
                         @if ($post->code)
-                            <div class="row mt-3 justify-content-center">
+                            <div class="row mt-2 justify-content-center">
                                 <div class="col-10 post_message_area">
                                     <pre>
                                         <code class="language-{{ $post->language }}" id="code_insert">
@@ -85,7 +85,7 @@
                         @endif
                         <div class="row justify-content-center mt-4">
                             <div class="col-10 post_actions">
-                                <div class="row">
+                                <div class="row mb-5">
                                     <div class="col-6 text-center">
                                          <span class="like_button" id="likeButton_{{ $post->post_id }}" data-postid="{{ $post->post_id }}">
                                                 @if ($post->isLiked)
@@ -130,7 +130,9 @@
                             <img src="{{ asset('storage/images/users/profile/' . $friend->image) }}" alt="" class="profile-picture" style="object-fit: cover;">
                             <div class="ms-2 friends_name">{{ $friend->last_name }} {{ $friend->first_name }} <i class="fa-solid fa-circle"></i></div>
                             <div class="ms-auto friends_icons">
-                                <i class="fa-solid fa-user"></i>
+                                <a href="{{ route('user.show', ['user' => $friend->id]) }}">
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
                                 <i class="fa-solid fa-phone-alt"></i>
                                 <i class="fa-solid fa-message"></i>
                             </div>

@@ -163,7 +163,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="row mt-5 justify-content-center text-center">
+                    <div class="row justify-content-center text-center">
                         <span class="version">Version 1.0.1</span>
                     </div>
                 </div>
@@ -302,6 +302,19 @@
                 <div class="row justify-content-center">
                     <img src="{{ asset('images/gifs/success.svg') }}" alt="" class="success_image">
                     <h4 class="success_title text-center mt-2">Contenu publié avec succès</h4>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if(session()->has('success_delete'))
+        <div class="success_div" id="success_div">
+            <div class="success_message">
+                <div class="row justify-content-end">
+                    <i class="fa-solid fa-circle-xmark text-right" v-on:click="closeSuccess()"></i>
+                </div>
+                <div class="row justify-content-center">
+                    <img src="{{ asset('images/gifs/bin.svg') }}" alt="" class="success_image">
+                    <h4 class="success_title text-center mt-2">Votre contenu a été supprimé</h4>
                 </div>
             </div>
         </div>

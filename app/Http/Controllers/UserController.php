@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,6 +25,49 @@ class UserController extends Controller
 
         return view('user.profile', compact('user', 'badges'));
     }
+
+
+    public function userProfile(User $user)
+    {
+        $userId = $user->id;
+
+        $badges = DB::table('badges')
+            ->join('users_badges', 'badges.id', '=', 'users_badges.badge_id')
+            ->where('users_badges.user_id', $userId)
+            ->select('badges.*')
+            ->get();
+
+        $loggedInUserId = Auth::user()->id;
+        $posts = DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.author')
+            ->leftJoin('likes', function ($join) use ($loggedInUserId) {
+                $join->on('posts.id', '=', 'likes.post_id')
+                    ->where('likes.user_id', '=', $loggedInUserId);
+            })
+            ->select(
+                'posts.id as post_id',
+                'posts.title',
+                'posts.author',
+                'posts.message',
+                'posts.code',
+                'posts.created_at',
+                'posts.updated_at',
+                'posts.is_active',
+                'posts.section_id',
+                'posts.language',
+                'users.*',
+                'users.image as author_image',
+                'posts.created_at as post_created_at',
+                DB::raw('(SELECT COUNT(*) FROM likes WHERE post_id = posts.id) as likes'),
+                DB::raw('(CASE WHEN likes.user_id = '.$loggedInUserId.' THEN 1 ELSE 0 END) as isLiked')
+            )
+            ->where('posts.author', $user->id)
+            ->latest('posts.created_at')
+            ->get();
+
+        return view('user.show', compact('user', 'badges', 'posts'));
+    }
+
 
 
     public function update(Request $request)

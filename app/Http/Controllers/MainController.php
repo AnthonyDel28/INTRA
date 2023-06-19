@@ -52,7 +52,7 @@ class MainController extends Controller
         $user = Auth::user();
 
         $notifications = DB::table('notifications')
-            ->join('friendships', 'notifications.friendship', '=', 'friendships.id')
+            ->leftJoin('friendships', 'notifications.friendship', '=', 'friendships.id')
             ->where('notifications.user_id', $user->id)
             ->orderBy('notifications.created_at', 'desc')
             ->get();

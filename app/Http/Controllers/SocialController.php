@@ -51,7 +51,6 @@ class SocialController extends Controller
     {
         $friendshipId = $request->input('friendshipId');
 
-
         $friendship = DB::table('friendships')
             ->where('id', $friendshipId)
             ->first();
@@ -59,7 +58,6 @@ class SocialController extends Controller
         if (!$friendship) {
             return response()->json(['success' => false, 'message' => 'Friendship not found']);
         }
-
 
         $newFriendship = [
             'user_id' => $friendship->friend_id,
@@ -69,24 +67,38 @@ class SocialController extends Controller
             'updated_at' => now()
         ];
 
-
         $newFriendshipId = DB::table('friendships')->insertGetId($newFriendship);
 
         if (!$newFriendshipId) {
             return response()->json(['success' => false, 'message' => 'Failed to create new friendship']);
         }
 
-
         $updated = DB::table('friendships')
             ->where('id', $friendshipId)
             ->update(['confirm' => 1]);
 
         if ($updated) {
+            $notification = [
+                'author_id' => auth()->user()->id,
+                'user_id' => $friendship->user_id,
+                'message' => auth()->user()->first_name . ' ' . auth()->user()->last_name . ' a accepté votre invitation.',
+                'type' => 0,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+
+            $notificationId = DB::table('notifications')->insertGetId($notification);
+
+            if (!$notificationId) {
+                return response()->json(['success' => false, 'message' => 'Failed to create new notification']);
+            }
+
             return response()->json(['success' => true, 'message' => 'Friendship accepted']);
         }
 
         return response()->json(['success' => false, 'message' => 'Failed to update friendship']);
     }
+
 
 
     public function declineFriendship(Request $request)

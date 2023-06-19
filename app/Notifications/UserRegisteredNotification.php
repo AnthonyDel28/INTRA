@@ -27,7 +27,7 @@ class UserRegisteredNotification extends Notification
             ->subject('Bienvenue sur notre site')
             ->greeting('Bonjour ' . $this->user->first_name . '!')
             ->line('Merci de vous être inscrit sur notre site.')
-            ->action('Se connecter', url('/login'))
+            ->action('Se connecter', url('/'))
             ->line('Si vous avez des questions, n\'hésitez pas à nous contacter.')
             ->salutation('Cordialement');
     }

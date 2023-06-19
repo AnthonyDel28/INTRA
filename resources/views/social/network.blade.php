@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($users->take(6) as $user)
+                    @foreach($users->take(8) as $user)
                         @if($user->id !== Auth::user()->id)
                             <div class="badge-item">
                                 <div class="row mt-2">
@@ -50,7 +50,7 @@
                                         @if($friendship && $friendship->confirm == 0)
                                             <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
                                                 <i class="fa-solid fa-user-plus"></i>
-                                                <span class="btn-text">En attente</span>
+                                                <span class="btn-text"> En attente</span>
                                             </button>
                                         @elseif($friendship)
                                             <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
@@ -60,11 +60,11 @@
                                         @else
                                             <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
                                                 <i class="fa-solid fa-user-plus"></i>
-                                                <span class="btn-text">Ajouter</span>
+                                                <span class="btn-text"> Ajouter</span>
                                             </button>
                                         @endif
-                                        <a href="#" class="btn btn-success btn-circle" title="Envoyer un message">
-                                            <i class="fa-solid fa-envelope"></i> Contacter
+                                        <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-warning btn-circle" title="Voir le profil">
+                                            <i class="fa-solid fa-user"></i> Profil
                                         </a>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <!-- Afficher les autres utilisateurs -->
-                    @foreach($users->skip(6) as $user)
+                    @foreach($users->skip(8) as $user)
                         @if($user->id !== Auth::user()->id)
                             <div class="badge-item">
                                 <div class="row mt-2">
@@ -103,7 +103,7 @@
                                         @if($friendship && $friendship->confirm == 0)
                                             <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
                                                 <i class="fa-solid fa-user-plus"></i>
-                                                <span class="btn-text">En attente</span>
+                                                <span class="btn-text"> En attente</span>
                                             </button>
                                         @elseif($friendship)
                                             <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
@@ -113,11 +113,11 @@
                                         @else
                                             <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
                                                 <i class="fa-solid fa-user-plus"></i>
-                                                <span class="btn-text">Ajouter</span>
+                                                <span class="btn-text"> Ajouter</span>
                                             </button>
                                         @endif
-                                        <a href="#" class="btn btn-success btn-circle" title="Envoyer un message">
-                                            <i class="fa-solid fa-envelope"></i> Contacter
+                                        <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-warning btn-circle" title="Voir le profil">
+                                            <i class="fa-solid fa-user"></i> Profil
                                         </a>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@
             var button = $(this);
             var userId = button.data('id');
 
-            if (button.find('.btn-text').text() === 'Ajouter') {
+            if (button.find('.btn-text').text() === ' Ajouter') {
                 $.ajax({
                     url: '/add-friend',
                     method: 'POST',
@@ -152,7 +152,7 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        button.find('.btn-text').text('En attente');
+                        button.find('.btn-text').text(' En attente');
                         button.addClass('btn-primary').removeClass('btn-success');
                         button.prop('disabled', true);
                     },
@@ -160,7 +160,7 @@
                         console.error(error);
                     }
                 });
-            } else if (button.find('.btn-text').text() === 'En attente') {
+            } else if (button.find('.btn-text').text() === ' En attente') {
                 $.ajax({
                     url: '/remove-friend',
                     method: 'POST',
@@ -170,7 +170,7 @@
                     },
                     success: function(response) {
                         console.log(response);
-                        button.find('.btn-text').text('Ajouter');
+                        button.find('.btn-text').text(' Ajouter');
                         button.removeClass('btn-primary').addClass('btn-success');
                     },
                     error: function(xhr, status, error) {

@@ -45,4 +45,8 @@ class OtherController extends Controller
 
         return view('other.success', ['badges' => $badges]);
     }
+
+    public function error(){
+        return view('other.error');
+    }
 }

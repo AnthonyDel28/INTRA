@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <h1 class="main_title p-5"><i class="fa-solid fa-trophy"></i> Succès</h1>
+            <h1 class="main_title p-5"><i class="fa-solid fa-bell"></i>  Notifications</h1>
         </div>
         <div class="container-fluid rapport_container">
             <div class="row">
@@ -30,16 +30,18 @@
                                         <p>{{ Carbon::parse($notification->created_at)->format('d/m/Y H:i') }}</p>
                                     </div>
                                 </div>
-                                <div class="col-auto d-flex align-items-center">
-                                    @if ($notification->confirm != 1)
-                                        <a href="#" class="btn btn-success mx-2 btn-circle accept-friendship-btn" data-id="{{ $notification->friendship }}" title="Accepter l'amitié">
-                                            <i class="fa-solid fa-check"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger mx-2 btn-circle reject-friendship-btn" data-id="{{ $notification->friendship }}" title="Refuser l'amitié">
-                                            <i class="fa-solid fa-times"></i>
-                                        </a>
-                                    @endif
-                                </div>
+                                @if($notification->friendship)
+                                    <div class="col-auto d-flex align-items-center">
+                                        @if ($notification->confirm != 1)
+                                            <a href="#" class="btn btn-success mx-2 btn-circle accept-friendship-btn" data-id="{{ $notification->friendship }}" title="Accepter l'amitié">
+                                                <i class="fa-solid fa-check"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-danger mx-2 btn-circle reject-friendship-btn" data-id="{{ $notification->friendship }}" title="Refuser l'amitié">
+                                                <i class="fa-solid fa-times"></i>
+                                            </a>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -119,10 +121,8 @@
                 },
                 success: function(response) {
                     console.log(response);
-                    // Masquer les boutons accepter et refuser
                     button.hide();
                     button.siblings('.accept-friendship-btn').hide();
-                    // Ici, vous pouvez effectuer d'autres actions après avoir refusé l'amitié
                 },
                 error: function(xhr, status, error) {
                     console.error(error);

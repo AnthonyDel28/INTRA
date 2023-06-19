@@ -128,7 +128,7 @@ class PostController extends Controller
             DB::table('comments')->where('post_id', $postId)->delete();
             DB::table('posts')->where('id', $postId)->delete();
 
-            return response()->json(['message' => 'Post and associated comments deleted successfully']);
+            return redirect()->route('home')->with('success_delete', 'Votre contenu a été supprimé');
         } else {
             return response()->json(['message' => 'Post not found'], 404);
         }

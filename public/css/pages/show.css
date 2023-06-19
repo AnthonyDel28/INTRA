@@ -69,6 +69,22 @@
     padding: 5px 10px 5px 10px;
 }
 
+.comment_button:hover {
+    border: 1px solid white;
+}
+
+.delete_button {
+    background-color: black;
+    color: #d10000;
+    border: 1px solid #b00404;
+    border-radius: 15px;
+    padding: 5px 10px 5px 10px;
+}
+
+.delete_button:hover {
+    border: 1px solid white;
+}
+
 #comment-overlay {
     position: fixed;
     top: 50%;

@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('home');
+    }
+
     return view('pre-page');
 })->name('prepage');
+
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -30,12 +35,16 @@ Route::get('/posts/{id}', [App\Http\Controllers\PostController::class, 'show'])-
 Route::post('/posts/like', [App\Http\Controllers\PostController::class, 'like'])->name('posts.like');
 Route::post('/post/like', [App\Http\Controllers\PostController::class, 'like_post'])->name('post.like');
 Route::delete('/posts/delete/{postId}', [App\Http\Controllers\PostController::class, 'delete'])->name('posts.delete');
+
 Route::delete('/comment/delete/{commentId}', [App\Http\Controllers\PostController::class, 'deleteComment'])->name('comment.delete');
 
 
 Route::post('/comments', [App\Http\Controllers\PostController::class, 'postComment'])->name('comments.post');
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
+Route::get('/profile/{user}', [App\Http\Controllers\UserController::class, 'userProfile'])->name('user.show');
+
+
 
 Route::put('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 
@@ -61,6 +70,7 @@ Route::get('/notifications', [App\Http\Controllers\MainController::class, 'notif
 
 Route::get('/about', [App\Http\Controllers\MainController::class, 'about'])->name('show.about');
 
+Route::get('/error', [App\Http\Controllers\OtherController::class, 'error'])->name('show.error');
 
 
 

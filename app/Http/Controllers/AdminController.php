@@ -9,6 +9,9 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
+        if (auth()->user()->role_id != 1) {
+            return redirect()->route('home');
+        }
         $news = DB::table('news')->get();
         $posts = DB::table('posts')
             ->join('users', 'posts.author', '=', 'users.id')
