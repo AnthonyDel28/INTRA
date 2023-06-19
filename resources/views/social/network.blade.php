@@ -11,11 +11,11 @@
                     <div class="badge-item">
                         <div class="row mt-2">
                             <div class="col-auto d-flex align-items-center">
-                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image ) }}" alt="{{ Auth::user()->username }}" class="badge-image">
+                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->image ) }}" alt="{{ Auth::user()->name }}" class="badge-image">
                             </div>
                             <div class="col">
                                 <div class="badge-details">
-                                    <h3>{{ Auth::user()->username }}</h3>
+                                    <h3>{{ Auth::user()->name }}</h3>
                                     <span>{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}</span>
                                 </div>
                             </div>
@@ -26,11 +26,11 @@
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->username }}" class="badge-image">
+                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->name }}" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">
-                                            <h3>{{ $user->username }}</h3>
+                                            <h3>{{ $user->name  }}</h3>
                                             <span>{{ $user->last_name }} {{ $user->first_name }}</span>
                                         </div>
                                     </div>
@@ -79,11 +79,11 @@
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->username }}" class="badge-image">
+                                        <img src="{{ asset('storage/images/users/profile/' . $user->image ) }}" alt="{{ $user->name }}" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">
-                                            <h3>{{ $user->username }}</h3>
+                                            <h3>{{ $user->name }}</h3>
                                             <span>{{ $user->last_name }} {{ $user->first_name }}</span>
                                         </div>
                                     </div>

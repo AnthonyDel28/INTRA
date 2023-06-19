@@ -43,7 +43,7 @@
                                 <div class="row justify-content-between mt-5">
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="username">Nom d'utilisateur</label>
-                                        <input type="text" id="username" name="username" value="{{ $user->username }}" required>
+                                        <input type="text" id="name" name="name" value="{{ $user->name }}" required>
                                     </div>
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="email">Email</label><br>

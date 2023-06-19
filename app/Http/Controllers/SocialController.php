@@ -11,6 +11,10 @@ class SocialController extends Controller
             return view('social.network', ['users' => $users]);
     }
 
+    public function messenger(Request $request){
+        return view('social.chat');
+    }
+
     public function addFriend(Request $request)
     {
 
@@ -68,6 +72,24 @@ class SocialController extends Controller
         ];
 
         $newFriendshipId = DB::table('friendships')->insertGetId($newFriendship);
+
+        /*
+        $favoriteFirst = [
+            'user_id' => $friendship->friend_id,
+            'friend_id' => $friendship->user_id,
+            'confirm' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+        $newFavoriteFirst = DB::table('ch_favorites')->insertGetId($favoriteFirst);
+        $favoriteSecond = [
+            'user_id' => $friendship->user_id,
+            'friend_id' => $friendship->friend_id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ];
+        $newFavoriteSecond = DB::table('ch_favorites')->insertGetId($favoriteSecond);
+        */
 
         if (!$newFriendshipId) {
             return response()->json(['success' => false, 'message' => 'Failed to create new friendship']);

@@ -75,7 +75,7 @@ class UserController extends Controller
         $userId = auth()->id();
         $user = User::find($userId);
 
-        $user->username = $request->input('username');
+        $user->name = $request->input('name');
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
@@ -99,7 +99,7 @@ class UserController extends Controller
     public function adminUserUpdate(Request $request, $userId)
     {
 
-        $username = $request->input('username');
+        $name = $request->input('name');
         $firstName = $request->input('first_name');
         $lastName = $request->input('last_name');
         $email = $request->input('email');
@@ -108,7 +108,7 @@ class UserController extends Controller
         DB::table('users')
             ->where('id', $userId)
             ->update([
-                'username' => $username,
+                'name' => $name,
                 'first_name' => $firstName,
                 'last_name' => $lastName,
                 'email' => $email,

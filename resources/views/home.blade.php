@@ -26,9 +26,9 @@
                                 <img src="{{ asset('storage/images/users/profile/' . $post->author_image) }}" alt="" class="post_img" style="object-fit: cover;">
                             </div>
                             <div class="col-2">
-                                <span class="post_infos_name">{{ $post->last_name }}
+                                <span class="post_infos_name">{{ $post->first_name }}
                                     <br>
-                                    {{ $post->first_name }}
+                                    {{ $post->last_name }}
                                     <br>
                                   <span class="post_infos_date">
                                        {{ \Carbon\Carbon::parse($post->post_created_at)->format('d/m/Y H:i') }}

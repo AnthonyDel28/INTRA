@@ -81,8 +81,13 @@
                                     }
                                 </script>
                             </div>
-                            <div class="menu_item">
+                            <div class="menu_item" onclick="redirectToMessages()">
                                 <i class="fa-solid fa-messages"></i> <span>Messages</span>
+                                <script>
+                                    function redirectToMessages() {
+                                        window.location.href = "/chatify";
+                                    }
+                                </script>
                             </div>
                             <div class="menu_item" onclick="redirectToNotifications()">
                                 <i class="fa-solid fa-bell"></i>

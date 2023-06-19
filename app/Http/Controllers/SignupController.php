@@ -22,7 +22,7 @@ class SignupController extends Controller
             'last_name' => $validatedData['last_name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'username' =>  '@' . $validatedData['last_name'] . $validatedData['first_name'],
+            'name' =>  '@' . $validatedData['first_name'] . $validatedData['last_name'] ,
             'role_id' => 3,
             'is_active' => 1,
             'experience' => 0,
@@ -31,10 +31,11 @@ class SignupController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
             'gender' => '/',
+            'status' => 1
         ]);
 
         auth()->login($user);
-        $user->notify(new UserRegisteredNotification($user));
+        //$user->notify(new UserRegisteredNotification($user));
         return redirect()->route('home');
     }
 }
