@@ -3,6 +3,21 @@
     <div class="messenger" style="z-index: 100000;">
         {{-- ----------------------Users/Groups lists side---------------------- --}}
         <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
+            <div class="messenger-logo">
+
+                @if(Auth()->user()->dark_mode == 0)
+                    <img src="{{ asset('storage/images/intra_dark.png') }}" alt="" class="centered-image">
+                @else
+                    <img src="{{ asset('storage/images/intra.png') }}" alt="" class="centered-image">
+                @endif
+            </div>
+            <style>
+                .centered-image {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            </style>
             {{-- Header and search bar --}}
             <div class="m-header">
                 <nav>
@@ -32,8 +47,7 @@
                         <div class="messenger-favorites app-scroll-hidden"></div>
                     </div>
                     {{-- Saved Messages --}}
-                    <p class="messenger-title"><span>Votre espace</span></p>
-                    {!! view('Chatify::layouts.listItem', ['get' => 'saved']) !!}
+
                     {{-- Contact --}}
                     <p class="messenger-title"><span>Tous les messages</span></p>
                     <div class="listOfContacts" style="width: 100%;height: calc(100% - 272px);position: relative;"></div>
@@ -48,7 +62,6 @@
                 </div>
             </div>
         </div>
-
         {{-- ----------------------Messaging side---------------------- --}}
         <div class="messenger-messagingView">
             {{-- header title [conversation name] amd buttons --}}
@@ -57,8 +70,10 @@
                     {{-- header back button, avatar and user name --}}
                     <div class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
                         <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
-                        <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px; ">
-                        </div>
+                           @if($user)
+                            <div class="avatar av-s header-avatar" style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}'); margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
+                            </div>
+                           @endif
                         <a href="#" class="user-name">{{ config('chatify.name') }}</a>
                     </div>
                     {{-- header buttons --}}
@@ -105,7 +120,7 @@
                 <p>Détails </p>
                 <a href="#"><i class="fas fa-times"></i></a>
             </nav>
-            {!! view('Chatify::layouts.info')->render() !!}
+            {!! view('Chatify::layouts.info')->with('user', $user)->render() !!}
         </div>
     </div>
 

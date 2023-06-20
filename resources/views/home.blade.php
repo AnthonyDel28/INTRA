@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+@php phpinfo();  dd(); @endphp
+
 @section('content')
     <div class="row">
         <div class="col-9 home_left_div p-4">

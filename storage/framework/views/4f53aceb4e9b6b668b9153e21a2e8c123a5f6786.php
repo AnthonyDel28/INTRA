@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="<?php echo e(asset('css/pages/home.css')); ?>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+<?php phpinfo();  dd(); ?>
+
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-9 home_left_div p-4">

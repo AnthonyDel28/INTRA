@@ -85,7 +85,7 @@
                                 <i class="fa-solid fa-messages"></i> <span>Messages</span>
                                 <script>
                                     function redirectToMessages() {
-                                        window.location.href = "/chatify";
+                                        window.location.href = "/messenger";
                                     }
                                 </script>
                             </div>

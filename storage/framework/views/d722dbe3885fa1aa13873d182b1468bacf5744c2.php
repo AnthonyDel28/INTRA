@@ -1,8 +1,23 @@
 <?php echo $__env->make('Chatify::layouts.headLinks', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <?php dd($user); ?>
+
     <div class="messenger" style="z-index: 100000;">
         
         <div class="messenger-listView <?php echo e(!!$id ? 'conversation-active' : ''); ?>">
+            <div class="messenger-logo">
+
+                <?php if(Auth()->user()->dark_mode == 0): ?>
+                    <img src="<?php echo e(asset('storage/images/intra_dark.png')); ?>" alt="" class="centered-image">
+                <?php else: ?>
+                    <img src="<?php echo e(asset('storage/images/intra.png')); ?>" alt="" class="centered-image">
+                <?php endif; ?>
+            </div>
+            <style>
+                .centered-image {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            </style>
             
             <div class="m-header">
                 <nav>
@@ -29,8 +44,6 @@
                         <div class="messenger-favorites app-scroll-hidden"></div>
                     </div>
                     
-                    <p class="messenger-title"><span>Votre espace</span></p>
-                    <?php echo view('Chatify::layouts.listItem', ['get' => 'saved']); ?>
 
                     
                     <p class="messenger-title"><span>Tous les messages</span></p>
@@ -46,7 +59,6 @@
                 </div>
             </div>
         </div>
-
         
         <div class="messenger-messagingView">
             
@@ -55,8 +67,10 @@
                     
                     <div class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
                         <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
-                        <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px; ">
-                        </div>
+                           <?php if($user): ?>
+                            <div class="avatar av-s header-avatar" style="background-image: url('<?php echo e(asset('storage/images/users/profile/' . $user->id . '.jpg')); ?>'); margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
+                            </div>
+                           <?php endif; ?>
                         <a href="#" class="user-name"><?php echo e(config('chatify.name')); ?></a>
                     </div>
                     
@@ -103,7 +117,7 @@
                 <p>Détails </p>
                 <a href="#"><i class="fas fa-times"></i></a>
             </nav>
-            <?php echo view('Chatify::layouts.info')->render(); ?>
+            <?php echo view('Chatify::layouts.info')->with('user', $user)->render(); ?>
 
         </div>
     </div>

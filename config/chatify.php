@@ -22,7 +22,7 @@ return [
     |-------------------------------------
     */
     'routes' => [
-        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'chatify'),
+        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'messenger'),
         'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web','auth']),
         'namespace' => env('CHATIFY_ROUTES_NAMESPACE', 'Chatify\Http\Controllers'),
     ],
@@ -54,7 +54,7 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => 'users-avatar',
+        'folder' => 'users',
         'default' => 'default.jpg',
     ],
 
@@ -67,7 +67,7 @@ return [
     |-------------------------------------
     */
     'gravatar' => [
-        'enabled' => true,
+        'enabled' => false,
         'image_size' => 200,
         'imageset' => 'identicon'
     ],

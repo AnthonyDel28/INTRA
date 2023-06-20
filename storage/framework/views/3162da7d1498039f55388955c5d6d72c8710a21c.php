@@ -1,6 +1,9 @@
 
-<div class="avatar av-l chatify-d-flex"></div>
-<p class="info-name"><?php echo e(config('chatify.name')); ?></p>
+<?php if(Auth()->user()->dark_mode == 0): ?>
+    <h1 class="info-name text-center text-dark"><b><?php echo e(config('chatify.name')); ?></b></h1>
+<?php else: ?>
+    <h1 class="info-name text-center text-light"><b><?php echo e(config('chatify.name')); ?></b></h1>
+<?php endif; ?>
 <div class="messenger-infoView-btns">
     <a href="#" class="danger delete-conversation">Supprimer la discussion</a>
 </div>

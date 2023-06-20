@@ -30,15 +30,18 @@
                 @if($user->active_status)
                     <span class="activeStatus"></span>
                 @endif
-                <p>{{ $user->id }}</p>
-                <div class="avatar av-m"
-                     style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
-                </div>
+                @if (File::exists(public_path('storage/images/users/profile/' . $user->id . '.jpg')))
+                    <div class="avatar av-m" style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
+                    </div>
+                @else
+                    <div class="avatar av-m" style="background-image: url('{{ asset('storage/images/users/profile/default.jpg') }}');"></div>
+                @endif
             </td>
+
             {{-- center side --}}
             <td>
                 <p data-id="{{ $user->id }}" data-type="user">
-                    {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
+                    {{ strlen($user->name) > 20 ? trim(substr($user->name,0,20)).'..' : $user->name }}
                     <span class="contact-item-time" data-time="{{$lastMessage->created_at}}">{{ $lastMessage->timeAgo }}</span></p>
                 <span>
             {{-- Last Message user indicator --}}
@@ -69,9 +72,16 @@
     <tr data-action="0">
         {{-- Avatar side --}}
         <td>
-        <div class="avatar av-m"
-             style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
-        </div>
+            @if (File::exists(public_path('storage/images/users/profile/' . $user->id . '.jpg')))
+                <div class="avatar av-m"
+                     style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
+                </div>
+            @else
+                <div class="avatar av-m"
+                     style="background-image: url('{{ asset('storage/images/users/profile/default.jpg') }}');">
+                </div>
+            @endif
+
         </td>
         {{-- center side --}}
         <td>
