@@ -77,3 +77,4 @@ Route::get('/home', [App\Http\Controllers\MainController::class, 'sections'])->n
 
 
 
+Route::get('/getContacts', [App\Http\Controllers\Vendor\MessagesController::class, 'getContacts']);

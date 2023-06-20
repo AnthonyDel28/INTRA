@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\UserRegisteredNotification;
+use Illuminate\Support\Str;
 
 class SignupController extends Controller
 {
@@ -31,7 +32,8 @@ class SignupController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
             'gender' => '/',
-            'status' => 1
+            'status' => 1,
+            'remember_token' => Str::random(10)
         ]);
 
         auth()->login($user);

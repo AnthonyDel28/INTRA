@@ -1,5 +1,5 @@
 <?php echo $__env->make('Chatify::layouts.headLinks', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
+    <?php dd($user); ?>
     <div class="messenger" style="z-index: 100000;">
         
         <div class="messenger-listView <?php echo e(!!$id ? 'conversation-active' : ''); ?>">

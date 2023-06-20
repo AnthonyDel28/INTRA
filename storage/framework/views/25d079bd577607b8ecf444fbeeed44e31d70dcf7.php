@@ -30,6 +30,7 @@
                 <?php if($user->active_status): ?>
                     <span class="activeStatus"></span>
                 <?php endif; ?>
+                <p><?php echo e($user->id); ?></p>
                 <div class="avatar av-m"
                      style="background-image: url('<?php echo e(asset('storage/images/users/profile/' . $user->id . '.jpg')); ?>');">
                 </div>

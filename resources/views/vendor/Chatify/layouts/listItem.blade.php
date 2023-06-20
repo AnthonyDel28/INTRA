@@ -30,6 +30,7 @@
                 @if($user->active_status)
                     <span class="activeStatus"></span>
                 @endif
+                <p>{{ $user->id }}</p>
                 <div class="avatar av-m"
                      style="background-image: url('{{ asset('storage/images/users/profile/' . $user->id . '.jpg') }}');">
                 </div>

@@ -1,5 +1,5 @@
 {{-- user info and avatar --}}
-<div class="avatar chatify-d-flex"></div>
+<div class="avatar av-l chatify-d-flex"></div>
 <p class="info-name">{{ config('chatify.name') }}</p>
 <div class="messenger-infoView-btns">
     <a href="#" class="danger delete-conversation">Supprimer la discussion</a>
