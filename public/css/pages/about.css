@@ -7,3 +7,28 @@
     border-radius: 35px;
     height: 200px;
 }
+
+.about_title {
+    font-weight: bold;
+    color: white;
+}
+
+.character {
+    width: 60%;
+    height: auto;
+}
+
+.about_profile {
+    width: 100%;
+    border-radius: 30px;
+}
+
+.about_badges {
+    width: 60%;
+    margin: auto;
+}
+
+.about_messenger {
+    width: 100%;
+    border-radius: 30px;
+}

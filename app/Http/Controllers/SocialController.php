@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\DB;
 class SocialController extends Controller
 {
     public function network(Request $request){
-            $users = DB::table('users')->get();
-            return view('social.network', ['users' => $users]);
+        $users = DB::table('users')->get();
+        return view('social.network', ['users' => $users]);
     }
 
     public function messenger(Request $request){
@@ -33,9 +33,19 @@ class SocialController extends Controller
                 'friend_id' => $request->userId,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'confirm' => 0
+                'confirm' => 0,
             ]);
 
+            $existingNotification = DB::table('notifications')
+                ->where('user_id', $request->userId)
+                ->where('author_id', auth()->user()->id)
+                ->where('type', 1)
+                ->first();
+            if ($existingNotification) {
+                DB::table('notifications')
+                    ->where('id', $existingNotification->id)
+                    ->delete();
+            }
             DB::table('notifications')->insert([
                 'user_id' => $request->userId,
                 'author_id' => auth()->user()->id,
@@ -44,7 +54,7 @@ class SocialController extends Controller
                 'read' => 0,
                 'type' => 1,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ]);
             return response()->json(['message' => 'Invitation envoyée!'], 200);
 
@@ -54,6 +64,7 @@ class SocialController extends Controller
     public function acceptFriendship(Request $request)
     {
         $friendshipId = $request->input('friendshipId');
+        $notificationId = $request->input('notificationId');
 
         $friendship = DB::table('friendships')
             ->where('id', $friendshipId)
@@ -73,24 +84,6 @@ class SocialController extends Controller
 
         $newFriendshipId = DB::table('friendships')->insertGetId($newFriendship);
 
-        /*
-        $favoriteFirst = [
-            'user_id' => $friendship->friend_id,
-            'friend_id' => $friendship->user_id,
-            'confirm' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ];
-        $newFavoriteFirst = DB::table('ch_favorites')->insertGetId($favoriteFirst);
-        $favoriteSecond = [
-            'user_id' => $friendship->user_id,
-            'friend_id' => $friendship->friend_id,
-            'created_at' => now(),
-            'updated_at' => now()
-        ];
-        $newFavoriteSecond = DB::table('ch_favorites')->insertGetId($favoriteSecond);
-        */
-
         if (!$newFriendshipId) {
             return response()->json(['success' => false, 'message' => 'Failed to create new friendship']);
         }
@@ -106,14 +99,31 @@ class SocialController extends Controller
                 'message' => auth()->user()->first_name . ' ' . auth()->user()->last_name . ' a accepté votre invitation.',
                 'type' => 0,
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ];
+
+            DB::table('ch_favorites')->insert([
+                'id' => uniqid(),
+                'user_id' => auth()->user()->id,
+                'favorite_id' => $friendship->user_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            DB::table('ch_favorites')->insert([
+                'id' => uniqid(),
+                'user_id' => $friendship->user_id,
+                'favorite_id' => auth()->user()->id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
 
             $notificationId = DB::table('notifications')->insertGetId($notification);
 
             if (!$notificationId) {
                 return response()->json(['success' => false, 'message' => 'Failed to create new notification']);
             }
+
 
             return response()->json(['success' => true, 'message' => 'Friendship accepted']);
         }
@@ -130,8 +140,10 @@ class SocialController extends Controller
         $deleted = DB::table('friendships')
             ->where('id', $friendshipId)
             ->delete();
-
-        if ($deleted) {
+        $deletedNotifications = DB::table('notifications')
+            ->where('friendship', $friendshipId)
+            ->delete();
+        if ($deleted || $deletedNotifications) {
             return response()->json(['success' => true, 'message' => 'Friendship declined']);
         }
 
@@ -139,11 +151,4 @@ class SocialController extends Controller
     }
 
 
-
-    /*
-    public function notifications(Request $request){
-
-
-        return view('social.notifications', ['notifications' => $notifications]);
-    }*/
 }

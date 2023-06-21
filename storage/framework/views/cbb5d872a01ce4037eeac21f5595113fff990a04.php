@@ -82,12 +82,17 @@
                                 </script>
                             </div>
                             <div class="menu_item" onclick="redirectToMessages()">
-                                <i class="fa-solid fa-messages"></i> <span>Messages</span>
+                                <i class="fa-solid fa-messages"></i> <span>Messages
+                                 <?php if($messagesCount): ?>
+                                        <div class="messages-badge"><?php echo e($messagesCount); ?></div>
+                                    <?php endif; ?>
+                                </span>
                                 <script>
                                     function redirectToMessages() {
                                         window.location.href = "/messenger";
                                     }
                                 </script>
+
                             </div>
                             <div class="menu_item" onclick="redirectToNotifications()">
                                 <i class="fa-solid fa-bell"></i>

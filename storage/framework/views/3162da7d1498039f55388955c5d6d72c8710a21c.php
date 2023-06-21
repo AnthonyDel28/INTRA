@@ -1,12 +1,24 @@
+<?php
+    $userId = request()->route('id'); // Récupérer l'ID de l'utilisateur à partir de la route
+    $user = null;
 
-<?php if(Auth()->user()->dark_mode == 0): ?>
-    <h1 class="info-name text-center text-dark"><b><?php echo e(config('chatify.name')); ?></b></h1>
-<?php else: ?>
-    <h1 class="info-name text-center text-light"><b><?php echo e(config('chatify.name')); ?></b></h1>
+    if ($userId) {
+        $user = DB::table('users')->where('id', $userId)->first();
+    }
+?>
+<div class="avatar av-l chatify-d-flex"></div>
+<?php if($user): ?>
+    <?php if(Auth()->user()->dark_mode == 0): ?>
+        <h2 class="info-name text-center text-dark" style="font-weight: bold;"><b><?php echo e($user->name); ?></b></h2>
+    <?php else: ?>
+        <h2 class="info-name text-center text-light" style="font-weight: bold;"><b><?php echo e($user->name); ?></b></h2>
+    <?php endif; ?>
 <?php endif; ?>
+
 <div class="messenger-infoView-btns">
     <a href="#" class="danger delete-conversation">Supprimer la discussion</a>
 </div>
+
 
 <div class="messenger-infoView-shared">
     <p class="messenger-title"><span>Photos partagées</span></p>

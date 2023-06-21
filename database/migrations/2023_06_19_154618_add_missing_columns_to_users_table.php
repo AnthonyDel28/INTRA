@@ -18,7 +18,7 @@ class AddMissingColumnsToUsersTable extends Migration
             $table->integer('experience')->after('level');
             $table->integer('status')->after('experience');
             $table->string('gender')->after('status');
-            $table->unsignedBigInteger('role_id')->after('image');
+            $table->unsignedBigInteger('role_id');
             $table->integer('is_active')->after('role_id');
 
             $table->foreign('role_id')->references('id')->on('roles');
@@ -34,7 +34,7 @@ class AddMissingColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['role_id']);
-            $table->dropColumn(['level', 'experience', 'status', 'gender', 'image', 'role_id', 'is_active']);
+            $table->dropColumn(['level', 'experience', 'status', 'gender', 'role_id', 'is_active']);
         });
     }
 }

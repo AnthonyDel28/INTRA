@@ -64,6 +64,24 @@
     font-size: 12px;
 }
 
+.fa-message:hover,
+.fa-user:hover{
+    cursor: pointer;
+    color: #00A3FF;
+}
+
+.messages-badge {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #b00404;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+}
+
 .menu_item span {
     margin-left: 35px;
     position: absolute;

@@ -2,9 +2,6 @@
 <link rel="stylesheet" href="{{ asset('css/pages/home.css') }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-@php phpinfo();  dd(); @endphp
-
 @section('content')
     <div class="row">
         <div class="col-9 home_left_div p-4">
@@ -40,7 +37,7 @@
                             </div>
                             <div class="col-8 justify-content-center">
                                 <span class="text-center post_infos_title">
-                                    {!! Str::limit(htmlspecialchars(nl2br($post->title)), $limit = 70, $end = '...') !!}
+                                   {!! nl2br(htmlspecialchars(substr($post->title, 0, 70) . (strlen($post->title) > 70 ? '...' : ''))) !!}
                                 </span>
                             </div>
                         </div>
@@ -56,13 +53,14 @@
                             @if ($post->code)
                                 <div class="col-10 post_message_area" style="height: 80px; overflow: hidden;">
                                     <span class="text-center">
-                                        {!! nl2br(e(Str::limit($post->message, $limit = 100, $end = '...'))) !!}
+                                       {!! nl2br(htmlspecialchars(substr($post->message, 0, 100) . (strlen($post->message) > 100 ? '...' : ''))) !!}
                                     </span>
                                 </div>
                             @else
                                 <div class="col-10 post_message_area" style="height: 180px; overflow: hidden;">
                                     <span class="text-center">
-                                        {!! nl2br(e(Str::limit($post->message, $limit = 400, $end = '...'))) !!}
+                                      {!! nl2br(htmlspecialchars(substr($post->message, 0, 400) . (strlen($post->message) > 100 ? '...' : ''))) !!}
+
                                     </span>
                                 </div>
                             @endif
@@ -80,7 +78,7 @@
                                 <div class="col-10 post_message_area">
                                     <pre>
                                         <code class="language-{{ $post->language }}" id="code_insert">
-                                            {!! Str::limit(htmlspecialchars(nl2br($post->code)), $limit = 150, $end = '...') !!}
+                                          {!! htmlspecialchars(nl2br(substr($post->code, 0, 150))) !!}{{ strlen($post->code) > 150 ? '...' : '' }}
                                         </code>
                                     </pre>
                                 </div>
@@ -131,13 +129,18 @@
                     @foreach($friends as $friend)
                         <div class="d-flex align-items-center mt-3">
                             <img src="{{ asset('storage/images/users/profile/' . $friend->avatar) }}" alt="" class="profile-picture" style="object-fit: cover;">
-                            <div class="ms-2 friends_name">{{ $friend->last_name }} {{ $friend->first_name }} <i class="fa-solid fa-circle"></i></div>
+                            <div class="ms-2 friends_name">{{ $friend->first_name }}  {{ $friend->last_name }} <i class="fa-solid fa-circle"></i></div>
                             <div class="ms-auto friends_icons">
                                 <a href="{{ route('user.show', ['user' => $friend->id]) }}">
                                     <i class="fa-solid fa-user"></i>
                                 </a>
                                 <i class="fa-solid fa-phone-alt"></i>
-                                <i class="fa-solid fa-message"></i>
+                                <i class="fa-solid fa-message" onclick="messengerFriend({{ $friend->id }})"></i>
+                                <script>
+                                    function messengerFriend(friendId) {
+                                        window.location.href = '/messenger/' + friendId;
+                                    }
+                                </script>
                             </div>
                         </div>
                     @endforeach

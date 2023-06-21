@@ -1,7 +1,6 @@
-@extends('layouts.app_layout')
-@php use Carbon\Carbon; @endphp
-<link rel="stylesheet" href="{{ asset('css/pages/notifications.css') }}">
-@section('content')
+<?php use Carbon\Carbon; ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/pages/notifications.css')); ?>">
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid">
         <div class="row">
             <h1 class="main_title p-5"><i class="fa-solid fa-bell"></i>  Notifications</h1>
@@ -9,11 +8,11 @@
         <div class="container-fluid rapport_container">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    @foreach($notifications->take(10) as $notification)
+                    <?php $__currentLoopData = $notifications->take(10); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="badge-item">
                             <div class="row mt-2">
                                 <div class="col-auto d-flex align-items-center">
-                                    @php
+                                    <?php
                                         $imagePath = 'storage/images/users/profile/' . $notification->author_id . '.jpg';
                                         $defaultImagePath = 'storage/images/users/profile/default.jpg';
                                         $imageUrl = asset($imagePath);
@@ -21,37 +20,37 @@
                                         if (!file_exists(public_path($imagePath))) {
                                             $imageUrl = asset($defaultImagePath);
                                         }
-                                    @endphp
-                                    <img src="{{ $imageUrl }}" alt="" class="post_img" style="object-fit: cover;">
+                                    ?>
+                                    <img src="<?php echo e($imageUrl); ?>" alt="" class="post_img" style="object-fit: cover;">
                                 </div>
                                 <div class="col">
                                     <div class="badge-details">
-                                        <h3>{{ $notification->message }}</h3>
-                                        <p>{{ Carbon::parse($notification->created_at)->format('d/m/Y H:i') }}</p>
+                                        <h3><?php echo e($notification->message); ?></h3>
+                                        <p><?php echo e(Carbon::parse($notification->created_at)->format('d/m/Y H:i')); ?></p>
                                     </div>
                                 </div>
-                                @if($notification->friendship)
+                                <?php if($notification->friendship): ?>
                                     <div class="col-auto d-flex align-items-center">
-                                        @if ($notification->confirm != 1)
-                                            <a href="#" class="btn btn-success mx-2 btn-circle accept-friendship-btn" data-id="{{ $notification->friendship }}" data-notification-id="{{ $notification->id }}" title="Accepter l'amitié">
+                                        <?php if($notification->confirm != 1): ?>
+                                            <a href="#" class="btn btn-success mx-2 btn-circle accept-friendship-btn" data-id="<?php echo e($notification->friendship); ?>" data-notification-id="<?php echo e($notification->id); ?>" title="Accepter l'amitié">
                                                 <i class="fa-solid fa-check"></i>
                                             </a>
-                                            <a href="#" class="btn btn-danger mx-2 btn-circle reject-friendship-btn" data-id="{{ $notification->friendship }}" title="Refuser l'amitié">
+                                            <a href="#" class="btn btn-danger mx-2 btn-circle reject-friendship-btn" data-id="<?php echo e($notification->friendship); ?>" title="Refuser l'amitié">
                                                 <i class="fa-solid fa-times"></i>
                                             </a>
-                                        @endif
+                                        <?php endif; ?>
                                     </div>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <div class="col-12 col-lg-6">
-                    @foreach($notifications->skip(10) as $notification)
+                    <?php $__currentLoopData = $notifications->skip(10); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $notification): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="badge-item mt-2">
                             <div class="row">
                                 <div class="col-auto d-flex align-items-center">
-                                    @php
+                                    <?php
                                         $imagePath = 'storage/images/users/profile/' . $notification->author_id . '.jpg';
                                         $defaultImagePath = 'storage/images/users/profile/default.jpg';
                                         $imageUrl = asset($imagePath);
@@ -59,23 +58,23 @@
                                         if (!file_exists(public_path($imagePath))) {
                                             $imageUrl = asset($defaultImagePath);
                                         }
-                                    @endphp
-                                    <img src="{{ $imageUrl }}" alt="" class="post_img" style="object-fit: cover;">
+                                    ?>
+                                    <img src="<?php echo e($imageUrl); ?>" alt="" class="post_img" style="object-fit: cover;">
                                 </div>
                                 <div class="col">
                                     <div class="badge-details">
-                                        <h3>{{ $notification->message }}</h3>
-                                        <p>{{ $notification->created_at }}</p>
+                                        <h3><?php echo e($notification->message); ?></h3>
+                                        <p><?php echo e($notification->created_at); ?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -88,12 +87,12 @@
             var notificationId = button.data('notification-id');
 
             $.ajax({
-                url: '{{ route("friendship.accept") }}',
+                url: '<?php echo e(route("friendship.accept")); ?>',
                 method: 'POST',
                 data: {
                     friendshipId: friendshipId,
                     notificationId: notificationId,
-                    _token: '{{ csrf_token() }}'
+                    _token: '<?php echo e(csrf_token()); ?>'
                 },
                 success: function(response) {
                     console.log(response);
@@ -115,11 +114,11 @@
             var friendshipId = button.data('id');
 
             $.ajax({
-                url: '{{ route("friendship.reject") }}',
+                url: '<?php echo e(route("friendship.reject")); ?>',
                 method: 'POST',
                 data: {
                     friendshipId: friendshipId,
-                    _token: '{{ csrf_token() }}'
+                    _token: '<?php echo e(csrf_token()); ?>'
                 },
                 success: function(response) {
                     console.log(response);
@@ -134,3 +133,5 @@
     });
 </script>
 
+
+<?php echo $__env->make('layouts.app_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/INTRA/resources/views/user/notifications.blade.php ENDPATH**/ ?>

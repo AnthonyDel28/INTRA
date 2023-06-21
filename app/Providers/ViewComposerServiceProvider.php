@@ -13,11 +13,20 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $user = Auth::check() ? Auth::user() : null;
             $notificationsCount = 0;
+            $messagesCount = 0;
 
             if ($user) {
                 $notificationsCount = DB::table('notifications')
                     ->where('read', 0)
                     ->where('user_id', $user->id)
+                    ->count();
+                $messagesCount = DB::table('ch_messages')
+                    ->where('to_id', $user->id)
+                    ->where('seen', 0)
+                    ->selectRaw('COUNT(*) as count')
+                    ->groupBy('from_id', 'to_id')
+                    ->selectRaw('COUNT(*) as count')
+                    ->get()
                     ->count();
             }
             $sections = DB::table('sections')->get();
@@ -65,7 +74,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $view->with('sections', $sections)
                 ->with('languages', $languages)
-                ->with('notificationsCount', $notificationsCount);
+                ->with('notificationsCount', $notificationsCount)
+                ->with('messagesCount', $messagesCount);
         });
         View::composer('*', SuccessComposer::class);
     }

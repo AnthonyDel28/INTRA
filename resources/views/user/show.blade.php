@@ -4,6 +4,38 @@
 @section('content')
     <div>
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    @php
+                        $friendship = DB::table('friendships')
+                            ->where(function ($query) use ($user) {
+                                $query->where('user_id', Auth::user()->id)
+                                    ->where('friend_id', $user->id);
+                            })
+                            ->orWhere(function ($query) use ($user) {
+                                $query->where('user_id', $user->id)
+                                    ->where('friend_id', Auth::user()->id);
+                            })
+                            ->first();
+                    @endphp
+                    @if($friendship && $friendship->confirm == 0)
+                        <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span class="btn-text"> En attente</span>
+                        </button>
+                    @elseif($friendship)
+                        <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
+                            <i class="fa-solid fa-user-check"></i>
+                            <span class="btn-text"> Ami</span>
+                        </button>
+                    @else
+                        <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span class="btn-text"> Ajouter</span>
+                        </button>
+                    @endif
+                </div>
+            </div>
             <div class="row profile_page_infos @if($user->role_id == 1) background-image-role1 @elseif($user->role_id == 3) background-image-role3 @endif">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
@@ -12,7 +44,8 @@
                 </div>
                 <div class="col-10 col-lg-10 col-sm-auto">
                     <p class="text-right user_role">{{ $user->role }}</p>
-                    <h1 class="profile_main_title">{{ $user->last_name }} {{ $user->first_name }}</h1>
+                    <h1 class="profile_main_title mb-0">{{ $user->name }} </h1>
+                    <span class="username text-light">{{ $user->first_name }} {{ $user->last_name }}</span><br>
                     <span class="user_level"><b>Niveau {{ $user->level }}</b></span>
                     <div class="range mt-2" style="--p:{{ $user->experience }}">
                         <div class="range__label">Progress</div>
@@ -51,7 +84,7 @@
                                 </div>
                                 <div class="col-8 justify-content-center">
                                     <span class="text-center post_infos_title">
-                                        {!! Str::limit(htmlspecialchars(nl2br($post->title)), $limit = 70, $end = '...') !!}
+                                        {!! nl2br(htmlspecialchars(substr($post->title, 0, 70) . (strlen($post->title) > 70 ? '...' : ''))) !!}
                                     </span>
                                 </div>
                             </div>
@@ -67,13 +100,13 @@
                                 @if ($post->code)
                                     <div class="col-10 post_message_area" style="height: 85px; overflow: hidden;">
                                         <span class="text-center">
-                                            {!! nl2br(e(Str::limit($post->message, $limit = 150, $end = '...'))) !!}
+                                            {!! nl2br(htmlspecialchars(substr($post->message, 0, 150) . (strlen($post->message) > 100 ? '...' : ''))) !!}
                                         </span>
                                     </div>
                                 @else
                                     <div class="col-10 post_message_area" style="height: 180px; overflow: hidden;">
                                         <span class="text-center">
-                                            {!! nl2br(e(Str::limit($post->message, $limit = 400, $end = '...'))) !!}
+                                           {!! nl2br(htmlspecialchars(substr($post->message, 0, 400) . (strlen($post->message) > 400 ? '...' : ''))) !!}
                                         </span>
                                     </div>
                                 @endif
@@ -91,7 +124,7 @@
                                     <div class="col-10 post_message_area">
                                         <pre>
                                             <code class="language-{{ $post->language }}" id="code_insert">
-                                                {!! Str::limit(htmlspecialchars(nl2br($post->code)), $limit = 150, $end = '...') !!}
+                                        {!! htmlspecialchars(nl2br(substr($post->code, 0, 150))) !!}{{ strlen($post->code) > 150 ? '...' : '' }}
                                             </code>
                                         </pre>
                                     </div>
@@ -187,6 +220,55 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
 
+        $('.btn-waiting').addClass('btn-primary');
+
+        $('.add-friend-btn').on('click', function(e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var userId = button.data('id');
+
+            if (button.find('.btn-text').text() === ' Ajouter') {
+                $.ajax({
+                    url: '/add-friend',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        button.find('.btn-text').text(' En attente');
+                        button.addClass('btn-primary').removeClass('btn-success');
+                        button.prop('disabled', true);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else if (button.find('.btn-text').text() === ' En attente') {
+                $.ajax({
+                    url: '/remove-friend',
+                    method: 'POST',
+                    data: {
+                        userId: userId,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        button.find('.btn-text').text(' Ajouter');
+                        button.removeClass('btn-primary').addClass('btn-success');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 

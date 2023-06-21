@@ -33,11 +33,12 @@ class SignupController extends Controller
             'updated_at' => now(),
             'gender' => '/',
             'status' => 1,
-            'remember_token' => Str::random(10)
+            'remember_token' => Str::random(10),
+            'dark_mode' => 1
         ]);
 
         auth()->login($user);
-        //$user->notify(new UserRegisteredNotification($user));
+        $user->notify(new UserRegisteredNotification($user));
         return redirect()->route('home');
     }
 }
