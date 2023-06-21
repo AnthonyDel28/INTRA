@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class SocialController extends Controller
 {
     public function network(Request $request){
@@ -151,4 +153,23 @@ class SocialController extends Controller
     }
 
 
+    public function deleteFriend(Request $request)
+    {
+        $userId = Auth::user()->id;
+        $friendId = $request->input('userId');
+
+        DB::table('friendships')
+            ->where(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $userId)
+                    ->where('friend_id', $friendId);
+            })
+            ->orWhere(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $friendId)
+                    ->where('friend_id', $userId);
+            })
+            ->delete();
+
+
+        return response()->json(['message' => 'Ami supprimé avec succès.']);
+    }
 }

@@ -63,6 +63,7 @@ Route::get('/network', [App\Http\Controllers\SocialController::class, 'network']
 Route::post('/add-friend',  [App\Http\Controllers\SocialController::class, 'addFriend'])->name('add.friend');
 Route::post('/accept-friendship', [App\Http\Controllers\SocialController::class, 'acceptFriendship'])->name('friendship.accept');
 Route::post('/decline-friendship/', [App\Http\Controllers\SocialController::class, 'declineFriendship'])->name('friendship.reject');
+Route::post('/delete-friend/', [App\Http\Controllers\SocialController::class, 'deleteFriend'])->name('friendship.delete');
 
 
 

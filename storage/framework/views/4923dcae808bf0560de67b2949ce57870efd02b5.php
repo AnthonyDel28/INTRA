@@ -1,6 +1,5 @@
-@extends('layouts.app_layout')
-<link rel="stylesheet" href="{{ asset('css/pages/network.css') }}">
-@section('content')
+<link rel="stylesheet" href="<?php echo e(asset('css/pages/network.css')); ?>">
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid">
         <div class="row">
             <h1 class="main_title p-5"><i class="fa-solid fa-network-wired"></i> Network</h1>
@@ -11,31 +10,31 @@
                     <div class="badge-item">
                         <div class="row mt-2">
                             <div class="col-auto d-flex align-items-center">
-                                <img src="{{ asset('storage/images/users/profile/' . Auth::user()->avatar ) }}" alt="{{ Auth::user()->name }}" class="badge-image">
+                                <img src="<?php echo e(asset('storage/images/users/profile/' . Auth::user()->avatar )); ?>" alt="<?php echo e(Auth::user()->name); ?>" class="badge-image">
                             </div>
                             <div class="col">
                                 <div class="badge-details">
-                                    <h3>{{ Auth::user()->name }}</h3>
-                                    <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </span>
+                                    <h3><?php echo e(Auth::user()->name); ?></h3>
+                                    <span><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?> </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @foreach($users->take(8) as $user)
-                        @if($user->id !== Auth::user()->id)
+                    <?php $__currentLoopData = $users->take(8); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($user->id !== Auth::user()->id): ?>
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">
+                                        <img src="<?php echo e(asset('storage/images/users/profile/' . $user->avatar )); ?>" alt="<?php echo e($user->name); ?>" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">
-                                            <h3>{{ $user->name  }}</h3>
-                                            <span>{{ $user->first_name }} {{ $user->last_name }} </span>
+                                            <h3><?php echo e($user->name); ?></h3>
+                                            <span><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?> </span>
                                         </div>
                                     </div>
                                     <div class="col-auto d-flex align-items-center badge-actions">
-                                        @php
+                                        <?php
                                             $friendship = DB::table('friendships')
                                                 ->where(function ($query) use ($user) {
                                                     $query->where('user_id', Auth::user()->id)
@@ -46,56 +45,56 @@
                                                         ->where('friend_id', Auth::user()->id);
                                                 })
                                                 ->first();
-                                        @endphp
-                                        @if($friendship && $friendship->confirm == 0)
+                                        ?>
+                                        <?php if($friendship && $friendship->confirm == 0): ?>
                                             <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
                                                 <i class="fa-solid fa-user-plus"></i>
                                                 <span class="btn-text"> En attente</span>
                                             </button>
-                                        @elseif($friendship)
+                                        <?php elseif($friendship): ?>
                                             <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
                                                 <i class="fa-solid fa-user-check"></i>
                                                 <span class="btn-text"> Ami</span>
                                             </button>
-                                        @else
-                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
+                                        <?php else: ?>
+                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="<?php echo e($user->id); ?>" title="Ajouter en ami">
                                                 <i class="fa-solid fa-user-plus"></i>
                                                 <span class="btn-text"> Ajouter</span>
                                             </button>
-                                        @endif
-                                        <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-warning btn-circle" title="Voir le profil">
+                                        <?php endif; ?>
+                                        <a href="<?php echo e(route('user.show', ['user' => $user->id])); ?>" class="btn btn-warning btn-circle" title="Voir le profil">
                                             <i class="fa-solid fa-user"></i> Profil
                                         </a>
-                                        @if($friendship)
-                                            <button class="btn mx-2 btn-circle btn-danger remove-friend-btn" data-id="{{ $user->id }}" title="Supprimer l'ami">
+                                        <?php if($friendship): ?>
+                                            <button class="btn mx-2 btn-circle btn-danger remove-friend-btn" data-id="<?php echo e($user->id); ?>" title="Supprimer l'ami">
                                                 <span class="btn-text">
                                                     X
                                                 </span>
                                             </button>
-                                        @endif
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
                 <div class="col-12 col-lg-6">
                     <!-- Afficher les autres utilisateurs -->
-                    @foreach($users->skip(8) as $user)
-                        @if($user->id !== Auth::user()->id)
+                    <?php $__currentLoopData = $users->skip(8); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($user->id !== Auth::user()->id): ?>
                             <div class="badge-item">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
-                                        <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">
+                                        <img src="<?php echo e(asset('storage/images/users/profile/' . $user->avatar )); ?>" alt="<?php echo e($user->name); ?>" class="badge-image">
                                     </div>
                                     <div class="col">
                                         <div class="badge-details">
-                                            <h3>{{ $user->name }}</h3>
-                                            <span>{{ $user->last_name }} {{ $user->first_name }}</span>
+                                            <h3><?php echo e($user->name); ?></h3>
+                                            <span><?php echo e($user->last_name); ?> <?php echo e($user->first_name); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-auto d-flex align-items-center badge-actions">
-                                        @php
+                                        <?php
                                             $friendship = DB::table('friendships')
                                             ->where(function ($query) use ($user) {
                                                 $query->where('user_id', Auth::user()->id)
@@ -106,37 +105,37 @@
                                                     ->where('friend_id', Auth::user()->id);
                                             })
                                             ->first();
-                                        @endphp
-                                        @if($friendship && $friendship->confirm == 0)
+                                        ?>
+                                        <?php if($friendship && $friendship->confirm == 0): ?>
                                             <button class="btn mx-2 btn-circle btn-waiting" title="En attente" disabled>
                                                 <i class="fa-solid fa-user-plus"></i>
                                                 <span class="btn-text"> En attente</span>
                                             </button>
-                                        @elseif($friendship)
+                                        <?php elseif($friendship): ?>
                                             <button class="btn mx-2 btn-circle btn-primary" title="Ami ajouté" disabled>
                                                 <i class="fa-solid fa-user-check"></i>
                                                 <span class="btn-text"> Ami</span>
                                             </button>
 
-                                        @else
-                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="{{ $user->id }}" title="Ajouter en ami">
+                                        <?php else: ?>
+                                            <button class="btn mx-2 btn-circle btn-success add-friend-btn" data-id="<?php echo e($user->id); ?>" title="Ajouter en ami">
                                                 <i class="fa-solid fa-user-plus"></i>
                                                 <span class="btn-text"> Ajouter</span>
                                             </button>
-                                        @endif
-                                        <a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-warning btn-circle" title="Voir le profil">
+                                        <?php endif; ?>
+                                        <a href="<?php echo e(route('user.show', ['user' => $user->id])); ?>" class="btn btn-warning btn-circle" title="Voir le profil">
                                             <i class="fa-solid fa-user"></i> Profil
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
+                        <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -155,7 +154,7 @@
                     method: 'POST',
                     data: {
                         userId: userId,
-                        _token: '{{ csrf_token() }}'
+                        _token: '<?php echo e(csrf_token()); ?>'
                     },
                     success: function(response) {
                         console.log(response);
@@ -182,7 +181,7 @@
                     method: 'POST',
                     data: {
                         userId: userId,
-                        _token: '{{ csrf_token() }}'
+                        _token: '<?php echo e(csrf_token()); ?>'
                     },
                     success: function(response) {
                         console.log(response);
@@ -197,3 +196,5 @@
     });
 
 </script>
+
+<?php echo $__env->make('layouts.app_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/INTRA/resources/views/social/network.blade.php ENDPATH**/ ?>
