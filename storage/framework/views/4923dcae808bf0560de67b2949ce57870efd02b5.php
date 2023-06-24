@@ -20,7 +20,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php $__currentLoopData = $users->take(8); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $users->take(7); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if($user->id !== Auth::user()->id): ?>
                             <div class="badge-item">
                                 <div class="row mt-2">
@@ -80,7 +80,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <!-- Afficher les autres utilisateurs -->
-                    <?php $__currentLoopData = $users->skip(8); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $users->skip(7); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if($user->id !== Auth::user()->id): ?>
                             <div class="badge-item">
                                 <div class="row mt-2">

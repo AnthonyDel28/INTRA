@@ -1,9 +1,8 @@
-@extends('layouts.app_layout')
-<link rel="stylesheet" href="{{ asset('css/pages/admin.css') }}">
+<link rel="stylesheet" href="<?php echo e(asset('css/pages/admin.css')); ?>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/css/bootstrap.min.css">
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="container-fluid">
         <div class="row">
             <h1 class="main_title">
@@ -50,46 +49,46 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($users as $user)
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="user-row">
-                                        <td><img src="{{ asset('storage/images/users/profile/' . $user->image) }}" alt="" class="post_img" style="object-fit: cover; width: 30px; height: 30px;"></td>
-                                        <td>{{ $user->id }}</td>
-                                        <td class="username-cell">{{ $user->username }}</td>
-                                        <td>{{ $user->last_name }} {{ $user->first_name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->role_name }}</td>
-                                        <td>{{ $user->created_at }}</td>
+                                        <td><img src="<?php echo e(asset('storage/images/users/profile/' . $user->image)); ?>" alt="" class="post_img" style="object-fit: cover; width: 30px; height: 30px;"></td>
+                                        <td><?php echo e($user->id); ?></td>
+                                        <td class="username-cell"><?php echo e($user->username); ?></td>
+                                        <td><?php echo e($user->last_name); ?> <?php echo e($user->first_name); ?></td>
+                                        <td><?php echo e($user->email); ?></td>
+                                        <td><?php echo e($user->role_name); ?></td>
+                                        <td><?php echo e($user->created_at); ?></td>
                                         <td>
-                                            <button class="btn btn-warning update-user-btn" data-user-id="{{ $user->id }}">Modifier</button>
-                                            <button class="btn btn-danger hide-post-btn" data-post-id="{{ $user->id }}">Désactiver</button>
+                                            <button class="btn btn-warning update-user-btn" data-user-id="<?php echo e($user->id); ?>">Modifier</button>
+                                            <button class="btn btn-danger hide-post-btn" data-post-id="<?php echo e($user->id); ?>">Désactiver</button>
                                         </td>
                                     </tr>
                                     <tr class="edit-form-row" style="display: none;">
                                         <td colspan="8">
                                             <form class="edit-form" method="POST">
-                                                @method('PUT')
+                                                <?php echo method_field('PUT'); ?>
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Pseudo</label>
-                                                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                                                    <input type="text" class="form-control" id="username" name="username" value="<?php echo e($user->username); ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="first_name" class="form-label">Prénom</label>
-                                                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                                                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo e($user->first_name); ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="last_name" class="form-label">Nom</label>
-                                                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                                                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo e($user->last_name); ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
+                                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo e($user->email); ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="role" class="form-label">Rôle</label>
                                                     <select class="form-select" id="role" name="role">
-                                                        <option value="1" {{ $user->role_id === '1' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="2" {{ $user->role_id === '2' ? 'selected' : '' }}>Modérateur</option>
-                                                        <option value="3" {{ $user->role_id === '3' ? 'selected' : '' }}>Utilisateur</option>
+                                                        <option value="1" <?php echo e($user->role_id === '1' ? 'selected' : ''); ?>>Admin</option>
+                                                        <option value="2" <?php echo e($user->role_id === '2' ? 'selected' : ''); ?>>Modérateur</option>
+                                                        <option value="3" <?php echo e($user->role_id === '3' ? 'selected' : ''); ?>>Utilisateur</option>
                                                     </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary save-changes-btn">Enregistrer les modifications</button>
@@ -97,7 +96,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -121,13 +120,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($posts as $post)
+                                <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="post-row">
-                                        <td>{{ $post->id }}</td>
-                                        <td>{{ $post->user_name }}</td>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ substr($post->message, 0, 10) }}</td>
-                                        <td>{{ $post->created_at }}</td>
+                                        <td><?php echo e($post->id); ?></td>
+                                        <td><?php echo e($post->user_name); ?></td>
+                                        <td><?php echo e($post->title); ?></td>
+                                        <td><?php echo e(substr($post->message, 0, 10)); ?></td>
+                                        <td><?php echo e($post->created_at); ?></td>
                                         <td>
                                             <button class="btn btn-primary show-post-btn" id="show-post-btn">Voir tout</button>
                                             <script>
@@ -143,21 +142,21 @@
                                                 });
 
                                             </script>
-                                            <button class="btn btn-danger delete-post-btn" data-post-id="{{ $post->id }}">Supprimer</button>
-                                            <button class="btn btn-secondary hide-post-btn" data-post-id="{{ $post->id }}">Masquer</button>
+                                            <button class="btn btn-danger delete-post-btn" data-post-id="<?php echo e($post->id); ?>">Supprimer</button>
+                                            <button class="btn btn-secondary hide-post-btn" data-post-id="<?php echo e($post->id); ?>">Masquer</button>
                                         </td>
                                     </tr>
                                     <tr class="details-row">
                                         <td colspan="6">
                                             <div class="details-content">
                                                 <u><b><h4>Titre:</h4></b></u>
-                                                <p>{{ $post->title }}</p>
+                                                <p><?php echo e($post->title); ?></p>
                                                 <u><b><h4>Contenu:</h4></b></u>
-                                                <p>{{ $post->message }}</p>
+                                                <p><?php echo e($post->message); ?></p>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -181,13 +180,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($comments as $comment)
+                                <?php $__currentLoopData = $comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="comment-row">
-                                        <td>{{ $comment->id }}</td>
-                                        <td>{{ substr($comment->post_title, 0, 10) }}</td>
-                                        <td>{{ substr($comment->message, 0, 10) }}</td>
-                                        <td>{{ $comment->author_name }}</td>
-                                        <td>{{ $comment->created_at }}</td>
+                                        <td><?php echo e($comment->id); ?></td>
+                                        <td><?php echo e(substr($comment->post_title, 0, 10)); ?></td>
+                                        <td><?php echo e(substr($comment->message, 0, 10)); ?></td>
+                                        <td><?php echo e($comment->author_name); ?></td>
+                                        <td><?php echo e($comment->created_at); ?></td>
                                         <td>
                                             <button class="btn btn-primary show-comment-btn" id="show-comment-btn">Voir tout</button>
                                             <script>
@@ -203,21 +202,21 @@
                                                 });
 
                                             </script>
-                                            <button class="btn btn-danger delete-comment-btn" data-comment-id="{{ $comment->id }}">Supprimer</button>
-                                            <button class="btn btn-secondary hide-post-btn" data-comment-id="{{ $comment->id }}">Masquer</button>
+                                            <button class="btn btn-danger delete-comment-btn" data-comment-id="<?php echo e($comment->id); ?>">Supprimer</button>
+                                            <button class="btn btn-secondary hide-post-btn" data-comment-id="<?php echo e($comment->id); ?>">Masquer</button>
                                         </td>
                                     </tr>
                                     <tr class="details-row">
                                         <td colspan="6">
                                             <div class="details-content">
                                                 <u><b><h4>Titre du post:</h4></b></u>
-                                                <p>{{ $comment->post_title }}</p>
+                                                <p><?php echo e($comment->post_title); ?></p>
                                                 <u><b><h4>Commentaire:</h4></b></u>
-                                                <p>{{ $comment->message }}</p>
+                                                <p><?php echo e($comment->message); ?></p>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -247,24 +246,24 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($reports as $report)
+                                <?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="report-row">
-                                        <td>{{ $report->username }}</td>
-                                        <td>{{ substr($report->title, 0, 10) }}</td>
-                                        <td>{{ substr($report->message, 0, 10) }}</td>
-                                        <td>{{ $report->created_at }}</td>
+                                        <td><?php echo e($report->username); ?></td>
+                                        <td><?php echo e(substr($report->title, 0, 10)); ?></td>
+                                        <td><?php echo e(substr($report->message, 0, 10)); ?></td>
+                                        <td><?php echo e($report->created_at); ?></td>
                                     </tr>
                                     <tr class="details-row">
                                         <td colspan="4">
                                             <div class="details-content">
                                                 <u><b><h4>Titre:</h4></b></u>
-                                                <p>{{ $report->title }}</p>
+                                                <p><?php echo e($report->title); ?></p>
                                                 <u><b><h4>Rapport</h4></b></u>
-                                                <p>{{ $report->message }}</p>
+                                                <p><?php echo e($report->message); ?></p>
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -273,7 +272,7 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 <script>
     $(document).ready(function() {
@@ -299,7 +298,7 @@
                 url: "/admin/update/user/" + userId,
                 type: "POST",
                 data: {
-                    _token: "{{ csrf_token() }}",
+                    _token: "<?php echo e(csrf_token()); ?>",
                     username: username,
                     first_name: firstName,
                     last_name: lastName,
@@ -367,7 +366,7 @@
                 url: "/posts/delete/" + postId,
                 type: "DELETE",
                 data: {
-                    _token: "{{ csrf_token() }}"
+                    _token: "<?php echo e(csrf_token()); ?>"
                 },
                 success: function(response) {
                     deleteButton.closest(".post-row").next(".details-row").remove();
@@ -386,7 +385,7 @@
                 url: "/comment/delete/" + commentId,
                 type: "DELETE",
                 data: {
-                    _token: "{{ csrf_token() }}"
+                    _token: "<?php echo e(csrf_token()); ?>"
                 },
                 success: function(response) {
                     deleteButton.closest(".comment-row").next(".details-row").remove();
@@ -446,3 +445,5 @@
 </script>
 
 
+
+<?php echo $__env->make('layouts.app_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/INTRA/resources/views/admin/admin.blade.php ENDPATH**/ ?>

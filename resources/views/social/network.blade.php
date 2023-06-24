@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($users->take(8) as $user)
+                    @foreach($users->take(7) as $user)
                         @if($user->id !== Auth::user()->id)
                             <div class="badge-item">
                                 <div class="row mt-2">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <!-- Afficher les autres utilisateurs -->
-                    @foreach($users->skip(8) as $user)
+                    @foreach($users->skip(7) as $user)
                         @if($user->id !== Auth::user()->id)
                             <div class="badge-item">
                                 <div class="row mt-2">

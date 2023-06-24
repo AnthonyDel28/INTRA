@@ -38,7 +38,7 @@ class SignupController extends Controller
         ]);
 
         auth()->login($user);
-        $user->notify(new UserRegisteredNotification($user));
+        //$user->notify(new UserRegisteredNotification($user));
         return redirect()->route('home');
     }
 }

@@ -41,7 +41,7 @@
                     
                     <div class="favorites-section">
                         <p class="messenger-title"><span>Amis</span></p>
-                        <div class="messenger-favorites app-scroll-hidden"></div>
+                        <div class="messenger-favorites"></div>
                     </div>
                     
 

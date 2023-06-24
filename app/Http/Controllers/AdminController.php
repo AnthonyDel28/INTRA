@@ -15,12 +15,12 @@ class AdminController extends Controller
         $news = DB::table('news')->get();
         $posts = DB::table('posts')
             ->join('users', 'posts.author', '=', 'users.id')
-            ->select('posts.*', 'users.username as user_name')
+            ->select('posts.*', 'users.name as user_name')
             ->get();
         $comments = DB::table('comments')
             ->join('users', 'comments.author', '=', 'users.id')
             ->join('posts', 'comments.post_id', '=', 'posts.id')
-            ->select('comments.*', 'users.username as author_name', 'posts.title as post_title')
+            ->select('comments.*', 'users.name as author_name', 'posts.title as post_title')
             ->get();
 
         $users = DB::table('users')
@@ -30,7 +30,7 @@ class AdminController extends Controller
 
         $reports = DB::table('rapports')
             ->join('users', 'rapports.user_id', '=', 'users.id')
-            ->select('rapports.*', 'users.username')
+            ->select('rapports.*', 'users.name')
             ->get();
 
 
