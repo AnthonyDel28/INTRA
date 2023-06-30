@@ -6,10 +6,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 class PostController extends Controller
 {
+
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        $postCount = DB::table('posts')
+            ->where('author', $user->id)
+            ->whereDate('created_at', DB::raw('CURDATE()'))
+            ->count();
+
+        $maxPostsPerDay = 2;
+
+        if ($postCount >= $maxPostsPerDay) {
+            $username = $user->name;
+
+            DB::table('rapports')->insert([
+                'title' => 'Concerne ' . $username,
+                'message' => 'Spamming de publications potentiel.',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            $roles = [1, 2];
+            $users = DB::table('users')
+                ->whereIn('role_id', $roles)
+                ->get();
+
+            foreach ($users as $notifiedUser) {
+                DB::table('notifications')->insert([
+                    'user_id' => $notifiedUser->id,
+                    'message' => 'Une nouvelle alerte de spamming a été lancée!',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'type' => 0,
+                ]);
+            }
+        }
+
+
         $validatedData = $request->validate([
             'title' => 'required',
             'message' => 'required',
@@ -18,14 +55,16 @@ class PostController extends Controller
             'code' => 'nullable',
         ]);
 
-        $validatedData['author'] = Auth::id();
+        $validatedData['author'] = $user->id;
         $validatedData['is_active'] = 1;
         $validatedData['created_at'] = now();
         $validatedData['updated_at'] = now();
+
         DB::table('posts')->insert($validatedData);
 
-       return redirect()->route('home')->with('success_post', 'Votre contenu a été publié');
+        return redirect()->route('home')->with('success_post', 'Votre contenu a été publié');
     }
+
 
     public function show($id)
     {
@@ -98,6 +137,41 @@ class PostController extends Controller
 
     public function postComment(Request $request)
     {
+        $user = auth()->user();
+
+        $commentCount = DB::table('comments')
+            ->where('author', $user->id)
+            ->whereDate('created_at', DB::raw('CURDATE()'))
+            ->count();
+
+        $maxCommentsPerDay = 3;
+
+        if ($commentCount >= $maxCommentsPerDay) {
+            $username = $user->name;
+
+            DB::table('rapports')->insert([
+                'title' => 'Concerne ' . $username,
+                'message' => 'Spamming de commentaires potentiel.',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            $roles = [1, 2];
+            $users = DB::table('users')
+                ->whereIn('role_id', $roles)
+                ->get();
+
+            foreach ($users as $notifiedUser) {
+                DB::table('notifications')->insert([
+                    'user_id' => $notifiedUser->id,
+                    'message' => 'Une nouvelle alerte de spamming a été lancée!',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'type' => 0,
+                ]);
+            }
+        }
+
         $userId = Auth::id();
         $message = $request->input('message');
         $code = $request->input('code');

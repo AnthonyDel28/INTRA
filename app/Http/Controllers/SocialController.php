@@ -169,6 +169,27 @@ class SocialController extends Controller
             })
             ->delete();
 
+        DB::table('notifications')
+            ->where(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $userId)
+                    ->where('author_id', $friendId);
+            })
+            ->orWhere(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $friendId)
+                    ->where('author_id', $userId);
+            })
+            ->delete();
+
+        DB::table('ch_favorites')
+            ->where(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $userId)
+                    ->where('favorite_id', $friendId);
+            })
+            ->orWhere(function ($query) use ($userId, $friendId) {
+                $query->where('user_id', $friendId)
+                    ->where('favorite_id', $userId);
+            })
+            ->delete();
 
         return response()->json(['message' => 'Ami supprimé avec succès.']);
     }

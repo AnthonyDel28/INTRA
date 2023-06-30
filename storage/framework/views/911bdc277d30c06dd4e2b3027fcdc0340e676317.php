@@ -13,14 +13,18 @@
                             <div class="row mt-2">
                                 <div class="col-auto d-flex align-items-center">
                                     <?php
-                                        $imagePath = 'storage/images/users/profile/' . $notification->author_id . '.jpg';
-                                        $defaultImagePath = 'storage/images/users/profile/default.jpg';
-                                        $imageUrl = asset($imagePath);
+                                        $imagePath = 'storage/images/users/profile/';
+                                        $defaultImagePath = 'intra.ico';
+                                        $imageUrl = asset($defaultImagePath);
 
-                                        if (!file_exists(public_path($imagePath))) {
-                                            $imageUrl = asset($defaultImagePath);
+                                        if ($notification->author_id) {
+                                            $imagePath .= $notification->author_id . '.jpg';
+                                            if (file_exists(public_path($imagePath))) {
+                                                $imageUrl = asset($imagePath);
+                                            }
                                         }
                                     ?>
+
                                     <img src="<?php echo e($imageUrl); ?>" alt="" class="post_img" style="object-fit: cover;">
                                 </div>
                                 <div class="col">

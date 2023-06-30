@@ -54,7 +54,7 @@ Route::post('/rapport/post', [App\Http\Controllers\OtherController::class, 'rapp
 Route::get('/contribute', [App\Http\Controllers\OtherController::class, 'contribute'])->name('other.contribute');
 
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
-Route::match(['PUT', 'POST'], '/admin/update/user/{userId}', [App\Http\Controllers\UserController::class, 'adminUserUpdate'])->name('admin.users.update');
+Route::post('/admin/update/user/{userId}', [App\Http\Controllers\UserController::class, 'adminUserUpdate'])->name('admin.users.update');
 
 Route::get('/success', [App\Http\Controllers\OtherController::class, 'success'])->name('show.badges');
 
@@ -65,6 +65,7 @@ Route::post('/accept-friendship', [App\Http\Controllers\SocialController::class,
 Route::post('/decline-friendship/', [App\Http\Controllers\SocialController::class, 'declineFriendship'])->name('friendship.reject');
 Route::post('/delete-friend/', [App\Http\Controllers\SocialController::class, 'deleteFriend'])->name('friendship.delete');
 
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
 
 
 Route::get('/notifications', [App\Http\Controllers\MainController::class, 'notifications'])->name('show.notifications');

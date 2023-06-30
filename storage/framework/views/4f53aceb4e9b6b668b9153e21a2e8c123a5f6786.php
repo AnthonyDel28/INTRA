@@ -124,7 +124,7 @@
         <div class="col-3">
             <div class="row mt-5">
                 <h4 class="home_title">Recherche rapide</h4>
-                <form action="" method="GET" class="mt-3">
+                <form action="<?php echo e(route('search')); ?>" method="GET" class="mt-3">
                     <input type="text" name="query" placeholder="Rechercher..." class="search_bar">
                     <button type="submit" class="search_bar_button">Rechercher</button>
                 </form>

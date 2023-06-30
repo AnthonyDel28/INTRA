@@ -13,20 +13,20 @@
         <div class="row">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#members">Membres</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#members"><i class="fa-solid fa-user"></i> Membres</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#posts">Posts</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#posts"><i class="fa-solid fa-paste"></i> Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#comments">Commentaires</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#comments"><i class="fa-solid fa-comments"></i> Commentaires</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#news">Actualités</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#news"><i class="fa-solid fa-newspaper"></i> Actualités</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#reports">Rapports</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#reports"><i class="fa-solid fa-triangle-exclamation"></i> Rapports & Alertes</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -52,9 +52,9 @@
                                 <tbody>
                                 @foreach ($users as $user)
                                     <tr class="user-row">
-                                        <td><img src="{{ asset('storage/images/users/profile/' . $user->image) }}" alt="" class="post_img" style="object-fit: cover; width: 30px; height: 30px;"></td>
+                                        <td><img src="{{ asset('storage/images/users/profile/' . $user->avatar) }}" alt="" class="post_img" style="object-fit: cover; width: 30px; height: 30px;"></td>
                                         <td>{{ $user->id }}</td>
-                                        <td class="username-cell">{{ $user->username }}</td>
+                                        <td class="name-cell">{{ $user->name }}</td>
                                         <td>{{ $user->last_name }} {{ $user->first_name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role_name }}</td>
@@ -67,10 +67,10 @@
                                     <tr class="edit-form-row" style="display: none;">
                                         <td colspan="8">
                                             <form class="edit-form" method="POST">
-                                                @method('PUT')
+                                                @method('POST')
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Pseudo</label>
-                                                    <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
+                                                    <label for="name" class="form-label">Pseudo</label>
+                                                    <input type="text" class="form-control" id="name" name="name" value="{{ $user->name }}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="first_name" class="form-label">Prénom</label>
@@ -87,9 +87,9 @@
                                                 <div class="mb-3">
                                                     <label for="role" class="form-label">Rôle</label>
                                                     <select class="form-select" id="role" name="role">
-                                                        <option value="1" {{ $user->role_id === '1' ? 'selected' : '' }}>Admin</option>
-                                                        <option value="2" {{ $user->role_id === '2' ? 'selected' : '' }}>Modérateur</option>
-                                                        <option value="3" {{ $user->role_id === '3' ? 'selected' : '' }}>Utilisateur</option>
+                                                        <option value="1" {{ $user->role_id === 1 ? 'selected' : '' }}>Admin</option>
+                                                        <option value="2" {{ $user->role_id === 2 ? 'selected' : '' }}>Modérateur</option>
+                                                        <option value="3" {{ $user->role_id === 3 ? 'selected' : '' }}>Utilisateur</option>
                                                     </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary save-changes-btn">Enregistrer les modifications</button>
@@ -126,7 +126,7 @@
                                         <td>{{ $post->id }}</td>
                                         <td>{{ $post->user_name }}</td>
                                         <td>{{ $post->title }}</td>
-                                        <td>{{ substr($post->message, 0, 10) }}</td>
+                                      <td>  {!! nl2br(htmlspecialchars(mb_substr($post->message, 0, 10) . (mb_strlen($post->message) > 10 ? '...' : ''))) !!}</td>
                                         <td>{{ $post->created_at }}</td>
                                         <td>
                                             <button class="btn btn-primary show-post-btn" id="show-post-btn">Voir tout</button>
@@ -184,8 +184,8 @@
                                 @foreach ($comments as $comment)
                                     <tr class="comment-row">
                                         <td>{{ $comment->id }}</td>
-                                        <td>{{ substr($comment->post_title, 0, 10) }}</td>
-                                        <td>{{ substr($comment->message, 0, 10) }}</td>
+                                        <td>{!! nl2br(htmlspecialchars(mb_substr($comment->post_title, 0, 10) . (mb_strlen($comment->post_title) > 10 ? '...' : ''))) !!}</td>
+                                        <td>{!! nl2br(htmlspecialchars(mb_substr($comment->message, 0, 10) . (mb_strlen($comment->message) > 10 ? '...' : ''))) !!}</td>
                                         <td>{{ $comment->author_name }}</td>
                                         <td>{{ $comment->created_at }}</td>
                                         <td>
@@ -233,7 +233,7 @@
                 </div>
                 <div class="tab-pane" id="reports">
                     <div class="row mt-5">
-                        <h3 class="section_main_title">Gestion des rapports</h3>
+                        <h3 class="section_main_title">Gestion des rapports et des alertes</h3>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -249,9 +249,13 @@
                                 <tbody>
                                 @foreach ($reports as $report)
                                     <tr class="report-row">
-                                        <td>{{ $report->username }}</td>
-                                        <td>{{ substr($report->title, 0, 10) }}</td>
-                                        <td>{{ substr($report->message, 0, 10) }}</td>
+                                       @if(!$report->name)
+                                            <td>SYSTEM</td>
+                                        @else
+                                            <td>{{ $report->name }}</td>
+                                       @endif
+                                        <td>{!! nl2br(htmlspecialchars(mb_substr($report->title, 0, 25) . (mb_strlen($report->title) > 10 ? '...' : ''))) !!}</td>
+                                        <td>{!! nl2br(htmlspecialchars(mb_substr($report->message, 0, 25) . (mb_strlen($report->message) > 10 ? '...' : ''))) !!}</td>
                                         <td>{{ $report->created_at }}</td>
                                     </tr>
                                     <tr class="details-row">
@@ -284,12 +288,13 @@
             $(".edit-form-row").not(editFormRow).hide();
             editFormRow.toggle();
         });
+
         $(".edit-form").submit(function(e) {
             e.preventDefault();
             var userId = $(this).closest(".edit-form-row").prev().find(".update-user-btn").data("user-id");
             var form = $(this);
 
-            var username = form.find("#username").val();
+            var name = form.find("#name").val();
             var firstName = form.find("#first_name").val();
             var lastName = form.find("#last_name").val();
             var email = form.find("#email").val();
@@ -300,7 +305,7 @@
                 type: "POST",
                 data: {
                     _token: "{{ csrf_token() }}",
-                    username: username,
+                    name: name,
                     first_name: firstName,
                     last_name: lastName,
                     email: email,
@@ -308,10 +313,8 @@
                 },
                 success: function(response) {
                     console.log("Mise à jour réussie");
-                    $(".username-cell[data-user-id='" + userId + "']").text(username);
-                    var url = window.location.href;
-                    url = url.split('#')[0];
-                    url += "#members";
+                    $(".name-cell[data-user-id='" + userId + "']").text(name);
+                    var url = window.location.href.split('#')[0] + "#members";
                     window.location.href = url;
                     location.reload();
                     localStorage.setItem('success_user_update', 'Mise à jour réussie !');
@@ -321,8 +324,7 @@
                 }
             });
         });
-    });
-    $(document).ready(function() {
+
         var successMessage = localStorage.getItem('success_user_update');
         if (successMessage) {
             var alertDiv = $('<div>').addClass('alert alert-success').text(successMessage);

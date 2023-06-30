@@ -117,5 +117,4 @@ class UserController extends Controller
 
         return redirect()->back()->with('success_user_update', 'Profil mis à jour avec succès.');
     }
-
 }

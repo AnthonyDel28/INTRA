@@ -31,7 +31,7 @@ class SuccessComposer
 
 
         if($user){
-            if ($user && $user->role_id === 1) {
+            if ($user->role_id === 1) {
                 $existingBadge = DB::table('users_badges')
                     ->where('user_id', $user->id)
                     ->where('badge_id', 1)
@@ -42,6 +42,18 @@ class SuccessComposer
                         'user_id' => $user->id,
                         'badge_id' => 1,
                     ]);
+                }
+            } else {
+                $existingBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 1)
+                    ->first();
+
+                if ($existingBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 1)
+                        ->delete();
                 }
             }
             /*---------------------------------------------------------------*/
@@ -61,6 +73,18 @@ class SuccessComposer
                         'user_id' => $user->id,
                         'badge_id' => 3,
                     ]);
+                }
+            } else {
+                $commentBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 3)
+                    ->first();
+
+                if ($commentBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 3)
+                        ->delete();
                 }
             }
 
@@ -82,6 +106,18 @@ class SuccessComposer
                         'badge_id' => 5,
                     ]);
                 }
+            } else {
+                $friendshipBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 5)
+                    ->first();
+
+                if ($friendshipBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 5)
+                        ->delete();
+                }
             }
 
             /*-------------------------------------------------------------*/
@@ -102,6 +138,18 @@ class SuccessComposer
                         'badge_id' => 6
                     ]);
                 }
+            } else {
+                $friendshipBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 6)
+                    ->first();
+
+                if ($friendshipBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 6)
+                        ->delete();
+                }
             }
 
             /*--------------------------------------------------------------*/
@@ -117,6 +165,18 @@ class SuccessComposer
                         'user_id' => $user->id,
                         'badge_id' => 8,
                     ]);
+                }
+            } else {
+                $existingBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 8)
+                    ->first();
+
+                if ($existingBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 8)
+                        ->delete();
                 }
             }
 
@@ -134,7 +194,20 @@ class SuccessComposer
                         'badge_id' => 9,
                     ]);
                 }
+            } else {
+                $existingBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 9)
+                    ->first();
+
+                if ($existingBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 9)
+                        ->delete();
+                }
             }
+
 
             /*------------------------------------------------------------------*/
 
@@ -150,7 +223,20 @@ class SuccessComposer
                         'badge_id' => 10,
                     ]);
                 }
+            } else {
+                $existingBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 10)
+                    ->first();
+
+                if ($existingBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $user->id)
+                        ->where('badge_id', 10)
+                        ->delete();
+                }
             }
+
 
             /*-----------------------------------------------------------------*/
 
@@ -171,6 +257,18 @@ class SuccessComposer
                             'user_id' => $user->id,
                             'badge_id' => 11,
                         ]);
+                    }
+                } else {
+                    $likesCount = DB::table('likes')
+                        ->join('posts', 'likes.post_id', '=', 'posts.id')
+                        ->where('posts.author', $user->id)
+                        ->count();
+
+                    if ($likesCount < 10) {
+                        DB::table('users_badges')
+                            ->where('user_id', $user->id)
+                            ->where('badge_id', 11)
+                            ->delete();
                     }
                 }
             }
@@ -202,19 +300,30 @@ class SuccessComposer
             if ($user) {
                 $existingBadge = DB::table('users_badges')
                     ->where('user_id', $user->id)
-                    ->where('badge_id', 13)
+                    ->where('badge_id', 12)
                     ->first();
 
                 if (!$existingBadge) {
-                    $reportsCount = DB::table('rapports')
-                        ->where('user_id', $user->id)
+                    $postsCount = DB::table('posts')
+                        ->where('author', $user->id)
                         ->count();
 
-                    if ($reportsCount >= 5) {
+                    if ($postsCount >= 5) {
                         DB::table('users_badges')->insert([
                             'user_id' => $user->id,
-                            'badge_id' => 13,
+                            'badge_id' => 12,
                         ]);
+                    }
+                } else {
+                    $postsCount = DB::table('posts')
+                        ->where('author', $user->id)
+                        ->count();
+
+                    if ($postsCount < 5) {
+                        DB::table('users_badges')
+                            ->where('user_id', $user->id)
+                            ->where('badge_id', 12)
+                            ->delete();
                     }
                 }
             }

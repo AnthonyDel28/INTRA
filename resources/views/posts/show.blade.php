@@ -60,7 +60,7 @@
                                 <div>
                                     <button class="comment_button"  id="showComment">Publier un commentaire</button>
                                 </div>
-                                @if(auth()->user()->id === $post->author)
+                                @if(auth()->user()->id === $post->author || auth()->user()->role_id === 1)
                                     <form id="deleteForm" action="{{ route('posts.delete', ['postId' => $post->post_id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -69,7 +69,6 @@
                                         </div>
                                     </form>
                                 @endif
-
                             </div>
                         </div>
                 </div>

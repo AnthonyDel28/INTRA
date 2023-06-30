@@ -111,7 +111,7 @@
                         <div class="menu_section mt-5">
                             <p class="menu_title"><b>Intra</b></p>
                             <div class="menu_item">
-                                <i class="fa-regular fa-globe"></i> <span>Découvrir</span>
+                                <i class="fa-solid fa-gamepad-modern"></i> <span>GameHub</span>
                             </div>
                             <div class="menu_item" onclick="redirectToContribute()">
                                 <i class="fa-brands fa-github"></i> <span>Contribuer</span>
@@ -187,9 +187,11 @@
                         <span class="top_left_item new_post_link" v-on:click="newPost()">
                              <i class="fa-solid fa-square-pen" ></i>Nouvelle publication
                         </span>
+                                    <!--
                                     <span class="top_left_item">
                             <i class="fa-solid fa-square-phone"></i> Appeler
                         </span>
+                        -->
                                 </div>
                                 <div class="col-md-6 text-end top_row_right_item">
                                     <div class="row justify-content-end">

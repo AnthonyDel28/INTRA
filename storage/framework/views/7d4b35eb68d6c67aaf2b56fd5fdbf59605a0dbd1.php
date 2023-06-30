@@ -62,7 +62,7 @@
                                 <div>
                                     <button class="comment_button"  id="showComment">Publier un commentaire</button>
                                 </div>
-                                <?php if(auth()->user()->id === $post->author): ?>
+                                <?php if(auth()->user()->id === $post->author || auth()->user()->role_id === 1): ?>
                                     <form id="deleteForm" action="<?php echo e(route('posts.delete', ['postId' => $post->post_id])); ?>" method="POST">
                                         <?php echo csrf_field(); ?>
                                         <?php echo method_field('DELETE'); ?>
@@ -71,7 +71,6 @@
                                         </div>
                                     </form>
                                 <?php endif; ?>
-
                             </div>
                         </div>
                 </div>

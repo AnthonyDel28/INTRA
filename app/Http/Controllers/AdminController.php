@@ -29,7 +29,7 @@ class AdminController extends Controller
             ->get();
 
         $reports = DB::table('rapports')
-            ->join('users', 'rapports.user_id', '=', 'users.id')
+            ->leftJoin('users', 'rapports.user_id', '=', 'users.id')
             ->select('rapports.*', 'users.name')
             ->get();
 
