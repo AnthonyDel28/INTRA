@@ -12,7 +12,11 @@ class NewsController extends Controller
 {
     public function news(Request $request)
     {
-        $news = DB::table('news')->get();
+        $news = DB::table('news')
+            ->join('users', 'news.user_id', '=', 'users.id')
+            ->select('news.*', 'users.name as user_name')
+            ->get();
+
         return view('social.news', ['news' => $news]);
     }
 
@@ -32,6 +36,7 @@ class NewsController extends Controller
         $imagePath = null;
         if ($image) {
             $imagePath = $image->store('news', 'public');
+            $imagePath = basename($imagePath);
         }
 
         DB::table('news')->insert([

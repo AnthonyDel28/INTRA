@@ -1,0 +1,24 @@
+/* CSS FILE FOR THE NEWS PAGE */
+
+.news_field {
+    background-color: rgba(0, 0, 0, 0.47);
+    border-radius: 35px;
+}
+
+.news_picture{
+    height: 100px;
+    border-top-left-radius: 35px;
+}
+
+.news_author {
+    font-size: 10px;
+}
+
+.news_date {
+    color: #00A3FF;
+    font-size: 10px;
+}
+
+.news_title {
+    color: white;
+}
