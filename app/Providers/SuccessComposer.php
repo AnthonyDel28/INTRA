@@ -327,6 +327,36 @@ class SuccessComposer
                     }
                 }
             }
+
+            /*------------------------------------------------------------*/
+
+            if ($user) {
+                $existingBadge = DB::table('users_badges')
+                    ->where('user_id', $user->id)
+                    ->where('badge_id', 13)
+                    ->first();
+
+                $reportsCount = DB::table('rapports')
+                    ->where('user_id', $user->id)
+                    ->count();
+
+                if ($reportsCount >= 5) {
+                    if (!$existingBadge) {
+                        DB::table('users_badges')->insert([
+                            'user_id' => $user->id,
+                            'badge_id' => 13,
+                        ]);
+                    }
+                } else {
+                    if ($existingBadge) {
+                        DB::table('users_badges')
+                            ->where('user_id', $user->id)
+                            ->where('badge_id', 13)
+                            ->delete();
+                    }
+                }
+            }
+
         }
     }
 }

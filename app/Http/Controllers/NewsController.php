@@ -15,6 +15,7 @@ class NewsController extends Controller
         $news = DB::table('news')
             ->join('users', 'news.user_id', '=', 'users.id')
             ->select('news.*', 'users.name as user_name')
+            ->orderBy('news.created_at', 'desc')
             ->get();
 
         return view('social.news', ['news' => $news]);
@@ -61,6 +62,16 @@ class NewsController extends Controller
             return response()->json(['message' => 'News deleted successfully']);
         } else {
             return response()->json(['message' => 'Comment not found'], 404);
+        }
+    }
+
+    public function delete($id)
+    {
+        if (in_array(auth()->user()->role_id, [1, 2])) {
+            DB::table('news')->where('id', $id)->delete();
+            return redirect()->route('show.news')->with('success_delete', 'Votre contenu a été supprimé');
+        } else {
+            return redirect()->back()->with('error', 'Vous n\'avez pas la permission de supprimer cette news.')->with('status', 403);
         }
     }
 }

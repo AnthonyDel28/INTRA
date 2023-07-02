@@ -85,12 +85,13 @@
 
 .login_form {
     height: auto;
-    background-color: rgba(18, 29, 39, 0.99);
-    border: 1px solid #00A3FF;
+    background-color: rgba(9, 12, 16, 0.92);
     margin-top: 80px;
     z-index: 2;
     padding: 0;
+    border-radius: 15px;
 }
+
 
 .login_form i {
     color: #00A3FF;
@@ -189,11 +190,11 @@
 
 .signup_form {
     height: auto;
-    background-color: rgba(18, 29, 39, 0.99);
-    border: 1px solid #00A3FF;
+    background-color: rgba(9, 12, 16, 0.92);
     margin-top: 80px;
     z-index: 2;
     padding: 0;
+    border-radius: 15px;
 }
 
 .create_an_account:hover,
@@ -210,6 +211,3 @@
     cursor: pointer;
 }
 
-.login_right_area {
-    border: 1px solid #00A3FF;
-}

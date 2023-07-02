@@ -284,7 +284,8 @@
 
                                 <div class="form-group">
                                     <label for="content" class="text-light">Contenu :</label>
-                                    <textarea name="content" id="content" class="form-control" rows="5" required></textarea>
+                                    <textarea name="content" id="content" class="ckeditor form-control" rows="5" required></textarea>
+
                                 </div>
 
                                 <div class="form-group">
@@ -345,7 +346,12 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
-
+<script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 <script>
     $(document).ready(function() {
         $(".update-user-btn").click(function() {

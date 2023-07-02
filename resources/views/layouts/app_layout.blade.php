@@ -116,8 +116,13 @@
                             </div>
                             <div class="menu_section mt-5">
                                 <p class="menu_title"><b>Intra</b></p>
-                                <div class="menu_item">
+                                <div class="menu_item" onclick="redirectToGameHub()">
                                     <i class="fa-solid fa-gamepad-modern"></i> <span>GameHub</span>
+                                    <script>
+                                        function redirectToGameHub() {
+                                            window.location.href = "/games";
+                                        }
+                                    </script>
                                 </div>
                                 <div class="menu_item" onclick="redirectToContribute()">
                                     <i class="fa-brands fa-github"></i> <span>Contribuer</span>

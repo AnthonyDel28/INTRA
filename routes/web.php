@@ -53,6 +53,7 @@ Route::get('/home', [App\Http\Controllers\MainController::class, 'sections'])
     ->name('home')
     ->middleware('redirectIfNotAuthenticated');
 
+Route::delete('/news/{id}', [App\Http\Controllers\NewsController::class, 'delete'])->name('news.remove');
 
 Route::post('/publish', [App\Http\Controllers\PostController::class, 'store'])->name('publish');
 
@@ -109,5 +110,9 @@ Route::get('/error', [App\Http\Controllers\OtherController::class, 'error'])->na
 Route::get('/home', [App\Http\Controllers\MainController::class, 'sections'])->name('home');
 
 
+Route::get('/games', [App\Http\Controllers\GamesController::class, 'games'])->name('games');
+Route::get('/snake', [App\Http\Controllers\GamesController::class, 'snake'])->name('snake');
+Route::get('/snakeScores', [App\Http\Controllers\GamesController::class, 'snakeScores'])->name('snakeScores');
+Route::post('/scoreStore', [App\Http\Controllers\GamesController::class, 'scoreStore'])->name('scoreStore');
 
 Route::get('/getContacts', [App\Http\Controllers\Vendor\MessagesController::class, 'getContacts']);

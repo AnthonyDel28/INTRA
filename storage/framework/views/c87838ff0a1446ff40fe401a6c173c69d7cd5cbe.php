@@ -102,8 +102,6 @@
                                             <span class="post_title"><?php echo e($comment->name); ?></span>
                                             <div class="col-6 mt-3">
                                                 <span class="post_date">Publié le <?php echo e($comment->created_at); ?></span>
-                                                <a href="#comment-<?php echo e($comment->id); ?>">Lien vers le commentaire</a>
-
                                             </div>
                                         </div>
                                     </div>

@@ -27,7 +27,7 @@ class OtherController extends Controller
             'updated_at' => now()
         ]);
 
-        return redirect()->back()->with('success', 'Le rapport a été soumis avec succès.');
+        return redirect()->route('home')->with('success_post', 'Votre rapport a été envoyé, merci.');
     }
 
     public function contribute()
