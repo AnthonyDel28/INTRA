@@ -19,6 +19,13 @@
     background-image: url("/images/assets/profile/header_admin.png");
     background-size: cover;
 }
+
+.background-image-role2 {
+    background-image: url("/images/assets/profile/header2.jpg");
+    background-size: cover;
+}
+
+
 .profile_picture-container {
     position: relative;
 }

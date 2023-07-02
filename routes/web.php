@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +25,27 @@ Route::get('/', function () {
 })->name('prepage');
 
 
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Route::post('/login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
+
+    $user = User::where('email', $credentials['email'])->first();
+
+    if ($user && $user->is_active == 0) {
+        return redirect()->route('prepage')->withErrors([
+            'failed' => 'Votre compte est désactivé. Veuillez contacter l\'administrateur.',
+        ]);
+    }
+
+    if (Auth::attempt($credentials)) {
+        return redirect()->route('home');
+    }
+
+    return redirect()->route('prepage')->withErrors([
+        'failed' => 'Données de connexion incorrectes!',
+    ]);
+})->name('login');
+
+
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::post('/signup', [App\Http\Controllers\SignupController::class, 'store'])->name('signup');
 
@@ -45,7 +68,8 @@ Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])-
 Route::get('/profile/{user}', [App\Http\Controllers\UserController::class, 'userProfile'])->name('user.show');
 
 
-
+Route::put('/users/{id}/disable', [App\Http\Controllers\UserController::class, 'disable'])->name('user.disable');
+Route::put('/users/{id}/reactivate', [App\Http\Controllers\UserController::class, 'reactivate'])->name('user.reactivate');
 Route::put('/user/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 
 Route::get('/rapport', [App\Http\Controllers\OtherController::class, 'index'])->name('other.rapport');
@@ -57,6 +81,10 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->na
 Route::post('/admin/update/user/{userId}', [App\Http\Controllers\UserController::class, 'adminUserUpdate'])->name('admin.users.update');
 
 Route::get('/success', [App\Http\Controllers\OtherController::class, 'success'])->name('show.badges');
+
+Route::get('/news', [App\Http\Controllers\NewsController::class, 'news'])->name('show.news');
+Route::post('/add-news', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+Route::delete('/news/delete/{newsId}', [App\Http\Controllers\NewsController::class, 'deleteNews'])->name('news.delete');
 
 Route::get('/network', [App\Http\Controllers\SocialController::class, 'network'])->name('show.network');
 

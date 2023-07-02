@@ -107,7 +107,7 @@
             </div>
             <?php $__currentLoopData = $comments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="row m-3">
-                    <div class="col-12 comment_zone p-5">
+                    <div class="col-12 comment_zone p-5" id="comment-<?php echo e($comment->id); ?>">
                         <div class="row post_author_infos justify-content-evenly">
                             <div class="col-12">
                                 <img src="<?php echo e(asset('storage/images/users/profile/' . $comment->user_image)); ?>" alt="" class="author_img mt-3" style="width: 40px; height: 40px; object-fit: cover;">

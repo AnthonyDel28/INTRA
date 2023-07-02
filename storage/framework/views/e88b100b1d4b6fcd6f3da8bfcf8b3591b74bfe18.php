@@ -35,14 +35,20 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="row mt-3 profile_page_infos <?php if($user->role_id == 1): ?> background-image-role1 <?php elseif($user->role_id == 3): ?> background-image-role3 <?php endif; ?>">
+            <div class="row mt-3 profile_page_infos <?php if($user->role_id == 1): ?> background-image-role1 <?php elseif($user->role_id == 3): ?> background-image-role3 <?php else: ?> background-image-role2 <?php endif; ?>">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
                         <img src="<?php echo e(asset('storage/images/users/profile/' . $user->avatar)); ?>" alt="" class="profile_picture" id="profileImage">
                     </div>
                 </div>
                 <div class="col-10 col-lg-10 col-sm-auto">
-                    <p class="text-right user_role"><?php echo e($user->role); ?></p>
+                    <?php if($user->role_id == 1): ?>
+                        <p class="text-right user_role">Administrateur</p>
+                    <?php elseif($user->role_id == 2): ?>
+                        <p class="text-right user_role">Modérateur</p>
+                    <?php else: ?>
+                        <p class="text-right user_role">Utilisateur</p>
+                    <?php endif; ?>
                     <h1 class="profile_main_title mb-0"><?php echo e($user->name); ?> </h1>
                     <span class="username text-light"><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></span><br>
                     <span class="user_level"><b>Niveau <?php echo e($user->level); ?></b></span>

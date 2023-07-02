@@ -12,7 +12,11 @@ class AdminController extends Controller
         if (auth()->user()->role_id != 1) {
             return redirect()->route('home');
         }
-        $news = DB::table('news')->get();
+        $news = DB::table('news')
+            ->join('users', 'news.user_id', '=', 'users.id')
+            ->select('news.*', 'users.name as user_name')
+            ->get();
+
         $posts = DB::table('posts')
             ->join('users', 'posts.author', '=', 'users.id')
             ->select('posts.*', 'users.name as user_name')

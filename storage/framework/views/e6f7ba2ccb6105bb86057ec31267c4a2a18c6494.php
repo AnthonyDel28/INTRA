@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
     <div>
         <div class="container-fluid">
-            <div class="row profile_page_infos <?php if($user->role_id == 1): ?> background-image-role1 <?php elseif($user->role_id == 3): ?> background-image-role3 <?php endif; ?>">
+            <div class="row profile_page_infos <?php if($user->role_id == 1): ?> background-image-role1 <?php elseif($user->role_id == 3): ?> background-image-role3 <?php else: ?> background-image-role2 <?php endif; ?>">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
                         <img src="<?php echo e(asset('storage/images/users/profile/' . Auth::user()->avatar)); ?>" alt="" class="profile_picture" id="profileImage">

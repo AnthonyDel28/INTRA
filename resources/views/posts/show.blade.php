@@ -105,7 +105,7 @@
             </div>
             @foreach($comments as $comment)
                 <div class="row m-3">
-                    <div class="col-12 comment_zone p-5">
+                    <div class="col-12 comment_zone p-5" id="comment-{{ $comment->id }}">
                         <div class="row post_author_infos justify-content-evenly">
                             <div class="col-12">
                                 <img src="{{ asset('storage/images/users/profile/' . $comment->user_image) }}" alt="" class="author_img mt-3" style="width: 40px; height: 40px; object-fit: cover;">

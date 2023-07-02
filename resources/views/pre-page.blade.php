@@ -24,8 +24,7 @@
 
 
                     <!-- LOGIN FORM -->
-
-                    <div class="col-10 col-md-6 login_form" id="login_form" :style="{ display: showError ? 'block' : 'none' }">
+                    <div class="col-10 col-md-6 login_form" id="login_form" :style="{ display: showLoginForm ? 'block' : 'none' }">
                         <div class="col-4 col-md-4 login_left_area text-center">
                             <img src="{{ asset('images/pre-page/developer.svg') }}" alt="" class="developer_img">
                         </div>
@@ -36,18 +35,12 @@
                                 </div>
                                 <div class="row justify-content-center">
                                     <h2 class="text-center login_title">Log in to your account</h2>
+                                    @if($errors->has('failed'))
+                                        <p class="text-danger text-center">{{ $errors->first('failed') }}</p>
+                                    @endif
                                 </div>
-                                @if(session('error'))
-                                    <div class="row justify-content-center text-center" id="error">
-                                        <div class="login_alert text-center">
-                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                            {{ session('error') }}
-                                        </div>
-                                    </div>
-                                @endif
-
                                 <div class="row justify-content-center">
-                                    <div class="col-8 mt-5">
+                                    <div class="col-8 mt-2">
                                         <form method="POST" action="{{ route('login') }}" class="mt-4">
                                             @csrf
 
@@ -57,8 +50,8 @@
                                                 <input id="email" type="email" class="login_field @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                                 @error('email')
                                                 <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                                 @enderror
                                             </div>
 
@@ -67,8 +60,8 @@
                                                 <input id="password" type="password" class="login_field @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                                 @error('password')
                                                 <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                                 @enderror
                                             </div>
 
@@ -103,6 +96,7 @@
                             </div>
                         </div>
                     </div>
+
 
 
                     <!-- SIGNUP FORM -->
@@ -249,8 +243,8 @@
     const app = Vue.createApp({
         data() {
             return {
-                showError: {{ session('error') ? 'true' : 'false' }},
-                status: "",
+                showLoginForm: {{ $errors->has('failed') ? 'true' : 'false' }},
+                status: ""
             };
         },
         methods: {

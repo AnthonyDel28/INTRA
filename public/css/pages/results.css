@@ -1,0 +1,51 @@
+/* CSS FILE FOR THE RESULTS PAGE */
+
+.main_title {
+    color: white;
+}
+
+.result_main_title {
+    color: white;
+}
+
+.search_user_field {
+    background-color: rgba(0, 0, 0, 0.39);
+    padding: 8px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 146, 250, 0.27);
+}
+
+.search_user_field:hover,
+.search_post_field:hover {
+    cursor: pointer;
+    background-color: rgba(40, 38, 38, 0.39);
+}
+
+.user_img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.user_name {
+    color: white;
+    font-size: 20px;
+}
+
+.search_post_field {
+    background-color: rgba(0, 0, 0, 0.39);
+    padding: 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 146, 250, 0.27);
+}
+
+.post_title {
+    color: white;
+    font-size: 20px;
+}
+
+.post_date {
+    color: #00a3ff;
+}

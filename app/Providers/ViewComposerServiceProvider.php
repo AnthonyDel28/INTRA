@@ -6,12 +6,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+
 class ViewComposerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         View::composer('*', function ($view) {
             $user = Auth::check() ? Auth::user() : null;
+
+
             $notificationsCount = 0;
             $messagesCount = 0;
 

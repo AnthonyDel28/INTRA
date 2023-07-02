@@ -117,4 +117,28 @@ class UserController extends Controller
 
         return redirect()->back()->with('success_user_update', 'Profil mis à jour avec succès.');
     }
+
+    public function disable($id)
+    {
+        $affectedRows = DB::table('users')
+            ->where('id', $id)
+            ->update(['is_active' => false]);
+
+        if ($affectedRows == 0) {
+            return response()->json(['message' => 'Utilisateur non trouvé.'], 404);
+        }
+        return response()->json(['message' => 'Utilisateur désactivé avec succès.']);
+    }
+
+    public function reactivate($id)
+    {
+        $affectedRows = DB::table('users')
+            ->where('id', $id)
+            ->update(['is_active' => true]);
+
+        if ($affectedRows == 0) {
+            return response()->json(['message' => 'Utilisateur non trouvé.'], 404);
+        }
+        return response()->json(['message' => 'Utilisateur réactivé avec succès.']);
+    }
 }

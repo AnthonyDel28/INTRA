@@ -220,5 +220,4 @@ class PostController extends Controller
             return response()->json(['message' => 'Comment not found'], 404);
         }
     }
-
 }

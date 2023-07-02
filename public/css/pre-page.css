@@ -84,7 +84,7 @@
 }
 
 .login_form {
-    height: 525px;
+    height: auto;
     background-color: rgba(18, 29, 39, 0.99);
     border: 1px solid #00A3FF;
     margin-top: 80px;
@@ -97,9 +97,10 @@
 }
 
 .login_left_area {
-    border: 1px solid #00A3FF;
-    height: 100%;
-    z-index: 3;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .developer_img {
@@ -187,7 +188,7 @@
 }
 
 .signup_form {
-    height: 525px;
+    height: auto;
     background-color: rgba(18, 29, 39, 0.99);
     border: 1px solid #00A3FF;
     margin-top: 80px;
@@ -207,4 +208,8 @@
 
 .close_signup:hover {
     cursor: pointer;
+}
+
+.login_right_area {
+    border: 1px solid #00A3FF;
 }

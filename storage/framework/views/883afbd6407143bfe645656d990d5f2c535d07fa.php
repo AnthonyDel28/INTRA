@@ -23,8 +23,7 @@
 
 
                     <!-- LOGIN FORM -->
-
-                    <div class="col-10 col-md-6 login_form" id="login_form" :style="{ display: showError ? 'block' : 'none' }">
+                    <div class="col-10 col-md-6 login_form" id="login_form" :style="{ display: showLoginForm ? 'block' : 'none' }">
                         <div class="col-4 col-md-4 login_left_area text-center">
                             <img src="<?php echo e(asset('images/pre-page/developer.svg')); ?>" alt="" class="developer_img">
                         </div>
@@ -35,19 +34,12 @@
                                 </div>
                                 <div class="row justify-content-center">
                                     <h2 class="text-center login_title">Log in to your account</h2>
+                                    <?php if($errors->has('failed')): ?>
+                                        <p class="text-danger text-center"><?php echo e($errors->first('failed')); ?></p>
+                                    <?php endif; ?>
                                 </div>
-                                <?php if(session('error')): ?>
-                                    <div class="row justify-content-center text-center" id="error">
-                                        <div class="login_alert text-center">
-                                            <i class="fa-solid fa-circle-exclamation"></i>
-                                            <?php echo e(session('error')); ?>
-
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-
                                 <div class="row justify-content-center">
-                                    <div class="col-8 mt-5">
+                                    <div class="col-8 mt-2">
                                         <form method="POST" action="<?php echo e(route('login')); ?>" class="mt-4">
                                             <?php echo csrf_field(); ?>
 
@@ -68,8 +60,8 @@ if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
                                                 <span class="invalid-feedback" role="alert">
-                                <strong><?php echo e($message); ?></strong>
-                            </span>
+                                    <strong><?php echo e($message); ?></strong>
+                                </span>
                                                 <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -92,8 +84,8 @@ if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
                                                 <span class="invalid-feedback" role="alert">
-                                <strong><?php echo e($message); ?></strong>
-                            </span>
+                                    <strong><?php echo e($message); ?></strong>
+                                </span>
                                                 <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
@@ -134,6 +126,7 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                     </div>
+
 
 
                     <!-- SIGNUP FORM -->
@@ -337,8 +330,8 @@ unset($__errorArgs, $__bag); ?>
     const app = Vue.createApp({
         data() {
             return {
-                showError: <?php echo e(session('error') ? 'true' : 'false'); ?>,
-                status: "",
+                showLoginForm: <?php echo e($errors->has('failed') ? 'true' : 'false'); ?>,
+                status: ""
             };
         },
         methods: {

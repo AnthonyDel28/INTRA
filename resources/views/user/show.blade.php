@@ -36,14 +36,20 @@
                     @endif
                 </div>
             </div>
-            <div class="row mt-3 profile_page_infos @if($user->role_id == 1) background-image-role1 @elseif($user->role_id == 3) background-image-role3 @endif">
+            <div class="row mt-3 profile_page_infos @if($user->role_id == 1) background-image-role1 @elseif($user->role_id == 3) background-image-role3 @else background-image-role2 @endif">
                 <div class="col-4 col-lg-2">
                     <div class="profile_picture-container">
                         <img src="{{ asset('storage/images/users/profile/' . $user->avatar) }}" alt="" class="profile_picture" id="profileImage">
                     </div>
                 </div>
                 <div class="col-10 col-lg-10 col-sm-auto">
-                    <p class="text-right user_role">{{ $user->role }}</p>
+                    @if($user->role_id == 1)
+                        <p class="text-right user_role">Administrateur</p>
+                    @elseif($user->role_id == 2)
+                        <p class="text-right user_role">Modérateur</p>
+                    @else
+                        <p class="text-right user_role">Utilisateur</p>
+                    @endif
                     <h1 class="profile_main_title mb-0">{{ $user->name }} </h1>
                     <span class="username text-light">{{ $user->first_name }} {{ $user->last_name }}</span><br>
                     <span class="user_level"><b>Niveau {{ $user->level }}</b></span>

@@ -9,6 +9,12 @@
                 <i class="fa-solid fa-folder-gear"></i> Administration
             </h1>
         </div>
+        <?php if(session('success_news_store')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success_news_store')); ?>
+
+            </div>
+        <?php endif; ?>
         <div class="row">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -60,7 +66,11 @@
                                         <td><?php echo e($user->created_at); ?></td>
                                         <td>
                                             <button class="btn btn-warning update-user-btn" data-user-id="<?php echo e($user->id); ?>">Modifier</button>
-                                            <button class="btn btn-danger hide-post-btn" data-post-id="<?php echo e($user->id); ?>">Désactiver</button>
+                                            <?php if($user->is_active): ?>
+                                                <button class="btn btn-danger disable-user-btn" data-user-id="<?php echo e($user->id); ?>" data-action-url="<?php echo e(route('user.reactivate', $user->id)); ?>">Désactiver</button>
+                                            <?php else: ?>
+                                                <button class="btn btn-success activate-user-btn" data-user-id="<?php echo e($user->id); ?>" data-action-url="<?php echo e(route('user.disable', $user->id)); ?>">Réactiver</button>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                     <tr class="edit-form-row" style="display: none;">
@@ -69,19 +79,19 @@
                                                 <?php echo method_field('POST'); ?>
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">Pseudo</label>
-                                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo e($user->name); ?>">
+                                                    <input type="text" class="form-control" id="name" name="name" value="<?php echo e($user->name); ?>" disabled>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="first_name" class="form-label">Prénom</label>
-                                                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo e($user->first_name); ?>">
+                                                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo e($user->first_name); ?>" disabled>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="last_name" class="form-label">Nom</label>
-                                                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo e($user->last_name); ?>">
+                                                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo e($user->last_name); ?>" disabled>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo e($user->email); ?>">
+                                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo e($user->email); ?>" disabled>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="role" class="form-label">Rôle</label>
@@ -227,9 +237,67 @@
                         <h3 class="section_main_title">Gestion des actualités</h3>
                     </div>
                     <div class="row">
+                        <div class="col-6">
+                            <h5 class="text-light">Liste des actualités</h5>
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Auteur</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $new): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr class="post-row">
+                                        <td><?php echo nl2br(htmlspecialchars(mb_substr($new->title, 0, 15) . (mb_strlen($new->title) > 15 ? '...' : ''))); ?></td>
+                                        <td><?php echo e($new->user_name); ?></td>
+                                        <td>
+                                            <button class="btn btn-primary show-news-btn" id="show-news-btn"><i class="fa-solid fa-hand-pointer"></i></button>
+                                            <button class="btn btn-danger delete-news-btn" data-news-id="<?php echo e($new->id); ?>"><i class="fa-solid fa-trash"></i></button>
+                                            <button class="btn btn-secondary hide-news-btn" data-post-id="<?php echo e($new->id); ?>"><i class="fa-solid fa-eye-slash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="details-row">
+                                        <td colspan="6">
+                                            <div class="details-content">
+                                                <u><b><h4>Titre:</h4></b></u>
+                                                <p><?php echo e($new->title); ?></p>
+                                                <u><b><h4>Contenu:</h4></b></u>
+                                                <p><?php echo e($new->content); ?></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </tbody>
+                            </table>
 
+                        </div>
+                        <div class="col-6">
+                            <h5 class="text-light">Poster une actualité</h5>
+                            <form action="<?php echo e(route('news.store')); ?>" method="POST" enctype="multipart/form-data">
+                                <?php echo csrf_field(); ?>
+                                <div class="form-group">
+                                    <label for="title" class="text-light">Titre :</label>
+                                    <input type="text" name="title" id="title" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="content" class="text-light">Contenu :</label>
+                                    <textarea name="content" id="content" class="form-control" rows="5" required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="image" class="text-light">Image :</label>
+                                    <input type="file" name="image" id="image" class="form-control-file">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
                 <div class="tab-pane" id="reports">
                     <div class="row mt-5">
                         <h3 class="section_main_title">Gestion des rapports et des alertes</h3>
@@ -398,8 +466,25 @@
                 }
             });
         });
+        $(".delete-news-btn").click(function() {
+            var newsId = $(this).data("news-id");
+            var deleteButton = $(this);
 
-
+            $.ajax({
+                url: "/news/delete/" + newsId,
+                type: "DELETE",
+                data: {
+                    _token: "<?php echo e(csrf_token()); ?>"
+                },
+                success: function(response) {
+                    deleteButton.closest(".post-row").next(".details-row").remove();
+                    deleteButton.closest(".post-row").remove();
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
     });
 </script>
 
@@ -427,6 +512,12 @@
             $(this).closest(".post-row").next(".details-row").slideToggle();
         });
     });
+    $(document).ready(function() {
+        $(".show-news-btn").click(function() {
+            $(this).closest(".post-row").next(".details-row").slideToggle();
+        });
+    });
+
 </script>
 
 <script>
@@ -446,6 +537,47 @@
     });
 </script>
 
+
+<script>
+    $(document).ready(function() {
+        $(".disable-user-btn, .activate-user-btn").click(function() {
+            var userId = $(this).data("user-id");
+            var button = $(this);
+            var isActive = button.hasClass("btn-success");
+            var actionUrl;
+
+            if (isActive) {
+                actionUrl = "/users/" + userId + "/reactivate";
+            } else {
+                actionUrl = "/users/" + userId + "/disable";
+            }
+
+            $.ajax({
+                url: actionUrl,
+                type: "PUT",
+                data: {
+                    _token: "<?php echo e(csrf_token()); ?>"
+                },
+                success: function(response) {
+                    console.log("Opération réussie !");
+
+                    if (isActive) {
+                        button.text("Désactiver");
+                        button.removeClass("btn-success").addClass("btn-danger");
+                        button.data("is-active", 0);
+                    } else {
+                        button.text("Réactiver");
+                        button.removeClass("btn-danger").addClass("btn-success");
+                        button.data("is-active", 1);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+</script>
 
 
 <?php echo $__env->make('layouts.app_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/INTRA/resources/views/admin/admin.blade.php ENDPATH**/ ?>
