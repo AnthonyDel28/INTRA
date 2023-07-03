@@ -7,9 +7,9 @@
         </div>
         <div class="row">
             @foreach($news as $new)
-                <div class="col-12 news_field mt-4">
+                <div class="col-12 news_field mt-4 p-4">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                             @if(!$new->image)
                                 <div class="news_picture" style="background-image: url('{{ asset('storage/news/default.jpg') }}'); background-size: cover;"></div>
                             @else
@@ -28,7 +28,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-8 mb-5">
+                        <div class="col-12 col-lg-8 mb-5">
                             <h4 class="news_title">{{ $new->title }}</h4>
                             <br>
                             <span class="news_content" style="color: white;">{!! html_entity_decode($new->content) !!}</span>

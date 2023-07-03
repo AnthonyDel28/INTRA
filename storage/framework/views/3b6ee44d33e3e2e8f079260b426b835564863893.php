@@ -14,33 +14,57 @@
                 <?php echo e(session('success_news_store')); ?>
 
             </div>
+        <?php elseif(session('success_post_delete')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success_post_delete')); ?>
+
+            </div>
+        <?php elseif(session('success_comment_delete')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success_comment_delete')); ?>
+
+            </div>
+        <?php elseif(session('success_news_delete')): ?>
+            <div class="alert alert-success">
+                <?php echo e(session('success_news_delete')); ?>
+
+            </div>
         <?php endif; ?>
         <div class="row">
             <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#members"><i class="fa-solid fa-user"></i> Membres</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#posts"><i class="fa-solid fa-paste"></i> Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#comments"><i class="fa-solid fa-comments"></i> Commentaires</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#news"><i class="fa-solid fa-newspaper"></i> Actualités</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#reports"><i class="fa-solid fa-triangle-exclamation"></i> Rapports & Alertes</a>
-                </li>
+                    <?php if(Auth::user()->role_id == 1): ?>
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#members"><i class="fa-solid fa-user"></i> Membres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#posts"><i class="fa-solid fa-paste"></i> Posts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#comments"><i class="fa-solid fa-comments"></i> Commentaires</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#news"><i class="fa-solid fa-newspaper"></i> Actualités</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#reports"><i class="fa-solid fa-triangle-exclamation"></i> Rapports & Alertes</a>
+                        </li>
+                    <?php elseif(Auth::user()->role_id == 2): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#news"><i class="fa-solid fa-newspaper"></i> Actualités</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#reports"><i class="fa-solid fa-triangle-exclamation"></i> Rapports & Alertes</a>
+                        </li>
+                    <?php endif; ?>
             </ul>
+            <?php if(Auth::user()->role_id == 1): ?>
             <div class="tab-content">
                 <div class="tab-pane show" id="members">
                     <div class="row mt-5">
                         <h3 class="section_main_title">Gestion des membres</h3>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 table-responsive">
                             <table class="table table-striped table-dark">
                                 <thead>
                                 <tr>
@@ -117,7 +141,7 @@
                         <h3 class="section_main_title">Gestion des posts</h3>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 table-responsive">
                             <table class="table table-hover table-dark">
                                 <thead>
                                 <tr>
@@ -152,8 +176,11 @@
                                                 });
 
                                             </script>
-                                            <button class="btn btn-danger delete-post-btn" data-post-id="<?php echo e($post->id); ?>">Supprimer</button>
-                                            <button class="btn btn-secondary hide-post-btn" data-post-id="<?php echo e($post->id); ?>">Masquer</button>
+                                            <form action="<?php echo e(route('posts.delete', ['postId' => $post->id])); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr class="details-row">
@@ -177,7 +204,7 @@
                         <h3 class="section_main_title">Gestion des commentaires</h3>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 table-responsive">
                             <table class="table table-striped table-dark">
                                 <thead>
                                 <tr>
@@ -212,8 +239,11 @@
                                                 });
 
                                             </script>
-                                            <button class="btn btn-danger delete-comment-btn" data-comment-id="<?php echo e($comment->id); ?>">Supprimer</button>
-                                            <button class="btn btn-secondary hide-post-btn" data-comment-id="<?php echo e($comment->id); ?>">Masquer</button>
+                                            <form action="<?php echo e(route('comment.delete', ['commentId' => $comment->id])); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr class="details-row">
@@ -237,7 +267,7 @@
                         <h3 class="section_main_title">Gestion des actualités</h3>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 table-responsive">
                             <h5 class="text-light">Liste des actualités</h5>
                             <table class="table table-hover table-dark">
                                 <thead>
@@ -254,8 +284,11 @@
                                         <td><?php echo e($new->user_name); ?></td>
                                         <td>
                                             <button class="btn btn-primary show-news-btn" id="show-news-btn"><i class="fa-solid fa-hand-pointer"></i></button>
-                                            <button class="btn btn-danger delete-news-btn" data-news-id="<?php echo e($new->id); ?>"><i class="fa-solid fa-trash"></i></button>
-                                            <button class="btn btn-secondary hide-news-btn" data-post-id="<?php echo e($new->id); ?>"><i class="fa-solid fa-eye-slash"></i></button>
+                                            <form action="<?php echo e(route('news.delete', ['newsId' => $new->id])); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
+                                                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr class="details-row">
@@ -264,7 +297,7 @@
                                                 <u><b><h4>Titre:</h4></b></u>
                                                 <p><?php echo e($new->title); ?></p>
                                                 <u><b><h4>Contenu:</h4></b></u>
-                                                <p><?php echo e($new->content); ?></p>
+                                                <p><?php echo html_entity_decode($new->content); ?></p>
                                             </div>
                                         </td>
                                     </tr>
@@ -273,7 +306,7 @@
                             </table>
 
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-lg-6">
                             <h5 class="text-light">Poster une actualité</h5>
                             <form action="<?php echo e(route('news.store')); ?>" method="POST" enctype="multipart/form-data">
                                 <?php echo csrf_field(); ?>
@@ -304,7 +337,7 @@
                         <h3 class="section_main_title">Gestion des rapports et des alertes</h3>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 table-responsive">
                             <table class="table table-striped table-dark">
                                 <thead>
                                 <tr>
@@ -343,9 +376,131 @@
                     </div>
                 </div>
             </div>
+            <?php elseif(Auth::user()->role_id == 2): ?>
+                <div class="tab-content">
+                    <div class="tab-pane" id="news">
+                        <div class="row mt-5">
+                            <h3 class="section_main_title">Gestion des actualités</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 table-responsive">
+                                <h5 class="text-light">Liste des actualités</h5>
+                                <table class="table table-hover table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Auteur</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $new): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr class="post-row">
+                                            <td><?php echo nl2br(htmlspecialchars(mb_substr($new->title, 0, 15) . (mb_strlen($new->title) > 15 ? '...' : ''))); ?></td>
+                                            <td><?php echo e($new->user_name); ?></td>
+                                            <td>
+                                                <button class="btn btn-primary show-news-btn" id="show-news-btn"><i class="fa-solid fa-hand-pointer"></i></button>
+                                                <form action="<?php echo e(route('news.delete', ['newsId' => $new->id])); ?>" method="POST">
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
+                                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr class="details-row">
+                                            <td colspan="6">
+                                                <div class="details-content">
+                                                    <u><b><h4>Titre:</h4></b></u>
+                                                    <p><?php echo e($new->title); ?></p>
+                                                    <u><b><h4>Contenu:</h4></b></u>
+                                                    <p><?php echo html_entity_decode($new->content); ?></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <h5 class="text-light">Poster une actualité</h5>
+                                <form action="<?php echo e(route('news.store')); ?>" method="POST" enctype="multipart/form-data">
+                                    <?php echo csrf_field(); ?>
+                                    <div class="form-group">
+                                        <label for="title" class="text-light">Titre :</label>
+                                        <input type="text" name="title" id="title" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="content" class="text-light">Contenu :</label>
+                                        <textarea name="content" id="content" class="ckeditor form-control" rows="5" required></textarea>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="image" class="text-light">Image :</label>
+                                        <input type="file" name="image" id="image" class="form-control-file">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="reports">
+                        <div class="row mt-5">
+                            <h3 class="section_main_title">Gestion des rapports et des alertes</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th>Auteur</th>
+                                        <th>Titre</th>
+                                        <th>Rapport</th>
+                                        <th>Date de publication</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr class="report-row">
+                                            <?php if(!$report->name): ?>
+                                                <td>SYSTEM</td>
+                                            <?php else: ?>
+                                                <td><?php echo e($report->name); ?></td>
+                                            <?php endif; ?>
+                                            <td><?php echo nl2br(htmlspecialchars(mb_substr($report->title, 0, 25) . (mb_strlen($report->title) > 10 ? '...' : ''))); ?></td>
+                                            <td><?php echo nl2br(htmlspecialchars(mb_substr($report->message, 0, 25) . (mb_strlen($report->message) > 10 ? '...' : ''))); ?></td>
+                                            <td><?php echo e($report->created_at); ?></td>
+                                        </tr>
+                                        <tr class="details-row">
+                                            <td colspan="4">
+                                                <div class="details-content">
+                                                    <u><b><h4>Titre:</h4></b></u>
+                                                    <p><?php echo e($report->title); ?></p>
+                                                    <u><b><h4>Rapport</h4></b></u>
+                                                    <p><?php echo e($report->message); ?></p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 <?php $__env->stopSection(); ?>
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+</style>
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -431,70 +586,6 @@
     });
 
 </script>
-
-<script>
-    $(document).ready(function() {
-        $(".delete-post-btn").click(function() {
-            var postId = $(this).data("post-id");
-            var deleteButton = $(this);
-
-            $.ajax({
-                url: "/posts/delete/" + postId,
-                type: "DELETE",
-                data: {
-                    _token: "<?php echo e(csrf_token()); ?>"
-                },
-                success: function(response) {
-                    deleteButton.closest(".post-row").next(".details-row").remove();
-                    deleteButton.closest(".post-row").remove();
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-        $(".delete-comment-btn").click(function() {
-            var commentId = $(this).data("comment-id");
-            var deleteButton = $(this);
-
-            $.ajax({
-                url: "/comment/delete/" + commentId,
-                type: "DELETE",
-                data: {
-                    _token: "<?php echo e(csrf_token()); ?>"
-                },
-                success: function(response) {
-                    deleteButton.closest(".comment-row").next(".details-row").remove();
-                    deleteButton.closest(".comment-row").remove();
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-        $(".delete-news-btn").click(function() {
-            var newsId = $(this).data("news-id");
-            var deleteButton = $(this);
-
-            $.ajax({
-                url: "/news/delete/" + newsId,
-                type: "DELETE",
-                data: {
-                    _token: "<?php echo e(csrf_token()); ?>"
-                },
-                success: function(response) {
-                    deleteButton.closest(".post-row").next(".details-row").remove();
-                    deleteButton.closest(".post-row").remove();
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-    });
-</script>
-
-
 
 <script>
     $(document).ready(function() {

@@ -12,6 +12,65 @@ class SuccessComposer
     {
         $user = Auth::check() ? Auth::user() : null;
 
+        if($user){
+            $userID = $user->id;
+
+            $experience = DB::table('users')
+                ->where('id', $userID)
+                ->value('experience');
+
+            if ($experience > 200) {
+                $level = 21;
+            } elseif ($experience > 180) {
+                $level = 20;
+            } elseif ($experience > 164) {
+                $level = 19;
+            } elseif ($experience > 150) {
+                $level = 18;
+            } elseif ($experience > 137) {
+                $level = 17;
+            } elseif ($experience > 125) {
+                $level = 16;
+            } elseif ($experience > 112) {
+                $level = 15;
+            } elseif ($experience > 100) {
+                $level = 14;
+            } elseif ($experience > 89) {
+                $level = 13;
+            } elseif ($experience > 79) {
+                $level = 12;
+            } elseif ($experience > 69) {
+                $level = 11;
+            } elseif ($experience > 60) {
+                $level = 10;
+            } elseif ($experience > 43) {
+                $level = 9;
+            } elseif ($experience > 41) {
+                $level = 8;
+            } elseif ($experience > 35) {
+                $level = 7;
+            } elseif ($experience > 28) {
+                $level = 6;
+            } elseif ($experience > 22) {
+                $level = 5;
+            } elseif ($experience > 17) {
+                $level = 4;
+            } elseif ($experience > 12) {
+                $level = 3;
+            } elseif ($experience > 8) {
+                $level = 2;
+            } else {
+                $level = 1;
+            }
+
+            DB::table('users')
+                ->where('id', $userID)
+                ->update(['level' => $level]);
+        }
+
+
+
+
         /*
             1 - Admin - Administrateur - Avoir le rôle Administrateur
             2 - Champion - Champion - Être champion d'un jeu
@@ -57,6 +116,43 @@ class SuccessComposer
                 }
             }
             /*---------------------------------------------------------------*/
+
+
+            $scores = DB::table('scores')
+                ->orderBy('score', 'desc')
+                ->pluck('user_id');
+
+            $userID = $user->id;
+
+
+            if ($scores->first() === $userID) {
+                $badge2 = DB::table('users_badges')
+                    ->where('user_id', $userID)
+                    ->where('badge_id', 2)
+                    ->first();
+
+                if (!$badge2) {
+                    DB::table('users_badges')->insert([
+                        'user_id' => $userID,
+                        'badge_id' => 2
+                    ]);
+                }
+            } else {
+                $badge2 = DB::table('users_badges')
+                    ->where('user_id', $userID)
+                    ->where('badge_id', 2)
+                    ->first();
+
+                if ($badge2) {
+                    DB::table('users_badges')
+                        ->where('user_id', $userID)
+                        ->where('badge_id', 2)
+                        ->delete();
+                }
+            }
+
+
+            /*--------------------------------------------------------------*/
 
             $commentCount = DB::table('comments')
                 ->where('author', $user->id)
@@ -153,6 +249,46 @@ class SuccessComposer
             }
 
             /*--------------------------------------------------------------*/
+
+
+            $scores = DB::table('scores')
+                ->orderBy('score', 'desc')
+                ->pluck('user_id')
+                ->take(5);
+
+            $userID = $user->id;
+
+            if ($scores->contains($userID)) {
+                $friendshipBadge = DB::table('users_badges')
+                    ->where('user_id', $userID)
+                    ->where('badge_id', 7)
+                    ->first();
+
+                if (!$friendshipBadge) {
+
+                    DB::table('users_badges')->insert([
+                        'user_id' => $userID,
+                        'badge_id' => 7
+                    ]);
+                }
+            } else {
+                $friendshipBadge = DB::table('users_badges')
+                    ->where('user_id', $userID)
+                    ->where('badge_id', 7)
+                    ->first();
+
+                if ($friendshipBadge) {
+                    DB::table('users_badges')
+                        ->where('user_id', $userID)
+                        ->where('badge_id', 7)
+                        ->delete();
+                }
+            }
+
+
+
+            /*--------------------------------------------------------------*/
+
 
             if ($user && $user->level >= 5) {
                 $existingBadge = DB::table('users_badges')

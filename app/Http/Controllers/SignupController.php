@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\UserRegisteredNotification;
 use Illuminate\Support\Str;
+use App\Mail\WelcomeEmail;
+use Illuminate\Support\Facades\Mail;
 
 class SignupController extends Controller
 {
@@ -27,7 +29,7 @@ class SignupController extends Controller
             'role_id' => 3,
             'is_active' => 1,
             'experience' => 0,
-            'level' => 0,
+            'level' => 1,
             'avatar' => 'default.jpg',
             'created_at' => now(),
             'updated_at' => now(),
@@ -36,7 +38,6 @@ class SignupController extends Controller
             'remember_token' => Str::random(10),
             'dark_mode' => 1
         ]);
-
         auth()->login($user);
         //$user->notify(new UserRegisteredNotification($user));
         return redirect()->route('home');

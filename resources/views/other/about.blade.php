@@ -7,11 +7,11 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-6 text-center">
+        <div class="col-12 col-lg-6 text-center">
             <h1 class="about_title">Bienvenue sur Intra!</h1>
             <img src="{{ asset('images/assets/intra_character.png') }}" alt="" class="character">
         </div>
-        <div class="col-5 mt-5">
+        <div class="col-12 col-lg-5 mt-5">
             <h3 class="about_title">Présentation</h3>
             <hr>
             <p class="simple_text text-light">
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-between">
-        <div class="col-5">
+        <div class="col-12 col-lg-5">
             <h3 class="about_title">Démarrage</h3>
             <hr>
             <p class="simple_text text-light">
@@ -48,7 +48,7 @@
                 <img src="{{ asset('images/assets/about_profile.png') }}" alt="" class="about_profile mt-5">
             </p>
         </div>
-        <div class="col-5">
+        <div class="col-12 col-lg-5">
             <h3 class="about_title">Niveaux & Succès</h3>
             <hr>
             <p class="simple_text text-light">
@@ -67,7 +67,7 @@
         </div>
     </div>
     <div class="row mt-5 justify-content-between">
-        <div class="col-5">
+        <div class="col-12 col-lg-5">
             <h3 class="about_title">Publication de code</h3>
             <hr>
             <p class="simple_text text-light">
@@ -105,7 +105,7 @@
                 </code>
             </pre>
         </div>
-        <div class="col-5">
+        <div class="col-12 col-lg-5">
             <h3 class="about_title">Intra Messenger</h3>
             <hr>
             <p class="simple_text text-light">

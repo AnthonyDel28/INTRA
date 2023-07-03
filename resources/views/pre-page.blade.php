@@ -197,7 +197,7 @@
 
 
         <div class="row pre_page_bottom justify-content-center mt-auto">
-            <div class="col-3 text-right">
+            <div class="col-4 col-lg-3 text-right">
                 <p class="pre_page_text mt-3">
                     Intra est un intranet spécialement conçu pour les étudiants développeurs. Il offre une plateforme interactive qui facilite la communication, l'échange d'informations et les discussions au sein de la communauté étudiante. Avec Intra, les étudiants peuvent se connecter, partager des connaissances, collaborer sur des projets et s'entraider mutuellement.
                 </p>
@@ -205,20 +205,8 @@
             <div class="col-1 text-center">
                 <div class="vertical-bar"></div>
             </div>
-            <div class="col-3 text-left">
+            <div class="col-4 col-lg-3 text-left">
                 <div class="row">
-                    <div class="col-3">
-                        <div class="d-flex justify-content-center align-items-center h-100">
-                            <div class="square how_it_works">
-                                <div class="text-right m-3">
-                                    <i class="fa-solid fa-play"></i>
-                                </div>
-                                <div class="text-left m-4">
-                                    How it <br>works
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-3">
                         <div class="d-flex justify-content-center align-items-center h-100" v-on:click="showsignup()">
                             <div class="square create_an_account">

@@ -23,7 +23,7 @@
                     </div>
                     @foreach($users->take(7) as $user)
                         @if($user->id !== Auth::user()->id)
-                            <div class="badge-item">
+                            <div class="badge-item mt-3">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
                                         <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">
@@ -83,7 +83,7 @@
                     <!-- Afficher les autres utilisateurs -->
                     @foreach($users->skip(7) as $user)
                         @if($user->id !== Auth::user()->id)
-                            <div class="badge-item">
+                            <div class="badge-item mt-3">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
                                         <img src="{{ asset('storage/images/users/profile/' . $user->avatar ) }}" alt="{{ $user->name }}" class="badge-image">

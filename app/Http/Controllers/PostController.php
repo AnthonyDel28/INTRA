@@ -61,7 +61,7 @@ class PostController extends Controller
         $validatedData['updated_at'] = now();
 
         DB::table('posts')->insert($validatedData);
-
+        DB::table('users')->where('id', $user->id)->increment('experience', 5);
         return redirect()->route('home')->with('success_post', 'Votre contenu a été publié');
     }
 
@@ -208,6 +208,7 @@ class PostController extends Controller
         }
     }
 
+
     public function deleteComment($commentId)
     {
         $comment = DB::table('comments')->where('id', $commentId)->first();
@@ -215,7 +216,7 @@ class PostController extends Controller
         if ($comment) {
             DB::table('comments')->where('id', $commentId)->delete();
 
-            return response()->json(['message' => 'Comment deleted successfully']);
+            return redirect()->back()->with('success_comment_delete', 'Commentaire supprimé avec succès.');
         } else {
             return response()->json(['message' => 'Comment not found'], 404);
         }

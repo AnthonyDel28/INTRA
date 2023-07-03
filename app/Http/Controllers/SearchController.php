@@ -22,6 +22,7 @@ class SearchController extends Controller
 
         $posts = DB::table('posts')
             ->join('users', 'posts.author', '=', 'users.id')
+            ->select('posts.id as post_id', 'users.*', 'posts.title', 'posts.message')
             ->where(function ($postQuery) use ($query) {
                 $postQuery->where('users.name', 'like', '%'.$query.'%')
                     ->orWhere('users.first_name', 'like', '%'.$query.'%')
@@ -30,6 +31,7 @@ class SearchController extends Controller
                     ->orWhere('posts.message', 'like', '%'.$query.'%');
             })
             ->get();
+
 
         $comments = DB::table('comments')
             ->join('users', 'comments.author', '=', 'users.id')

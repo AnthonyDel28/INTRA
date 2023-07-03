@@ -1,6 +1,5 @@
 /* CSS FILE FOR THE MAIN APP LAYOUT */
 
-
 .sidebar {
     width: 250px;
     background-color: rgba(13, 20, 26, 0.8);
@@ -11,6 +10,23 @@
     font-family: "Montserrat", sans-serif;
     color: white;
 }
+
+.mobile-icon {
+    color: white;
+}
+
+.mobile-icon:hover {
+    color: #00A3FF;
+    cursor: pointer;
+}
+
+/* Masquer la sidebar lorsque la largeur de l'écran est inférieure à 1660px */
+@media (max-width: 1660px) {
+    .sidebar {
+        display: none;
+    }
+}
+
 
 .sidebar-title {
     font-family: "Montserrat", sans-serif;
@@ -24,6 +40,7 @@
     border-radius: 25px;
     margin: 20px 20px 20px 0;
 }
+
 
 .menu_section {
     display: flex;

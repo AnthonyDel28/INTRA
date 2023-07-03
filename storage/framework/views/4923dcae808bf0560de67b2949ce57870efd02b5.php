@@ -22,7 +22,7 @@
                     </div>
                     <?php $__currentLoopData = $users->take(7); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if($user->id !== Auth::user()->id): ?>
-                            <div class="badge-item">
+                            <div class="badge-item mt-3">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
                                         <img src="<?php echo e(asset('storage/images/users/profile/' . $user->avatar )); ?>" alt="<?php echo e($user->name); ?>" class="badge-image">
@@ -82,7 +82,7 @@
                     <!-- Afficher les autres utilisateurs -->
                     <?php $__currentLoopData = $users->skip(7); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if($user->id !== Auth::user()->id): ?>
-                            <div class="badge-item">
+                            <div class="badge-item mt-3">
                                 <div class="row mt-2">
                                     <div class="col-auto d-flex align-items-center">
                                         <img src="<?php echo e(asset('storage/images/users/profile/' . $user->avatar )); ?>" alt="<?php echo e($user->name); ?>" class="badge-image">

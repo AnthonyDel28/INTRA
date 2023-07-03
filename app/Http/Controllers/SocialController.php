@@ -193,4 +193,44 @@ class SocialController extends Controller
 
         return response()->json(['message' => 'Ami supprimé avec succès.']);
     }
+
+    public function friends(Request $request)
+    {
+        $user = Auth::user();
+
+        $friendIds = DB::table('friendships')
+            ->where('user_id', $user->id)
+            ->pluck('friend_id')
+            ->toArray();
+
+        $posts = DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.author')
+            ->whereIn('author', $friendIds)
+            ->leftJoin('likes', function ($join) use ($user) {
+                $join->on('posts.id', '=', 'likes.post_id')
+                    ->where('likes.user_id', '=', $user->id);
+            })
+            ->select(
+                'posts.id as post_id',
+                'posts.title',
+                'posts.author',
+                'posts.message',
+                'posts.code',
+                'posts.created_at',
+                'posts.updated_at',
+                'posts.is_active',
+                'posts.section_id',
+                'posts.language',
+                'users.*',
+                'users.avatar as author_image',
+                'posts.created_at as post_created_at',
+                DB::raw('(SELECT COUNT(*) FROM likes WHERE post_id = posts.id) as likes'),
+                DB::raw('(SELECT likes.id FROM likes WHERE post_id = posts.id AND user_id = '.$user->id.') as isLiked')
+            )
+            ->latest('posts.created_at')
+            ->get();
+
+        return view('social.friends', ['posts' => $posts]);
+    }
+
 }

@@ -53,10 +53,10 @@
                     <h1 class="profile_main_title mb-0">{{ $user->name }} </h1>
                     <span class="username text-light">{{ $user->first_name }} {{ $user->last_name }}</span><br>
                     <span class="user_level"><b>Niveau {{ $user->level }}</b></span>
-                    <div class="range mt-2" style="--p:{{ $user->experience }}">
-                        <div class="range__label">Progress</div>
-                    </div>
-                    <span class="user_experience p-3"><b>{{ $user->experience }}xp / 100xp</b></span>
+                        <br>
+                        <span class="user_experience p-3">
+                            <b>{{ $user->experience }} xp / 200xp</b>
+                        </span>
                     <div class="text-right">
                         @foreach($badges as $badge)
                             <img src="{{ asset('images/success/' . $badge->image) }}" alt="{{ $badge->badge }}" class="badge_img" title="{{ $badge->badge }}">

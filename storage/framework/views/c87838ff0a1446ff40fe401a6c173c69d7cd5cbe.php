@@ -48,7 +48,13 @@
                         </div>
                         <div class="row">
                             <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="search_post_field col-10 m-3">
+
+                                <div class="search_post_field col-10 m-3" onclick="redirectToPost('<?php echo e($post->post_id); ?>')">
+                                    <script>
+                                        function redirectToPost(postId) {
+                                            window.location.href = "/posts/" + postId;
+                                        }
+                                    </script>
                                     <div class="row justify-content-center">
                                         <div class="col-10 m-3">
                                             <img src="<?php echo e(asset('storage/images/users/profile/' . $post->avatar)); ?>" alt="" class="user_img">

@@ -115,4 +115,7 @@ Route::get('/snake', [App\Http\Controllers\GamesController::class, 'snake'])->na
 Route::get('/snakeScores', [App\Http\Controllers\GamesController::class, 'snakeScores'])->name('snakeScores');
 Route::post('/scoreStore', [App\Http\Controllers\GamesController::class, 'scoreStore'])->name('scoreStore');
 
+Route::get('/friends', [App\Http\Controllers\SocialController::class, 'friends'])->name('friends');
 Route::get('/getContacts', [App\Http\Controllers\Vendor\MessagesController::class, 'getContacts']);
+
+

@@ -206,14 +206,6 @@
 }
 
 
-.news_item {
-    border-radius: 15px;
-}
-
-.news_item:hover {
-    background-color: rgba(0, 0, 0, 0.62);
-    cursor: pointer;
-}
 
 /* CALENDAR CSS */
 

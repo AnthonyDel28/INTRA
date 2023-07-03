@@ -58,8 +58,7 @@ class NewsController extends Controller
 
         if ($news) {
             DB::table('news')->where('id', $newsId)->delete();
-
-            return response()->json(['message' => 'News deleted successfully']);
+            return redirect()->back()->with('success_news_delete', 'Actualité supprimée avec succès.');
         } else {
             return response()->json(['message' => 'Comment not found'], 404);
         }

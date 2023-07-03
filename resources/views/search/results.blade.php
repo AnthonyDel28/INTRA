@@ -49,7 +49,13 @@
                         </div>
                         <div class="row">
                             @foreach($posts as $post)
-                                <div class="search_post_field col-10 m-3">
+
+                                <div class="search_post_field col-10 m-3" onclick="redirectToPost('{{ $post->post_id }}')">
+                                    <script>
+                                        function redirectToPost(postId) {
+                                            window.location.href = "/posts/" + postId;
+                                        }
+                                    </script>
                                     <div class="row justify-content-center">
                                         <div class="col-10 m-3">
                                             <img src="{{ asset('storage/images/users/profile/' . $post->avatar) }}" alt="" class="user_img">

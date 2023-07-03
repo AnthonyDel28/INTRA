@@ -4,7 +4,7 @@
 <?php $__env->startSection('content'); ?>
     <?php if(auth()->guard()->check()): ?>
         <div class="row">
-            <div class="col-9 home_left_div p-4">
+            <div class="col-12 col-lg-9 home_left_div p-4">
                 <div class="row">
                     <h2 class="home_title">
                         Bienvenue <b> <?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></b> ! <i class="fa-thin fa-robot"></i>
@@ -20,12 +20,12 @@
                 </div>
                 <div class="row">
                     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="col-5 home_post m-2">
+                        <div class="col-lg-5 col-10 home_post m-2">
                             <div class="row m-4">
                                 <div class="col-2">
                                     <img src="<?php echo e(asset('storage/images/users/profile/' . $post->author_image)); ?>" alt="" class="post_img" style="object-fit: cover;">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-lg-2 col-8">
                                 <span class="post_infos_name"><?php echo e($post->first_name); ?>
 
                                     <br>
@@ -38,7 +38,7 @@
                                   </span>
                                 </span>
                                 </div>
-                                <div class="col-8 justify-content-center">
+                                <div class="col-10 col-lg-8 justify-content-center">
                                 <span class="text-center post_infos_title">
                                    <?php echo nl2br(htmlspecialchars(substr($post->title, 0, 70) . (strlen($post->title) > 70 ? '...' : ''))); ?>
 
@@ -92,9 +92,9 @@
                                 </div>
                             <?php endif; ?>
                             <div class="row justify-content-center mt-4">
-                                <div class="col-10 post_actions">
+                                <div class="col-12 post_actions">
                                     <div class="row mb-5">
-                                        <div class="col-6 text-center">
+                                        <div class="col-10 col-md-6 col-xl-6 text-center mt-3">
                                          <span class="like_button" id="likeButton_<?php echo e($post->post_id); ?>" data-postid="<?php echo e($post->post_id); ?>">
                                                 <?php if($post->isLiked): ?>
                                                  <i class="fa-solid fa-thumbs-down"></i>
@@ -105,7 +105,7 @@
                                              <?php endif; ?>
                                         </span>
                                         </div>
-                                        <div class="col-6 text-center">
+                                        <div class="col-10 col-md-6 col-xl-6 text-center mt-3">
                                         <span class="action_post" onclick="showPostDetails(<?php echo e($post->post_id); ?>)">
                                             <i class="fa-brands fa-readme"></i> Lire le post
                                         </span>
@@ -122,7 +122,7 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-10 col-lg-3 p-5">
                 <div class="row mt-5">
                     <h4 class="home_title">Recherche rapide</h4>
                     <form action="<?php echo e(route('search')); ?>" method="GET" class="mt-3">
@@ -141,7 +141,6 @@
                                     <a href="<?php echo e(route('user.show', ['user' => $friend->id])); ?>">
                                         <i class="fa-solid fa-user"></i>
                                     </a>
-                                    <i class="fa-solid fa-phone-alt"></i>
                                     <i class="fa-solid fa-message" onclick="messengerFriend(<?php echo e($friend->id); ?>)"></i>
                                     <script>
                                         function messengerFriend(friendId) {
@@ -156,9 +155,20 @@
 
                 <div class="row mt-5">
                     <div class="col-10">
-                        <h4 class="home_title">Calendrier</h4>
-                        <div class="calendar"></div>
+                        <h4 class="home_title">Actualités</h4>
+                        <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $new): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="news_item bg-dark p-3" onclick="redirectToNews()">
+                                <h5 class="text-light"><?php echo e($new->title); ?></h5>
+                                <p class="news_date text-primary"><?php echo e($new->created_at); ?></p>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <script>
+                            function redirectToNews(){
+                                window.location.href = '/news/';
+                            }
+                        </script>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -206,5 +216,6 @@
     });
 
 </script>
+
 
 <?php echo $__env->make('layouts.app_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /mnt/c/xampp/htdocs/INTRA/resources/views/home.blade.php ENDPATH**/ ?>

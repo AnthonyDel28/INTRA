@@ -44,7 +44,11 @@ class MainController extends Controller
             ->select('users.*')
             ->take(5)
             ->get();
-        return view('home', compact('posts', 'user', 'friends' ));
+        $news = DB::table('news')
+            ->latest('created_at')
+            ->limit(3)
+            ->get();
+        return view('home', compact('posts', 'user', 'friends', 'news' ));
     }
 
     public function notifications(Request $request)

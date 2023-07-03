@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        if (auth()->user()->role_id != 1) {
+        if (auth()->user()->role_id == 3) {
             return redirect()->route('home');
         }
         $news = DB::table('news')

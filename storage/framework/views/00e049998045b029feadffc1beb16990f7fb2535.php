@@ -6,9 +6,9 @@
         </div>
         <div class="row">
             <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $new): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="col-12 news_field mt-4">
+                <div class="col-12 news_field mt-4 p-4">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-12 col-lg-2">
                             <?php if(!$new->image): ?>
                                 <div class="news_picture" style="background-image: url('<?php echo e(asset('storage/news/default.jpg')); ?>'); background-size: cover;"></div>
                             <?php else: ?>
@@ -27,7 +27,7 @@
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="col-8 mb-5">
+                        <div class="col-12 col-lg-8 mb-5">
                             <h4 class="news_title"><?php echo e($new->title); ?></h4>
                             <br>
                             <span class="news_content" style="color: white;"><?php echo html_entity_decode($new->content); ?></span>

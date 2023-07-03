@@ -157,9 +157,6 @@
 
 
 
-
-
-
 .range {
     position: relative;
     background-color: #333;
@@ -205,3 +202,15 @@
     }
 }
 
+
+&__label {
+     transform: skew(-30deg) translateY(-100%);
+     line-height: 1.5;
+ }
+}
+
+@keyframes load {
+    to {
+        width: var(--width);
+    }
+}

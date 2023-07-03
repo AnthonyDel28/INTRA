@@ -76,8 +76,13 @@
                                         }
                                     </script>
                                 </div>
-                                <div class="menu_item">
+                                <div class="menu_item" onclick="redirectToFriends()">
                                     <i class="fa-solid fa-user-group"></i> <span>Amis</span>
+                                    <script>
+                                        function redirectToFriends() {
+                                            window.location.href = "/friends";
+                                        }
+                                    </script>
                                 </div>
                                 <div class="menu_item" onclick="redirectToNetwork()">
                                     <i class="fa-solid fa-network-wired"></i> <span>Network</span>
@@ -159,10 +164,7 @@
                                         }
                                     </script>
                                 </div>
-                                <div class="menu_item">
-                                    <i class="fa-solid fa-gear"></i> <span>Paramètres</span>
-                                </div>
-                                @if(Auth::check() && Auth::user()->role_id == 1)
+                                @if(Auth::check() && Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                     <div class="menu_item" onclick="redirectToAdmin()" id="menu_item_admin">
                                         <i class="fa-solid fa-toolbox"></i> <span>Administration</span>
                                     </div>
@@ -189,20 +191,145 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-xl-10 col-12">
                     <div class=" main_app">
                         <div class="content p-5">
                             <div class="container-fluid">
                                 <div class="row home_top_row">
+                                    <!-- Nouvelle rangée pour la navigation -->
+                                    <div class="col-12 d-xl-none mb-3">
+                                        <div class="row justify-content-center">
+                                            <div class="col-auto">
+                                                <div class="row">
+                                                    <div class="col-auto" onclick="redirectToHome()">
+                                                        <i class="fa-solid fa-house mobile-icon"></i>
+                                                    </div>
+                                                    <script>
+                                                        function redirectToHome() {
+                                                            window.location.href = "/home";
+                                                        }
+                                                    </script>
+                                                    <div class="col-auto" onclick="redirectToAbout()">
+                                                        <i class="fa-solid fa-bolt-lightning mobile-icon"></i>
+                                                    </div>
+                                                    <script>
+                                                        function redirectToAbout() {
+                                                            window.location.href = "/about";
+                                                        }
+                                                    </script>
+                                                    <div class="col-auto" onclick="redirectToNews()">
+                                                        <i class="fa-solid fa-newspaper mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToNews() {
+                                                                window.location.href = "/news";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToFriends()">
+                                                        <i class="fa-solid fa-user-group mobile-icon"></i>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToNetwork()">
+                                                        <i class="fa-solid fa-network-wired mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToNetwork() {
+                                                                window.location.href = "/network";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToMessages()">
+                                                        <i class="fa-solid fa-messages mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToMessages() {
+                                                                window.location.href = "/messenger";
+                                                            }
+                                                        </script>
+
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToNotifications()">
+                                                        <i class="fa-solid fa-bell mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToNotifications() {
+                                                                window.location.href = "/notifications";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToGameHub()">
+                                                        <i class="fa-solid fa-gamepad-modern mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToGameHub() {
+                                                                window.location.href = "/games";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToContribute()">
+                                                        <i class="fa-brands fa-github mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToContribute() {
+                                                                window.open("https://github.com/AnthonyDel28/INTRA", "_blank");
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToRapport()">
+                                                        <i class="fa-solid fa-bug mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToRapport() {
+                                                                window.location.href = "/rapport";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToSuccess()">
+                                                        <i class="fa-solid fa-trophy-star mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToSuccess() {
+                                                                window.location.href = "/success";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    <div class="col-auto" onclick="redirectToProfile()">
+                                                        <i class="fa-solid fa-square-user mobile-icon"></i>
+                                                        <script>
+                                                            function redirectToProfile() {
+                                                                window.location.href = "/profile";
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                    @if(Auth::check() && Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                                        <div class="col-auto" onclick="redirectToAdmin()" id="menu_item_admin">
+                                                            <i class="fa-solid fa-toolbox mobile-icon"></i>
+                                                        </div>
+                                                        <script>
+                                                            function redirectToAdmin() {
+                                                                window.location.href = "/admin";
+                                                            }
+                                                        </script>
+                                                    @endif
+                                                    <div class="col-auto">
+                                                        <a href="{{ route('logout') }}"
+                                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            <i class="fa-solid fa-circle-xmark mobile-icon"></i>
+                                                        </a>
+                                                    </div>
+
+                                                    <style>
+                                                        .mobile-icon {
+                                                            color: white;
+                                                        }
+                                                        .mobile-icon:hover {
+                                                            color: blue;
+                                                            cursor: pointer;
+                                                        }
+                                                    </style>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Fin de la nouvelle rangée pour la navigation -->
+
                                     <div class="col-md-6 text-start top_row_left_item mt-3">
-                        <span class="top_left_item new_post_link" v-on:click="newPost()">
-                             <i class="fa-solid fa-square-pen" ></i>Nouvelle publication
-                        </span>
-                                        <!--
-                                        <span class="top_left_item">
-                                <i class="fa-solid fa-square-phone"></i> Appeler
-                            </span>
-                            -->
+                    <span class="top_left_item new_post_link" v-on:click="newPost()">
+                        <i class="fa-solid fa-square-pen"></i>Nouvelle publication
+                    </span>
                                     </div>
                                     <div class="col-md-6 text-end top_row_right_item">
                                         <div class="row justify-content-end">
@@ -233,6 +360,7 @@
                             </p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -12,16 +12,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-10 col-lg-10 col-sm-auto">
+                <div class="col-12 col-lg-10 col-xl-10">
                     <p class="text-right user_role"><?php echo e($user->role); ?></p>
                     <h1 class="profile_main_title mb-0"><?php echo e($user->name); ?> </h1>
                     <span class="username text-light"><?php echo e($user->first_name); ?> <?php echo e($user->last_name); ?></span><br>
                     <br>
-                    <span class="user_level"><b>Niveau <?php echo e($user->level); ?></b></span>
-                    <div class="range mt-2" style="--p:<?php echo e($user->experience); ?>">
-                        <div class="range__label">Progress</div>
-                    </div>
-                    <span class="user_experience p-3"><b><?php echo e($user->experience); ?>xp / 100xp</b></span>
+
+                    <span class="user_level"><b>Niveau <?php echo e($user->level); ?></b></span><br>
+                    <span class="user_experience p-3">
+                            <b><?php echo e($user->experience); ?> xp / 200xp</b>
+                        </span>
                     <div class="text-right">
                         <?php $__currentLoopData = $badges; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $badge): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <img src="<?php echo e(asset('images/success/' . $badge->image)); ?>" alt="<?php echo e($badge->badge); ?>" class="badge_img" title="<?php echo e($badge->badge); ?>">
@@ -40,7 +40,7 @@
                         <?php echo method_field('PUT'); ?>
 
                         <div class="row update_form">
-                            <div class="col-6 update_profile_area">
+                            <div class="col-12 col-lg-6 update_profile_area">
                                 <div class="row justify-content-between mt-5">
                                     <div class="col-5 edit_profile_field text-center">
                                         <label for="username">Nom d'utilisateur</label>
