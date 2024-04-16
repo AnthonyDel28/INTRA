@@ -34,7 +34,7 @@
                             <i class="fa-solid fa-circle-xmark close_login" v-on:click="closelogin()"></i>
                         </div>
                         <div class="row justify-content-center">
-                            <h2 class="text-center login_title">Log in to your account</h2>
+                            <h2 class="text-center login_title">Se connecter</h2>
                             @if($errors->has('failed'))
                                 <p class="text-danger text-center">{{ $errors->first('failed') }}</p>
                             @endif
@@ -111,7 +111,7 @@
                         </div>
 
                         <div class="row justify-content-center">
-                            <div class="col-8 mt-5">
+                            <div class="col-8">
                                 <form method="POST" action="{{ route('signup') }}" class="mt-4">
                                     @csrf
 
@@ -160,10 +160,41 @@
                                         </div>
 
                                         <div class="form-group col-6">
-                                            <label for="password-confirm">Confirmer le mot de passe</label>
+                                            <label for="password-confirm">Confirmer</label>
                                             <input id="password-confirm" type="password" class="login_field" name="password_confirmation" required autocomplete="new-password">
                                         </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="rgpd" id="rgpdCheckbox" required>
+                                                    <label class="form-check-label" for="rgpdCheckbox">
+                                                        J'accepte les termes et conditions du RGPD.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                        <div class="row">
+                                            <div class="form-group col-12">
+                                                <a href="#" onclick="showRgpdText()">Afficher les détails du RGPD</a>
+                                                <div id="rgpd_text" style="display: none;">
+                                                    <span class="text-light">
+                                                        "Le RGPD garantit la confidentialité de vos données personnelles en exigeant leur collecte et leur utilisation uniquement dans un but légitime, avec votre consentement éclairé. Il vous offre également le droit de savoir quelles informations sont collectées, de les rectifier si nécessaire, et de les supprimer lorsque vous le souhaitez. Votre vie privée et vos droits sont protégés grâce aux mesures de sécurité et de transparence imposées par le RGPD."
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            function showRgpdText() {
+                                                var rgpdText = document.getElementById('rgpd_text');
+                                                if (rgpdText.style.display === 'none') {
+                                                    rgpdText.style.display = 'block';
+                                                } else {
+                                                    rgpdText.style.display = 'none';
+                                                }
+                                            }
+
+                                        </script>
                                         <div class="form-group ">
                                             <button type="submit" class="login_btn">S'inscrire</button>
                                         </div>
